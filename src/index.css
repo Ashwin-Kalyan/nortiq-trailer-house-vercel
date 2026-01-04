@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  background: #f8f9fc;
+  color: #3d3d3d;
+  line-height: 1.8;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Noto Serif JP', serif;
+  color: #1a1a1a;
+  font-weight: 600;
+}
+
