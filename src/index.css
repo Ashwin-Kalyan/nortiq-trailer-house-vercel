@@ -326,3 +326,411 @@ img {
 .bg-warm {
   background-color: var(--bg-warm);
 }
+
+/* Operation Page Styles - matching HTML exactly */
+.page-hero {
+  padding: 10rem 0 5rem;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+
+.page-hero::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 800px;
+  height: 800px;
+  background: radial-gradient(circle, rgba(201, 169, 98, 0.1) 0%, transparent 70%);
+  border-radius: 50%;
+}
+
+/* Flow Timeline */
+.flow-timeline {
+  position: relative;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.flow-timeline::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--secondary), var(--primary));
+  transform: translateX(-50%);
+}
+
+.flow-step {
+  display: flex;
+  align-items: center;
+  margin-bottom: 3rem;
+  position: relative;
+}
+
+.flow-step:last-child {
+  margin-bottom: 0;
+}
+
+.flow-step-content {
+  width: calc(50% - 40px);
+  background: var(--bg-cream);
+  padding: 2rem;
+  border-radius: 16px;
+  position: relative;
+  transition: all 0.4s ease;
+}
+
+.flow-step-content:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 40px rgba(26, 42, 74, 0.12);
+}
+
+.flow-step-number {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--white);
+  font-family: 'Noto Serif JP', serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  z-index: 1;
+  box-shadow: 0 8px 40px rgba(26, 42, 74, 0.12);
+}
+
+/* Operation Cards */
+.operation-card {
+  transition: all 0.4s ease;
+}
+
+.operation-card:hover {
+  transform: translateY(-8px);
+}
+
+/* Merit/Demerit Boxes */
+.merit-box {
+  padding: 2.5rem;
+  border-radius: 16px;
+}
+
+.merit-box.merit {
+  background: linear-gradient(135deg, rgba(45, 74, 124, 0.05), rgba(45, 74, 124, 0.02));
+  border: 2px solid var(--primary-light);
+}
+
+.merit-box.demerit {
+  background: linear-gradient(135deg, rgba(184, 67, 47, 0.05), rgba(184, 67, 47, 0.02));
+  border: 2px solid var(--accent);
+}
+
+.merit-list {
+  list-style: none;
+}
+
+.merit-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.merit-list li:last-child {
+  border-bottom: none;
+}
+
+/* Risk Cards */
+.risk-card {
+  background: var(--white);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 30px rgba(26, 42, 74, 0.08);
+  transition: all 0.4s ease;
+}
+
+.risk-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 40px rgba(26, 42, 74, 0.12);
+}
+
+.risk-card-header {
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  color: var(--white);
+  padding: 1.5rem 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.risk-solution {
+  margin-top: 1.25rem;
+  padding: 1rem 1.25rem;
+  background: var(--bg-cream);
+  border-radius: 8px;
+  border-left: 3px solid var(--secondary);
+}
+
+/* FAQ Accordion */
+.faq-item {
+  border-bottom: 1px solid var(--bg-cream);
+}
+
+.faq-question {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem 0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.faq-question:hover {
+  color: var(--primary);
+}
+
+.faq-item.active .faq-answer {
+  max-height: 500px;
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+}
+
+/* Contact Methods */
+.contact-method {
+  background: var(--bg-cream);
+  border-radius: 16px;
+  padding: 2.5rem;
+  text-align: center;
+  transition: all 0.4s ease;
+}
+
+.contact-method:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 40px rgba(26, 42, 74, 0.12);
+}
+
+.contact-method-icon {
+  width: 70px;
+  height: 70px;
+  margin: 0 auto 1.5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem;
+}
+
+.contact-method.line .contact-method-icon {
+  background: #06c755;
+  color: var(--white);
+}
+
+.contact-method.form .contact-method-icon {
+  background: var(--secondary);
+  color: var(--text-dark);
+}
+
+.contact-method.tel .contact-method-icon {
+  background: var(--primary);
+  color: var(--white);
+}
+
+/* Form Styles */
+.contact-form-wrapper {
+  max-width: 800px;
+  margin: 0 auto;
+  background: var(--bg-cream);
+  border-radius: 20px;
+  padding: 3rem;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(26, 42, 74, 0.1);
+}
+
+/* Intersection Observer Animation Support */
+[data-animate="true"]:not([data-visible="true"]) {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+[data-animate="true"][data-visible="true"] {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Mobile Responsive for Operation Page */
+@media (max-width: 768px) {
+  .flow-timeline::before {
+    left: 30px;
+  }
+
+  .flow-step {
+    flex-direction: column !important;
+    padding-left: 80px;
+  }
+
+  .flow-step-content {
+    width: 100%;
+    text-align: left !important;
+  }
+
+  .flow-step-number {
+    left: 30px;
+    transform: translateX(-50%);
+  }
+
+  .operation-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .merit-grid,
+  .risk-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-methods {
+    grid-template-columns: 1fr;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* HomePage Problem Card Hover Effect */
+.problem-card:hover .problem-card-top-line {
+  transform: scaleX(1) !important;
+}
+
+/* TrailerHousePage Target Card Hover Effect */
+.target-card:hover .target-card-top-line {
+  transform: scaleX(1) !important;
+}
+
+/* Responsive adjustments for all pages - matching HTML exactly */
+@media (max-width: 1024px) {
+  .problem-grid,
+  .target-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+
+  .problem-content,
+  .depreciation-content,
+  .inheritance-comparison {
+    grid-template-columns: 1fr !important;
+  }
+
+  .problem-content:nth-child(even) {
+    direction: ltr !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .problem-grid,
+  .target-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  .sdgs-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  .inheritance-comparison {
+    grid-template-columns: 1fr !important;
+  }
+
+  .inheritance-arrow {
+    transform: rotate(90deg) !important;
+    margin: 1rem 0 !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .problem-grid,
+  .target-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .sdgs-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .section-header {
+    margin-bottom: 3rem !important;
+  }
+
+  .problem-highlight p {
+    font-size: 1.1rem !important;
+  }
+
+  .company-logo-text {
+    font-size: 2.5rem !important;
+  }
+
+  .page-hero-image-main {
+    height: 280px !important;
+  }
+}
+
+/* Additional responsive styles matching HTML */
+@media (max-width: 768px) {
+  .page-hero-content,
+  .clt-grid,
+  .area-content,
+  .company-content {
+    grid-template-columns: 1fr !important;
+    gap: 3rem !important;
+  }
+
+  .clt-visual,
+  .company-logo-area,
+  .area-map {
+    order: -1 !important;
+  }
+
+  .hero-features,
+  .page-hero-features {
+    flex-direction: column !important;
+    gap: 1rem !important;
+  }
+
+  .hero-cta-group,
+  .inquiry-buttons,
+  .cta-buttons {
+    flex-direction: column !important;
+    align-items: center !important;
+  }
+
+  .solution-grid,
+  .stats-grid,
+  .simulation-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  .gallery-item.large {
+    grid-column: span 1 !important;
+    grid-row: span 1 !important;
+  }
+}
