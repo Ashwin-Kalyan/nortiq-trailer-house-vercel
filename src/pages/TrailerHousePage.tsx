@@ -2,11 +2,12 @@ const TrailerHousePage = () => {
   return (
     <>
       {/* Page Hero */}
-      <section className="pt-40 pb-24 bg-gradient-to-br from-primary to-primary-light relative overflow-hidden">
+      <section className="section-padding bg-gradient-primary position-relative overflow-hidden" style={{ paddingTop: '10rem', paddingBottom: '6rem' }}>
         <div className="absolute top-[-25%] right-[-10%] w-[800px] h-[800px] bg-[radial-gradient(circle,rgba(201,169,98,0.1)_0%,transparent_70%)] rounded-full"></div>
         <div className="absolute bottom-[-15%] left-[-5%] w-[600px] h-[600px] bg-[radial-gradient(circle,rgba(255,255,255,0.05)_0%,transparent_70%)] rounded-full"></div>
         <div className="max-w-[1200px] mx-auto px-12 relative z-10">
-          <div className="grid grid-cols-2 gap-16 items-center">
+          <div className="row g-4 g-md-5 align-items-center">
+            <div className="col-12 col-lg-6">
             <div className="text-white">
               <div className="inline-flex items-center gap-2 bg-secondary/20 border border-secondary text-secondary py-2 px-4 rounded-full text-xs font-semibold tracking-wider mb-6">
                 <span>🚚</span>
@@ -51,8 +52,8 @@ const TrailerHousePage = () => {
       </section>
 
       {/* Target Section */}
-      <section className="py-24 bg-white">
-        <div className="max-w-[1200px] mx-auto px-12">
+      <section className="section-padding bg-white">
+        <div className="container-fluid px-3 px-md-4 px-lg-5" style={{ maxWidth: '1200px' }}>
           <div className="text-center mb-16">
             <div className="inline-flex items-center gap-4 text-primary-light text-xs font-semibold tracking-widest uppercase mb-4">
               <div className="w-8 h-px bg-primary-light"></div>
@@ -67,7 +68,7 @@ const TrailerHousePage = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-5 gap-6">
+          <div className="row g-3 g-md-4">
             {[
               { icon: '💵', title: '現金で多額の資産を\n保有する方' },
               { icon: '👨‍👩‍👧‍👦', title: '相続を見据えた\n資産対策をしたい方' },
@@ -91,8 +92,8 @@ const TrailerHousePage = () => {
       </section>
 
       {/* Problem Deep Dive Section */}
-      <section className="py-24 bg-bg-warm">
-        <div className="max-w-[1200px] mx-auto px-12">
+      <section className="section-padding bg-warm">
+        <div className="container-fluid px-3 px-md-4 px-lg-5" style={{ maxWidth: '1200px' }}>
           <div className="text-center mb-16">
             <div className="inline-flex items-center gap-4 text-primary-light text-xs font-semibold tracking-widest uppercase mb-4">
               <div className="w-8 h-px bg-primary-light"></div>
@@ -154,8 +155,8 @@ const TrailerHousePage = () => {
       </section>
 
       {/* Inheritance Section */}
-      <section className="py-24 bg-white">
-        <div className="max-w-[1200px] mx-auto px-12">
+      <section className="section-padding bg-white">
+        <div className="container-fluid px-3 px-md-4 px-lg-5" style={{ maxWidth: '1200px' }}>
           <div className="text-center mb-16">
             <div className="inline-flex items-center gap-4 text-primary-light text-xs font-semibold tracking-widest uppercase mb-4">
               <div className="w-8 h-px bg-primary-light"></div>
@@ -170,7 +171,8 @@ const TrailerHousePage = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-[1fr_auto_1fr] gap-8 items-center mb-12">
+          <div className="row g-4 align-items-center mb-4 mb-md-5">
+            <div className="col-12 col-md-4">
             <div className="bg-bg-cream rounded-2xl p-12 text-center border-2 border-accent">
               <span className="text-xs font-bold tracking-wider uppercase mb-6 inline-block py-2 px-4 bg-accent/10 text-accent rounded-full">
                 BEFORE
@@ -211,9 +213,10 @@ const TrailerHousePage = () => {
       </section>
 
       {/* Depreciation Section */}
-      <section className="py-24 bg-bg-warm">
-        <div className="max-w-[1200px] mx-auto px-12">
-          <div className="grid grid-cols-2 gap-16 items-center">
+      <section className="section-padding bg-warm">
+        <div className="container-fluid px-3 px-md-4 px-lg-5" style={{ maxWidth: '1200px' }}>
+          <div className="row g-4 g-md-5 align-items-center">
+            <div className="col-12 col-lg-6">
             <div className="bg-white rounded-2xl p-10 shadow-soft">
               <h3 className="text-center mb-8 text-lg">4年間の減価償却イメージ</h3>
               <div className="flex items-end justify-between h-[250px] px-4 pb-4 border-b-2 border-bg-cream mb-4">
@@ -268,8 +271,8 @@ const TrailerHousePage = () => {
       </section>
 
       {/* Simulation Section */}
-      <section className="py-24 bg-white">
-        <div className="max-w-[1200px] mx-auto px-12">
+      <section className="section-padding bg-white">
+        <div className="container-fluid px-3 px-md-4 px-lg-5" style={{ maxWidth: '1200px' }}>
           <div className="text-center mb-16">
             <div className="inline-flex items-center gap-4 text-primary-light text-xs font-semibold tracking-widest uppercase mb-4">
               <div className="w-8 h-px bg-primary-light"></div>
@@ -364,7 +367,7 @@ const TrailerHousePage = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-4 gap-8">
+          <div className="row g-4">
             {[
               {
                 icon: '🏕️',
@@ -404,7 +407,7 @@ const TrailerHousePage = () => {
 
       {/* Company Section */}
       <section id="company" className="py-24 bg-bg-warm">
-        <div className="max-w-[1200px] mx-auto px-12">
+        <div className="container-fluid px-3 px-md-4 px-lg-5" style={{ maxWidth: '1200px' }}>
           <div className="text-center mb-16">
             <div className="inline-flex items-center gap-4 text-primary-light text-xs font-semibold tracking-widest uppercase mb-4">
               <div className="w-8 h-px bg-primary-light"></div>

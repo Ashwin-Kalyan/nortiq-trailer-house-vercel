@@ -16,70 +16,172 @@ const Header = () => {
   const isHomePage = location.pathname === '/'
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 py-4 transition-all duration-300 ${
-        scrolled || !isHomePage
-          ? 'bg-white/95 backdrop-blur-xl shadow-soft'
-          : 'bg-transparent'
-      }`}
+    <nav
+      className={`navbar navbar-expand-lg fixed-top ${scrolled || !isHomePage ? 'bg-white shadow-sm' : 'bg-transparent'}`}
+      style={{
+        transition: 'all 0.3s ease',
+        ...(scrolled || !isHomePage ? {} : { backgroundColor: 'transparent' }),
+        zIndex: 1050
+      }}
     >
-      <div className="max-w-[1400px] mx-auto px-12 flex justify-between items-center">
+      <div className="container-fluid px-3 px-md-4 px-lg-5" style={{ maxWidth: '1400px' }}>
         <Link
           to="/"
-          className={`font-serif text-3xl font-bold tracking-wider no-underline transition-colors duration-300 ${
-            scrolled || !isHomePage ? 'text-primary' : 'text-white'
-          }`}
+          className="navbar-brand"
+          style={{
+            fontFamily: "'Noto Serif JP', serif",
+            fontSize: 'clamp(1.5rem, 2.5vw, 1.875rem)',
+            fontWeight: 'bold',
+            letterSpacing: '0.1em',
+            color: scrolled || !isHomePage ? '#1a2a4a' : '#ffffff',
+            textDecoration: 'none',
+            transition: 'color 0.3s ease'
+          }}
         >
           PLEAST
         </Link>
-        <nav className="flex gap-10 items-center">
-          <Link
-            to="/#problem"
-            className={`text-sm font-medium tracking-wide transition-all duration-300 relative ${
-              scrolled || !isHomePage ? 'text-text-body' : 'text-white/90'
-            }`}
-          >
-            課題
-            <span className="absolute bottom-[-4px] left-0 w-0 h-px bg-secondary transition-all duration-300 hover:w-full"></span>
-          </Link>
-          <Link
-            to="/#solution"
-            className={`text-sm font-medium tracking-wide transition-all duration-300 relative ${
-              scrolled || !isHomePage ? 'text-text-body' : 'text-white/90'
-            }`}
-          >
-            商品
-            <span className="absolute bottom-[-4px] left-0 w-0 h-px bg-secondary transition-all duration-300 hover:w-full"></span>
-          </Link>
-          <Link
-            to="/#clt"
-            className={`text-sm font-medium tracking-wide transition-all duration-300 relative ${
-              scrolled || !isHomePage ? 'text-text-body' : 'text-white/90'
-            }`}
-          >
-            CLT構造
-            <span className="absolute bottom-[-4px] left-0 w-0 h-px bg-secondary transition-all duration-300 hover:w-full"></span>
-          </Link>
-          <Link
-            to="/#company"
-            className={`text-sm font-medium tracking-wide transition-all duration-300 relative ${
-              scrolled || !isHomePage ? 'text-text-body' : 'text-white/90'
-            }`}
-          >
-            会社概要
-            <span className="absolute bottom-[-4px] left-0 w-0 h-px bg-secondary transition-all duration-300 hover:w-full"></span>
-          </Link>
-          <Link
-            to="/#contact"
-            className="bg-secondary text-text-dark py-2.5 px-6 rounded font-semibold text-sm transition-all duration-300 hover:bg-secondary-light hover:-translate-y-0.5"
-          >
-            お問い合わせ
-          </Link>
-        </nav>
+        <button
+          className="navbar-toggler border-0"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+          style={{
+            color: scrolled || !isHomePage ? '#1a2a4a' : '#ffffff',
+            borderColor: scrolled || !isHomePage ? '#1a2a4a' : '#ffffff'
+          }}
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        <div className="collapse navbar-collapse" id="navbarNav">
+          <ul className="navbar-nav ms-auto align-items-center gap-3 gap-lg-4">
+            <li className="nav-item">
+              <Link
+                to="/#problem"
+                className="nav-link"
+                style={{
+                  fontSize: '0.875rem',
+                  fontWeight: '500',
+                  letterSpacing: '0.05em',
+                  color: scrolled || !isHomePage ? '#3d3d3d' : 'rgba(255,255,255,0.9)',
+                  textDecoration: 'none',
+                  position: 'relative',
+                  padding: '0.5rem 0',
+                  transition: 'color 0.3s ease'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.color = '#c9a962'
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.color = scrolled || !isHomePage ? '#3d3d3d' : 'rgba(255,255,255,0.9)'
+                }}
+              >
+                課題
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link
+                to="/#solution"
+                className="nav-link"
+                style={{
+                  fontSize: '0.875rem',
+                  fontWeight: '500',
+                  letterSpacing: '0.05em',
+                  color: scrolled || !isHomePage ? '#3d3d3d' : 'rgba(255,255,255,0.9)',
+                  textDecoration: 'none',
+                  padding: '0.5rem 0',
+                  transition: 'color 0.3s ease'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.color = '#c9a962'
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.color = scrolled || !isHomePage ? '#3d3d3d' : 'rgba(255,255,255,0.9)'
+                }}
+              >
+                商品
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link
+                to="/#clt"
+                className="nav-link"
+                style={{
+                  fontSize: '0.875rem',
+                  fontWeight: '500',
+                  letterSpacing: '0.05em',
+                  color: scrolled || !isHomePage ? '#3d3d3d' : 'rgba(255,255,255,0.9)',
+                  textDecoration: 'none',
+                  padding: '0.5rem 0',
+                  transition: 'color 0.3s ease'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.color = '#c9a962'
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.color = scrolled || !isHomePage ? '#3d3d3d' : 'rgba(255,255,255,0.9)'
+                }}
+              >
+                CLT構造
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link
+                to="/#company"
+                className="nav-link"
+                style={{
+                  fontSize: '0.875rem',
+                  fontWeight: '500',
+                  letterSpacing: '0.05em',
+                  color: scrolled || !isHomePage ? '#3d3d3d' : 'rgba(255,255,255,0.9)',
+                  textDecoration: 'none',
+                  padding: '0.5rem 0',
+                  transition: 'color 0.3s ease'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.color = '#c9a962'
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.color = scrolled || !isHomePage ? '#3d3d3d' : 'rgba(255,255,255,0.9)'
+                }}
+              >
+                会社概要
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link
+                to="/#contact"
+                className="btn"
+                style={{
+                  backgroundColor: '#c9a962',
+                  color: '#1a1a1a',
+                  padding: '0.625rem 1.5rem',
+                  borderRadius: '0.25rem',
+                  fontWeight: '600',
+                  fontSize: '0.875rem',
+                  border: 'none',
+                  textDecoration: 'none',
+                  transition: 'all 0.3s ease'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = '#d4b87a'
+                  e.currentTarget.style.transform = 'translateY(-2px)'
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = '#c9a962'
+                  e.currentTarget.style.transform = 'translateY(0)'
+                }}
+              >
+                お問い合わせ
+              </Link>
+            </li>
+          </ul>
+        </div>
       </div>
-    </header>
+    </nav>
   )
 }
 
 export default Header
-

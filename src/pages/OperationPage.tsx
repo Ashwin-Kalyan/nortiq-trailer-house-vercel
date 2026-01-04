@@ -45,7 +45,7 @@ const OperationPage = () => {
   return (
     <>
       {/* Page Hero */}
-      <section className="pt-40 pb-20 bg-gradient-to-br from-primary to-primary-light relative overflow-hidden">
+      <section className="section-padding bg-gradient-primary position-relative overflow-hidden" style={{ paddingTop: '10rem', paddingBottom: '5rem' }}>
         <div className="absolute top-[-25%] right-[-10%] w-[800px] h-[800px] bg-[radial-gradient(circle,rgba(201,169,98,0.1)_0%,transparent_70%)] rounded-full"></div>
         <div className="max-w-[1200px] mx-auto px-12 relative z-10 text-center">
           <h1 className="text-[clamp(2rem,4vw,3rem)] text-white leading-tight mb-4">
@@ -59,8 +59,8 @@ const OperationPage = () => {
       </section>
 
       {/* Flow Section */}
-      <section className="py-24 bg-white">
-        <div className="max-w-[1200px] mx-auto px-12">
+      <section className="section-padding bg-white">
+        <div className="container-fluid px-3 px-md-4 px-lg-5" style={{ maxWidth: '1200px' }}>
           <div className="text-center mb-16">
             <div className="inline-flex items-center gap-4 text-primary-light text-xs font-semibold tracking-widest uppercase mb-4">
               <div className="w-8 h-px bg-primary-light"></div>
@@ -107,8 +107,8 @@ const OperationPage = () => {
       </section>
 
       {/* Operation System Section */}
-      <section className="py-24 bg-bg-warm">
-        <div className="max-w-[1200px] mx-auto px-12">
+      <section className="section-padding bg-warm">
+        <div className="container-fluid px-3 px-md-4 px-lg-5" style={{ maxWidth: '1200px' }}>
           <div className="text-center mb-16">
             <div className="inline-flex items-center gap-4 text-primary-light text-xs font-semibold tracking-widest uppercase mb-4">
               <div className="w-8 h-px bg-primary-light"></div>
@@ -123,7 +123,7 @@ const OperationPage = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-5 gap-6">
+          <div className="row g-3 g-md-4">
             {[
               { icon: '📋', title: '旅館業の申請・取得', desc: '複雑な許認可手続きを全て代行' },
               { icon: '🌐', title: '予約サイト掲載・集客', desc: '主要OTAへの掲載とマーケティング' },
@@ -131,13 +131,15 @@ const OperationPage = () => {
               { icon: '🛎️', title: 'ゲスト対応・清掃', desc: 'チェックイン対応から清掃まで' },
               { icon: '💹', title: '売上管理・収益分配', desc: '透明性の高い収益レポート' },
             ].map((item, i) => (
-              <div key={i} className="bg-white p-8 px-6 rounded-xl text-center relative transition-all duration-300 hover:-translate-y-2 hover:shadow-medium">
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-12 h-0.5 bg-gradient-to-r from-primary to-secondary rounded-b"></div>
-                <div className="w-15 h-15 mx-auto mb-5 bg-bg-cream rounded-full flex items-center justify-center text-2xl">
-                  {item.icon}
+              <div key={i} className="col-12 col-sm-6 col-md-4 col-lg mb-3">
+                <div className="bg-white p-4 p-md-5 rounded text-center position-relative transition-all h-100" style={{ transition: 'all 0.3s ease' }} onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-8px)'; e.currentTarget.style.boxShadow = '0 8px 40px rgba(26, 42, 74, 0.12)' }} onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none' }}>
+                  <div className="position-absolute top-0 start-50 translate-middle-x" style={{ width: '3rem', height: '2px', background: 'linear-gradient(to right, #1a2a4a, #c9a962)', borderRadius: '0 0 0.25rem 0.25rem' }}></div>
+                  <div className="mx-auto mb-3 mb-md-4 bg-cream rounded-circle d-flex align-items-center justify-content-center" style={{ width: '3.75rem', height: '3.75rem', fontSize: '1.5rem' }}>
+                    {item.icon}
+                  </div>
+                  <h3 className="small fw-semibold mb-2" style={{ color: '#1a1a1a', fontSize: '0.875rem' }}>{item.title}</h3>
+                  <p className="small" style={{ color: '#6b6b6b', fontSize: '0.75rem', lineHeight: '1.8' }}>{item.desc}</p>
                 </div>
-                <h3 className="text-sm font-semibold mb-2 text-text-dark">{item.title}</h3>
-                <p className="text-xs text-text-light leading-relaxed">{item.desc}</p>
               </div>
             ))}
           </div>
@@ -145,8 +147,8 @@ const OperationPage = () => {
       </section>
 
       {/* Merit/Demerit Section */}
-      <section className="py-24 bg-white">
-        <div className="max-w-[1200px] mx-auto px-12">
+      <section className="section-padding bg-white">
+        <div className="container-fluid px-3 px-md-4 px-lg-5" style={{ maxWidth: '1200px' }}>
           <div className="text-center mb-16">
             <div className="inline-flex items-center gap-4 text-primary-light text-xs font-semibold tracking-widest uppercase mb-4">
               <div className="w-8 h-px bg-primary-light"></div>
@@ -161,7 +163,7 @@ const OperationPage = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 gap-12">
+          <div className="row g-4 g-md-5">
             <div className="p-10 rounded-2xl bg-gradient-to-br from-primary-light/5 to-primary-light/2 border-2 border-primary-light">
               <div className="flex items-center gap-4 mb-8 pb-4 border-b border-black/10">
                 <div className="w-12 h-12 bg-primary-light rounded-full flex items-center justify-center text-white text-2xl">✓</div>
@@ -207,8 +209,8 @@ const OperationPage = () => {
       </section>
 
       {/* Risk Section */}
-      <section className="py-24 bg-bg-warm">
-        <div className="max-w-[1200px] mx-auto px-12">
+      <section className="section-padding bg-warm">
+        <div className="container-fluid px-3 px-md-4 px-lg-5" style={{ maxWidth: '1200px' }}>
           <div className="text-center mb-16">
             <div className="inline-flex items-center gap-4 text-primary-light text-xs font-semibold tracking-widest uppercase mb-4">
               <div className="w-8 h-px bg-primary-light"></div>
@@ -250,7 +252,8 @@ const OperationPage = () => {
                 solution: '旅館賠償責任保険に加入し、宿泊中の事故もカバー。安心してオーナーシップを持っていただけます。',
               },
             ].map((risk, i) => (
-              <div key={i} className="bg-white rounded-2xl overflow-hidden shadow-soft transition-all duration-300 hover:-translate-y-1 hover:shadow-medium">
+              <div key={i} className="col-12 col-lg-6 mb-3 mb-md-4">
+                <div className="bg-white rounded overflow-hidden shadow-soft transition-all h-100" style={{ transition: 'all 0.3s ease' }} onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = '0 8px 40px rgba(26, 42, 74, 0.12)' }} onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 4px 30px rgba(26, 42, 74, 0.08)' }}>
                 <div className="bg-gradient-to-br from-primary to-primary-light text-white p-6 flex items-center gap-4">
                   <div className="w-11 h-11 bg-white/15 rounded-lg flex items-center justify-center text-xl">
                     {risk.icon}
@@ -265,13 +268,14 @@ const OperationPage = () => {
                   </div>
                 </div>
               </div>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
       {/* FAQ Section */}
-      <section className="py-24 bg-white">
+      <section className="section-padding bg-white">
         <div className="max-w-[900px] mx-auto px-12">
           <div className="text-center mb-16">
             <div className="inline-flex items-center gap-4 text-primary-light text-xs font-semibold tracking-widest uppercase mb-4">
@@ -325,7 +329,7 @@ const OperationPage = () => {
 
       {/* Contact Section */}
       <section id="contact" className="py-24 bg-white">
-        <div className="max-w-[1200px] mx-auto px-12">
+        <div className="container-fluid px-3 px-md-4 px-lg-5" style={{ maxWidth: '1200px' }}>
           <div className="text-center mb-16">
             <h2 className="text-3xl mb-4">お問い合わせ</h2>
             <p className="text-text-light text-base">
@@ -333,7 +337,7 @@ const OperationPage = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-3 gap-8 mb-16">
+          <div className="row g-4 mb-4 mb-md-5">
             {[
               {
                 type: 'line',
@@ -364,10 +368,8 @@ const OperationPage = () => {
                 link: 'tel:0120-929-727',
               },
             ].map((method, i) => (
-              <div
-                key={i}
-                className="bg-bg-cream rounded-2xl p-10 text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-medium"
-              >
+              <div key={i} className="col-12 col-md-6 col-lg-4 mb-3 mb-md-4">
+                <div className="bg-cream rounded p-4 p-md-5 text-center transition-all h-100" style={{ transition: 'all 0.3s ease' }} onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = '0 8px 40px rgba(26, 42, 74, 0.12)' }} onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none' }}>
                 <div
                   className={`w-18 h-18 mx-auto mb-6 rounded-full flex items-center justify-center text-3xl ${
                     method.type === 'line'
@@ -393,6 +395,7 @@ const OperationPage = () => {
                 >
                   {method.btn}
                 </a>
+                </div>
               </div>
             ))}
           </div>

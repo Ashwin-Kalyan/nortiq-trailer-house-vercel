@@ -30,86 +30,107 @@ const HomePage = () => {
   return (
     <>
       {/* Hero Section */}
-      <section className="h-screen min-h-[800px] relative flex items-center overflow-hidden">
+      <section className="hero-section position-relative d-flex align-items-center overflow-hidden">
         <div
-          className="absolute inset-0 bg-cover bg-center bg-fixed"
+          className="position-absolute top-0 start-0 w-100 h-100 bg-cover"
           style={{
             backgroundImage: `linear-gradient(135deg, rgba(26, 42, 74, 0.92) 0%, rgba(45, 74, 124, 0.85) 50%, rgba(15, 26, 46, 0.95) 100%), url('https://images.unsplash.com/photo-1587061949409-02df41d5e562?w=1920&q=80')`,
+            backgroundAttachment: 'fixed',
+            backgroundPosition: 'center',
+            backgroundSize: 'cover'
           }}
         ></div>
-        <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`
+        <div className="position-absolute top-0 start-0 w-100 h-100 opacity-25" style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
+          pointerEvents: 'none'
         }}></div>
-        <div className="relative z-10 max-w-[1400px] mx-auto px-12 w-full">
-          <div className="inline-flex items-center gap-4 text-secondary text-sm font-medium tracking-widest uppercase mb-8 opacity-0 animate-[fadeInUp_0.8s_0.3s_forwards]">
-            <div className="w-10 h-px bg-secondary"></div>
+        <div className="container-fluid position-relative z-2 px-3 px-md-4 px-lg-5" style={{ maxWidth: '1400px' }}>
+          <div className="d-inline-flex align-items-center gap-3 mb-4 mb-md-5 small text-uppercase fw-medium animate-fade-in-up" style={{ color: '#c9a962', fontSize: '0.875rem', letterSpacing: '0.1em', opacity: 0, animationDelay: '0.3s' }}>
+            <div className="bg-secondary" style={{ width: '2.5rem', height: '1px' }}></div>
             New Investment Style
           </div>
-          <h1 className="text-[clamp(2.5rem,5vw,4rem)] text-white leading-tight mb-6 opacity-0 animate-[fadeInUp_0.8s_0.5s_forwards]">
-            資産を守りながら、<br />
-            年<span className="text-secondary inline-block">10%</span>の収益を。
+          <h1 className="responsive-hero text-white lh-sm mb-4 mb-md-5 animate-fade-in-up" style={{ opacity: 0, animationDelay: '0.5s', fontWeight: 700 }}>
+            資産を守りながら、<br className="d-none d-md-block" />
+            年<span className="d-inline-block" style={{ color: '#c9a962' }}>10%</span>の収益を。
           </h1>
-          <p className="text-lg text-white/85 max-w-[600px] mb-12 font-light opacity-0 animate-[fadeInUp_0.8s_0.7s_forwards]">
-            CLTセルユニット × 旅館運用 × 完全手離れ。<br />
-            新築戸建旅館とトランスフォーム型トレーラーハウスで、<br />
+          <p className="lead text-white mb-4 mb-md-5 animate-fade-in-up" style={{ opacity: 0.85, maxWidth: '600px', animationDelay: '0.7s', fontWeight: 300 }}>
+            CLTセルユニット × 旅館運用 × 完全手離れ。<br className="d-none d-md-block" />
+            新築戸建旅館とトランスフォーム型トレーラーハウスで、<br className="d-none d-md-block" />
             新時代の不動産投資を実現します。
           </p>
-          <div className="flex gap-12 mb-12 opacity-0 animate-[fadeInUp_0.8s_0.9s_forwards]">
-            <div className="flex items-center gap-3 text-white/90 text-base">
-              <span className="w-6 h-6 border border-secondary rounded-full flex items-center justify-center text-secondary text-xs">✓</span>
+          <div className="d-flex flex-wrap gap-3 gap-md-4 mb-4 mb-md-5 animate-fade-in-up" style={{ opacity: 0, animationDelay: '0.9s' }}>
+            <div className="d-flex align-items-center gap-2 small" style={{ color: 'rgba(255,255,255,0.9)', fontSize: '1rem' }}>
+              <span className="border border-secondary rounded-circle d-flex align-items-center justify-content-center" style={{ width: '1.5rem', height: '1.5rem', color: '#c9a962', fontSize: '0.75rem' }}>✓</span>
               <span>利回り10%保証</span>
             </div>
-            <div className="flex items-center gap-3 text-white/90 text-base">
-              <span className="w-6 h-6 border border-secondary rounded-full flex items-center justify-center text-secondary text-xs">✓</span>
+            <div className="d-flex align-items-center gap-2 small" style={{ color: 'rgba(255,255,255,0.9)', fontSize: '1rem' }}>
+              <span className="border border-secondary rounded-circle d-flex align-items-center justify-content-center" style={{ width: '1.5rem', height: '1.5rem', color: '#c9a962', fontSize: '0.75rem' }}>✓</span>
               <span>相続税80%圧縮可能</span>
             </div>
-            <div className="flex items-center gap-3 text-white/90 text-base">
-              <span className="w-6 h-6 border border-secondary rounded-full flex items-center justify-center text-secondary text-xs">✓</span>
+            <div className="d-flex align-items-center gap-2 small" style={{ color: 'rgba(255,255,255,0.9)', fontSize: '1rem' }}>
+              <span className="border border-secondary rounded-circle d-flex align-items-center justify-content-center" style={{ width: '1.5rem', height: '1.5rem', color: '#c9a962', fontSize: '0.75rem' }}>✓</span>
               <span>完全手離れ運用</span>
             </div>
           </div>
-          <div className="flex gap-6 flex-wrap opacity-0 animate-[fadeInUp_0.8s_1.1s_forwards]">
+          <div className="d-flex flex-column flex-md-row gap-3 animate-fade-in-up" style={{ opacity: 0, animationDelay: '1.1s' }}>
             <a
               href="#contact"
-              className="inline-flex items-center gap-3 py-4 px-10 text-base font-semibold no-underline rounded transition-all duration-300 bg-secondary text-text-dark hover:bg-secondary-light hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(201,169,98,0.3)]"
+              className="btn btn-lg d-inline-flex align-items-center justify-content-center gap-2 text-decoration-none transition-all"
+              style={{
+                backgroundColor: '#c9a962',
+                color: '#1a1a1a',
+                padding: '1rem 2.5rem',
+                borderRadius: '0.25rem',
+                fontWeight: 600,
+                transition: 'all 0.3s ease'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = '#d4b87a'
+                e.currentTarget.style.transform = 'translateY(-2px)'
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = '#c9a962'
+                e.currentTarget.style.transform = 'translateY(0)'
+              }}
             >
               無料相談はこちら
               <span>→</span>
             </a>
             <a
               href="#solution"
-              className="inline-flex items-center gap-3 py-4 px-10 text-base font-semibold no-underline rounded transition-all duration-300 bg-transparent text-white border border-white/40 hover:bg-white/10 hover:border-white"
+              className="btn btn-lg btn-outline-light d-inline-flex align-items-center justify-content-center gap-2 text-decoration-none"
+              style={{ padding: '1rem 2.5rem' }}
             >
               詳しく見る
             </a>
           </div>
         </div>
-        <div className="absolute bottom-12 left-1/2 -translate-x-1/2 text-white/60 text-xs tracking-widest uppercase flex flex-col items-center gap-3 opacity-0 animate-[fadeInUp_0.8s_1.3s_forwards]">
+        <div className="position-absolute bottom-0 start-50 translate-middle-x mb-4 mb-md-5 text-white-50 small text-uppercase d-flex flex-column align-items-center gap-2 animate-fade-in-up" style={{ opacity: 0, animationDelay: '1.3s', fontSize: '0.75rem', letterSpacing: '0.1em' }}>
           <span>Scroll</span>
-          <div className="w-px h-12 bg-gradient-to-b from-white/60 to-transparent animate-[scrollPulse_2s_infinite]"></div>
+          <div className="bg-gradient" style={{ width: '1px', height: '3rem', background: 'linear-gradient(to bottom, rgba(255,255,255,0.6), transparent)' }}></div>
         </div>
       </section>
 
       {/* Problem Section */}
-      <section ref={problemSectionRef} id="problem" className="py-32 bg-white relative">
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/10 to-transparent"></div>
-        <div className="max-w-[1200px] mx-auto px-12">
-          <div className="text-center mb-20">
-            <div className="inline-flex items-center gap-4 text-primary-light text-xs font-semibold tracking-widest uppercase mb-6">
-              <div className="w-8 h-px bg-primary-light"></div>
+      <section ref={problemSectionRef} id="problem" className="section-padding bg-white position-relative">
+        <div className="position-absolute top-0 start-0 w-100" style={{ height: '1px', background: 'linear-gradient(to right, transparent, rgba(26,42,74,0.1), transparent)' }}></div>
+        <div className="container-fluid px-3 px-md-4 px-lg-5" style={{ maxWidth: '1200px' }}>
+          <div className="text-center mb-4 mb-md-5">
+            <div className="d-inline-flex align-items-center gap-3 gap-md-4 mb-4 small text-uppercase fw-semibold" style={{ color: '#2d4a7c', fontSize: '0.75rem', letterSpacing: '0.1em' }}>
+              <div className="bg-primary-light" style={{ width: '2rem', height: '1px' }}></div>
               Issue
-              <div className="w-8 h-px bg-primary-light"></div>
+              <div className="bg-primary-light" style={{ width: '2rem', height: '1px' }}></div>
             </div>
-            <h2 className="text-[clamp(1.8rem,3.5vw,2.5rem)] leading-snug mb-4">
+            <h2 className="responsive-heading lh-sm mb-3 mb-md-4">
               「資産が減る時代」—<br />
               あなたの資産は大丈夫ですか？
             </h2>
-            <p className="text-base text-text-light max-w-[600px] mx-auto">
+            <p className="text-base mx-auto" style={{ color: '#6b6b6b', maxWidth: '600px' }}>
               日本人の資産を確実に目減りさせる"五重苦"が押し寄せています
             </p>
           </div>
 
-          <div className="grid grid-cols-5 gap-6">
+          <div className="row g-3 g-md-4">
             {[
               { icon: '📈', title: '物価上昇', desc: '30年で主な食料品・光熱費は1.5倍に上昇' },
               { icon: '💰', title: '給与停滞', desc: '日本の平均賃金は30年ほぼ横ばい' },
@@ -117,23 +138,33 @@ const HomePage = () => {
               { icon: '🤖', title: '雇用不安', desc: 'AIがホワイトカラーの仕事も代替する時代へ' },
               { icon: '🏛️', title: '相続税', desc: '資産は三代で消える — 10億円が1.8億円に' },
             ].map((item, i) => (
-              <div
-                key={i}
-                className="bg-bg-cream p-10 px-6 rounded-lg text-center relative overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-medium group"
-              >
-                <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-accent to-secondary scale-x-0 transition-transform duration-300 group-hover:scale-x-100"></div>
-                <div className="w-15 h-15 mx-auto mb-6 bg-gradient-to-br from-primary to-primary-light rounded-full flex items-center justify-center text-2xl">
-                  {item.icon}
+              <div key={i} className="col-12 col-sm-6 col-md-4 col-lg">
+                <div
+                  className="bg-cream p-4 p-md-5 rounded text-center position-relative overflow-hidden transition-all h-100"
+                  style={{ transition: 'all 0.3s ease' }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = 'translateY(-4px)'
+                    e.currentTarget.style.boxShadow = '0 8px 40px rgba(26, 42, 74, 0.12)'
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'translateY(0)'
+                    e.currentTarget.style.boxShadow = 'none'
+                  }}
+                >
+                  <div className="position-absolute top-0 start-0 w-100" style={{ height: '2px', background: 'linear-gradient(to right, #b8432f, #c9a962)', transform: 'scaleX(0)', transition: 'transform 0.3s ease' }}></div>
+                  <div className="mx-auto mb-3 mb-md-4 bg-gradient-primary rounded-circle d-flex align-items-center justify-content-center" style={{ width: '3.75rem', height: '3.75rem', fontSize: '1.5rem' }}>
+                    {item.icon}
+                  </div>
+                  <h3 className="h5 fw-semibold mb-2 mb-md-3" style={{ color: '#1a1a1a' }}>{item.title}</h3>
+                  <p className="small" style={{ color: '#6b6b6b', lineHeight: '1.8' }}>{item.desc}</p>
                 </div>
-                <h3 className="text-lg font-semibold mb-3 text-text-dark">{item.title}</h3>
-                <p className="text-sm text-text-light leading-relaxed">{item.desc}</p>
               </div>
             ))}
           </div>
 
-          <div className="mt-16 text-center p-12 bg-gradient-to-br from-primary to-primary-light rounded-xl text-white">
-            <p className="text-xl font-serif leading-relaxed">
-              現金で持っていても、インフレには勝てません。<br />
+          <div className="mt-4 mt-md-5 text-center p-4 p-md-5 bg-gradient-primary rounded text-white">
+            <p className="h5 fw-normal mb-0" style={{ fontFamily: "'Noto Serif JP', serif", lineHeight: '1.8' }}>
+              現金で持っていても、インフレには勝てません。<br className="d-none d-md-block" />
               今こそ、資産の形を変える時です。
             </p>
           </div>
@@ -141,60 +172,64 @@ const HomePage = () => {
       </section>
 
       {/* Solution Section */}
-      <section ref={solutionSectionRef} id="solution" className="py-32 bg-bg-warm relative">
-        <div className="max-w-[1200px] mx-auto px-12">
-          <div className="text-center mb-20">
-            <div className="inline-flex items-center gap-4 text-primary-light text-xs font-semibold tracking-widest uppercase mb-6">
-              <div className="w-8 h-px bg-primary-light"></div>
+      <section ref={solutionSectionRef} id="solution" className="section-padding bg-warm position-relative">
+        <div className="container-fluid px-3 px-md-4 px-lg-5" style={{ maxWidth: '1200px' }}>
+          <div className="text-center mb-4 mb-md-5">
+            <div className="d-inline-flex align-items-center gap-3 gap-md-4 mb-4 small text-uppercase fw-semibold" style={{ color: '#2d4a7c', fontSize: '0.75rem', letterSpacing: '0.1em' }}>
+              <div className="bg-primary-light" style={{ width: '2rem', height: '1px' }}></div>
               Solution
-              <div className="w-8 h-px bg-primary-light"></div>
+              <div className="bg-primary-light" style={{ width: '2rem', height: '1px' }}></div>
             </div>
-            <h2 className="text-[clamp(1.8rem,3.5vw,2.5rem)] leading-snug mb-4">
+            <h2 className="responsive-heading lh-sm mb-3 mb-md-4">
               PLEASTの解決策 —<br />
               「動く実物資産」で資産を守る
             </h2>
-            <p className="text-base text-text-light max-w-[600px] mx-auto">
+            <p className="text-base mx-auto" style={{ color: '#6b6b6b', maxWidth: '600px' }}>
               2つの投資商品で、相続対策と高利回りを両立
             </p>
           </div>
 
-          <div className="grid grid-cols-2 gap-12">
-            <div className="bg-white rounded-2xl overflow-hidden shadow-soft transition-all duration-500 hover:-translate-y-2.5 hover:shadow-strong">
-              <div
-                className="h-70 bg-cover bg-center relative"
-                style={{
-                  backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.3) 100%), url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80')`,
-                }}
-              >
-                <span className="absolute top-6 left-6 bg-secondary text-text-dark py-2 px-4 text-xs font-bold tracking-wider rounded">
-                  利回り10%保証
-                </span>
-              </div>
-              <div className="p-10">
-                <h3 className="text-2xl mb-4">新築戸建旅館運用</h3>
-                <p className="text-text-light mb-8 text-sm">
-                  一棟マンションや区分所有ではなく、戸建を建築して旅館運用を行い収益を得る投資です。
-                </p>
-                <ul className="list-none mb-8">
-                  {[
-                    '物件価格2,500万円〜で年間250万円の収益',
-                    '新築のため修繕不安が少ない',
-                    '運用はPLEASTが旅館業として代行',
-                    '実需転用可能で出口戦略も安心',
-                  ].map((item, i) => (
-                    <li key={i} className="flex items-start gap-3 mb-3 text-sm">
-                      <span className="text-primary-light font-bold flex-shrink-0">✓</span>
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-                <Link to="/shintiku" className="inline-flex items-center gap-2 text-primary font-semibold no-underline text-sm transition-all duration-300 hover:gap-4 hover:text-primary-light">
-                  詳しく見る <span>→</span>
-                </Link>
+          <div className="row g-4 g-md-5">
+            <div className="col-12 col-lg-6">
+              <div className="bg-white rounded overflow-hidden shadow-soft transition-all h-100" style={{ transition: 'all 0.5s ease' }} onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-10px)'; e.currentTarget.style.boxShadow = '0 20px 60px rgba(26, 42, 74, 0.15)' }} onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 4px 30px rgba(26, 42, 74, 0.08)' }}>
+                <div
+                  className="bg-cover position-relative"
+                  style={{
+                    height: '280px',
+                    backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.3) 100%), url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80')`,
+                  }}
+                >
+                  <span className="position-absolute top-0 start-0 m-3 bg-secondary text-dark py-2 px-3 small fw-bold text-uppercase rounded" style={{ color: '#1a1a1a', fontSize: '0.75rem', letterSpacing: '0.05em' }}>
+                    利回り10%保証
+                  </span>
+                </div>
+                <div className="p-4 p-md-5">
+                  <h3 className="h4 mb-3 mb-md-4">新築戸建旅館運用</h3>
+                  <p className="mb-4 small" style={{ color: '#6b6b6b' }}>
+                    一棟マンションや区分所有ではなく、戸建を建築して旅館運用を行い収益を得る投資です。
+                  </p>
+                  <ul className="list-unstyled mb-4">
+                    {[
+                      '物件価格2,500万円〜で年間250万円の収益',
+                      '新築のため修繕不安が少ない',
+                      '運用はPLEASTが旅館業として代行',
+                      '実需転用可能で出口戦略も安心',
+                    ].map((item, i) => (
+                      <li key={i} className="d-flex align-items-start gap-2 mb-2 small">
+                        <span className="fw-bold flex-shrink-0" style={{ color: '#2d4a7c' }}>✓</span>
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                  <Link to="/shintiku" className="d-inline-flex align-items-center gap-2 text-decoration-none small fw-semibold transition-all" style={{ color: '#1a2a4a', transition: 'all 0.3s ease' }} onMouseEnter={(e) => { e.currentTarget.style.gap = '0.5rem'; e.currentTarget.style.color = '#2d4a7c' }} onMouseLeave={(e) => { e.currentTarget.style.gap = '0.5rem'; e.currentTarget.style.color = '#1a2a4a' }}>
+                    詳しく見る <span>→</span>
+                  </Link>
+                </div>
               </div>
             </div>
 
-            <div className="bg-white rounded-2xl overflow-hidden shadow-soft transition-all duration-500 hover:-translate-y-2.5 hover:shadow-strong">
+            <div className="col-12 col-lg-6">
+              <div className="bg-white rounded overflow-hidden shadow-soft transition-all h-100" style={{ transition: 'all 0.5s ease' }} onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-10px)'; e.currentTarget.style.boxShadow = '0 20px 60px rgba(26, 42, 74, 0.15)' }} onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 4px 30px rgba(26, 42, 74, 0.08)' }}>
               <div
                 className="h-70 bg-cover bg-center relative"
                 style={{
@@ -205,30 +240,31 @@ const HomePage = () => {
                   4年償却で節税
                 </span>
               </div>
-              <div className="p-10">
-                <h3 className="text-2xl mb-4">
-                  トランスフォーム型<br />
-                  トレーラーハウス運用
-                </h3>
-                <p className="text-text-light mb-8 text-sm">
-                  "移動できる実物資産"でありながら、4年償却による相続評価の大幅圧縮と年10%の安定収益を両立。
-                </p>
-                <ul className="list-none mb-8">
-                  {[
-                    '1台2,500万円〜で年間200万円の収益',
-                    '4年で簿価ゼロ、相続評価は大幅圧縮',
-                    '移動可能で場所選定の自由度が高い',
-                    'CLT構造でSDGs・地方創生にも貢献',
-                  ].map((item, i) => (
-                    <li key={i} className="flex items-start gap-3 mb-3 text-sm">
-                      <span className="text-primary-light font-bold flex-shrink-0">✓</span>
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-                <Link to="/trailer-house" className="inline-flex items-center gap-2 text-primary font-semibold no-underline text-sm transition-all duration-300 hover:gap-4 hover:text-primary-light">
-                  詳しく見る <span>→</span>
-                </Link>
+                <div className="p-4 p-md-5">
+                  <h3 className="h4 mb-3 mb-md-4">
+                    トランスフォーム型<br />
+                    トレーラーハウス運用
+                  </h3>
+                  <p className="mb-4 small" style={{ color: '#6b6b6b' }}>
+                    "移動できる実物資産"でありながら、4年償却による相続評価の大幅圧縮と年10%の安定収益を両立。
+                  </p>
+                  <ul className="list-unstyled mb-4">
+                    {[
+                      '1台2,500万円〜で年間200万円の収益',
+                      '4年で簿価ゼロ、相続評価は大幅圧縮',
+                      '移動可能で場所選定の自由度が高い',
+                      'CLT構造でSDGs・地方創生にも貢献',
+                    ].map((item, i) => (
+                      <li key={i} className="d-flex align-items-start gap-2 mb-2 small">
+                        <span className="fw-bold flex-shrink-0" style={{ color: '#2d4a7c' }}>✓</span>
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                  <Link to="/trailer-house" className="d-inline-flex align-items-center gap-2 text-decoration-none small fw-semibold transition-all" style={{ color: '#1a2a4a', transition: 'all 0.3s ease' }} onMouseEnter={(e) => { e.currentTarget.style.gap = '0.5rem'; e.currentTarget.style.color = '#2d4a7c' }} onMouseLeave={(e) => { e.currentTarget.style.gap = '0.5rem'; e.currentTarget.style.color = '#1a2a4a' }}>
+                    詳しく見る <span>→</span>
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
@@ -236,27 +272,27 @@ const HomePage = () => {
       </section>
 
       {/* Stats Section */}
-      <section className="py-24 bg-gradient-to-br from-primary to-primary-dark relative overflow-hidden">
+      <section className="py-section bg-gradient-primary-dark position-relative overflow-hidden">
         <div
-          className="absolute inset-0 opacity-30"
+          className="position-absolute top-0 start-0 w-100 h-100 opacity-25"
           style={{
             backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
           }}
         ></div>
-        <div className="max-w-[1200px] mx-auto px-12 relative z-10">
-          <div className="grid grid-cols-3 gap-12">
+        <div className="container-fluid px-3 px-md-4 px-lg-5 position-relative z-1" style={{ maxWidth: '1200px' }}>
+          <div className="row g-4 g-md-5">
             {[
               { number: '10', unit: '%', label: '表面利回り保証', desc: '一般不動産投資の4-8%を大きく上回る' },
               { number: '80', unit: '%', label: '相続税圧縮可能', desc: '1億円 → 評価額2,000〜2,500万円に' },
               { number: '5,000', unit: '+', label: '国内取引先', desc: '20年の実績と信頼' },
             ].map((stat, i) => (
-              <div key={i} className="text-center text-white">
-                <div className="font-serif text-[clamp(3rem,6vw,4.5rem)] font-bold leading-none mb-2 bg-gradient-to-br from-white to-secondary bg-clip-text text-transparent">
+              <div key={i} className="col-12 col-md-4 text-center text-white">
+                <div className="mb-2 fw-bold lh-1" style={{ fontFamily: "'Noto Serif JP', serif", fontSize: 'clamp(2.5rem, 6vw, 4.5rem)', background: 'linear-gradient(to bottom right, white, #c9a962)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
                   {stat.number}
-                  <span className="text-2xl opacity-90">{stat.unit}</span>
+                  <span className="opacity-75" style={{ fontSize: '1.5rem' }}>{stat.unit}</span>
                 </div>
-                <div className="text-base opacity-85 font-medium">{stat.label}</div>
-                <div className="text-xs opacity-60 mt-2">{stat.desc}</div>
+                <div className="mb-2 fw-medium" style={{ opacity: 0.85, fontSize: '1rem' }}>{stat.label}</div>
+                <div className="small" style={{ opacity: 0.6, fontSize: '0.75rem' }}>{stat.desc}</div>
               </div>
             ))}
           </div>
@@ -264,22 +300,22 @@ const HomePage = () => {
       </section>
 
       {/* CLT Section */}
-      <section ref={cltSectionRef} id="clt" className="py-32 bg-white">
-        <div className="max-w-[1200px] mx-auto px-12">
-          <div className="grid grid-cols-2 gap-20 items-center">
-            <div>
-              <div className="inline-flex items-center gap-4 text-primary-light text-xs font-semibold tracking-widest uppercase mb-6">
-                <div className="w-8 h-px bg-primary-light"></div>
+      <section ref={cltSectionRef} id="clt" className="section-padding bg-white">
+        <div className="container-fluid px-3 px-md-4 px-lg-5" style={{ maxWidth: '1200px' }}>
+          <div className="row g-4 g-md-5 align-items-center">
+            <div className="col-12 col-lg-6 order-2 order-lg-1">
+              <div className="d-inline-flex align-items-center gap-3 gap-md-4 mb-4 small text-uppercase fw-semibold" style={{ color: '#2d4a7c', fontSize: '0.75rem', letterSpacing: '0.1em' }}>
+                <div className="bg-primary-light" style={{ width: '2rem', height: '1px' }}></div>
                 Technology
-                <div className="w-8 h-px bg-primary-light"></div>
+                <div className="bg-primary-light" style={{ width: '2rem', height: '1px' }}></div>
               </div>
-              <h2 className="text-3xl mb-6">なぜCLTセルユニットなのか？</h2>
-              <p className="text-lg text-text-body mb-8 leading-relaxed">
+              <h2 className="h3 mb-4 mb-md-5">なぜCLTセルユニットなのか？</h2>
+              <p className="lead mb-4 mb-md-5" style={{ color: '#3d3d3d', lineHeight: '1.8' }}>
                 CLT（Cross Laminated Timber）は、木材を直交に積層した次世代の建築素材。
                 100%木材の箱型ユニットでありながら、コンクリート並みの強度を持ち、
                 従来の建築の常識を覆す革新的な構造です。
               </p>
-              <div className="grid grid-cols-2 gap-6">
+              <div className="row g-3 g-md-4">
                 {[
                   { icon: '💪', title: '圧倒的な強度', desc: '曲げ強さは鉄の約15倍、コンクリートの約400倍' },
                   { icon: '🏠', title: '高断熱・高耐震', desc: '夏は涼しく冬は暖かい、地震にも強い' },
@@ -300,16 +336,18 @@ const HomePage = () => {
                 ))}
               </div>
             </div>
-            <div className="relative">
+            <div className="col-12 col-lg-6 order-1 order-lg-2 position-relative">
               <div
-                className="w-full h-[500px] bg-cover bg-center rounded-2xl"
+                className="w-100 bg-cover rounded"
                 style={{
+                  height: '400px',
+                  minHeight: '300px',
                   backgroundImage: `linear-gradient(135deg, rgba(26, 42, 74, 0.1), rgba(201, 169, 98, 0.1)), url('https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=800&q=80')`,
                 }}
               ></div>
-              <div className="absolute -bottom-8 right-8 bg-secondary text-text-dark py-6 px-8 rounded-xl text-center shadow-strong">
-                <span className="font-serif text-3xl font-bold block">1/5</span>
-                <span className="text-xs font-medium">重量は鉄筋の約1/5</span>
+              <div className="position-absolute bottom-0 start-50 translate-middle-x translate-middle-y bg-secondary text-dark p-4 rounded text-center shadow-strong" style={{ color: '#1a1a1a', transform: 'translate(-50%, 50%)' }}>
+                <span className="d-block fw-bold" style={{ fontFamily: "'Noto Serif JP', serif", fontSize: '1.875rem' }}>1/5</span>
+                <span className="small fw-medium" style={{ fontSize: '0.75rem' }}>重量は鉄筋の約1/5</span>
               </div>
             </div>
           </div>
@@ -318,7 +356,7 @@ const HomePage = () => {
 
       {/* Area Section */}
       <section id="area" className="py-32 bg-bg-warm">
-        <div className="max-w-[1200px] mx-auto px-12">
+        <div className="container-fluid px-3 px-md-4 px-lg-5" style={{ maxWidth: '1200px' }}>
           <div className="grid grid-cols-[1.2fr_1fr] gap-16 items-center">
             <div className="bg-white rounded-2xl p-12 shadow-soft relative overflow-hidden">
               <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary to-secondary"></div>
@@ -374,7 +412,7 @@ const HomePage = () => {
 
       {/* Company Section */}
       <section ref={companySectionRef} id="company" className="py-32 bg-white">
-        <div className="max-w-[1200px] mx-auto px-12">
+        <div className="container-fluid px-3 px-md-4 px-lg-5" style={{ maxWidth: '1200px' }}>
           <div className="text-center mb-20">
             <div className="inline-flex items-center gap-4 text-primary-light text-xs font-semibold tracking-widest uppercase mb-6">
               <div className="w-8 h-px bg-primary-light"></div>
