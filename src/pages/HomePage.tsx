@@ -352,54 +352,51 @@ const HomePage = () => {
       </section>
 
       {/* Area Section */}
-      <section id="area" className="py-32 bg-bg-warm">
+      <section id="area" className="section-padding bg-warm">
         <div className="container-fluid px-3 px-md-4 px-lg-5" style={{ maxWidth: '1200px' }}>
-          <div className="grid grid-cols-[1.2fr_1fr] gap-16 items-center">
-            <div className="bg-white rounded-2xl p-12 shadow-soft relative overflow-hidden">
-              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary to-secondary"></div>
-              <h3 className="text-xl mb-8 flex items-center gap-3">
-                <span>📍</span> 運用エリア
-              </h3>
-              <div className="space-y-6">
-                {[
-                  { icon: '🏖️', name: '糸島市', desc: '人気の海辺リゾート。福岡市街地からアクセス良好' },
-                  { icon: '🏯', name: '唐津市', desc: '唐津城、虹の松原など歴史・自然の観光名所' },
-                  { icon: '🦑', name: '呼子', desc: '新鮮なイカの名所。朝市も人気のスポット' },
-                ].map((location, i) => (
-                  <div key={i} className="flex gap-6 p-6 bg-bg-cream rounded-xl transition-all duration-300 hover:translate-x-2.5 hover:shadow-soft">
-                    <div className="w-12 h-12 bg-gradient-to-br from-primary to-primary-light rounded-lg flex items-center justify-center text-white text-2xl flex-shrink-0">
-                      {location.icon}
+          <div className="row g-4 g-md-5 align-items-center">
+            <div className="col-12 col-lg-6 order-2 order-lg-1">
+              <div className="bg-white rounded p-4 p-md-5 shadow-soft position-relative overflow-hidden h-100">
+                <div className="position-absolute top-0 start-0 w-100" style={{ height: '4px', background: 'linear-gradient(to right, #1a2a4a, #c9a962)' }}></div>
+                <h3 className="h5 mb-4 mb-md-5 d-flex align-items-center gap-2">
+                  <span>📍</span> 運用エリア
+                </h3>
+                <div className="d-flex flex-column gap-3">
+                  {[
+                    { icon: '🏖️', name: '糸島市', desc: '人気の海辺リゾート。福岡市街地からアクセス良好' },
+                    { icon: '🏯', name: '唐津市', desc: '唐津城、虹の松原など歴史・自然の観光名所' },
+                    { icon: '🦑', name: '呼子', desc: '新鮮なイカの名所。朝市も人気のスポット' },
+                  ].map((location, i) => (
+                    <div key={i} className="d-flex gap-3 gap-md-4 p-3 p-md-4 bg-cream rounded transition-all" style={{ transition: 'all 0.3s ease' }} onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateX(8px)'; e.currentTarget.style.boxShadow = '0 4px 30px rgba(26, 42, 74, 0.08)' }} onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateX(0)'; e.currentTarget.style.boxShadow = 'none' }}>
+                      <div className="bg-gradient-primary rounded d-flex align-items-center justify-content-center text-white flex-shrink-0" style={{ width: '3rem', height: '3rem', fontSize: '1.5rem' }}>
+                        {location.icon}
+                      </div>
+                      <div>
+                        <div className="fw-semibold mb-1" style={{ fontSize: '1.125rem' }}>{location.name}</div>
+                        <div className="small" style={{ color: '#6b6b6b', fontSize: '0.75rem' }}>{location.desc}</div>
+                      </div>
                     </div>
-                    <div>
-                      <div className="font-semibold text-lg mb-1">{location.name}</div>
-                      <div className="text-xs text-text-light">{location.desc}</div>
-                    </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
             </div>
-            <div>
-              <div className="inline-flex items-center gap-4 text-primary-light text-xs font-semibold tracking-widest uppercase mb-6">
-                <div className="w-8 h-px bg-primary-light"></div>
-                Location
-                <div className="w-8 h-px bg-primary-light"></div>
-              </div>
-              <h2 className="text-3xl mb-6">
+            <div className="col-12 col-lg-6 order-1 order-lg-2">
+              <h2 className="h3 mb-4 mb-md-5">
                 福岡・佐賀の<br />
                 観光地で展開
               </h2>
-              <p className="text-text-body mb-6 leading-relaxed">
+              <p className="mb-4 mb-md-5" style={{ color: '#3d3d3d', lineHeight: '1.8' }}>
                 九州の玄関口・福岡と、自然豊かな佐賀県。
                 インバウンドと国内観光客の両方を取り込む好立地で展開しています。
               </p>
-              <p className="text-text-body mb-8 leading-relaxed">
+              <p className="mb-4 mb-md-5" style={{ color: '#3d3d3d', lineHeight: '1.8' }}>
                 観光需要の高いエリアを厳選し、安定した稼働率を実現。
                 地域創生にも貢献する、新しい形の不動産投資です。
               </p>
-              <div className="flex gap-8 mt-8">
-                <div className="text-center">
-                  <div className="font-serif text-4xl font-bold text-primary">2,000万+</div>
-                  <div className="text-xs text-text-light">年間観光客数（福岡県）</div>
+              <div className="mt-4 mt-md-5">
+                <div className="text-center text-md-start">
+                  <div className="fw-bold mb-1" style={{ fontFamily: "'Noto Serif JP', serif", fontSize: '2.5rem', color: '#1a2a4a' }}>2,000万+</div>
+                  <div className="small" style={{ color: '#6b6b6b', fontSize: '0.75rem' }}>年間観光客数（福岡県）</div>
                 </div>
               </div>
             </div>
@@ -408,88 +405,129 @@ const HomePage = () => {
       </section>
 
       {/* Company Section */}
-      <section ref={companySectionRef} id="company" className="py-32 bg-white">
+      <section ref={companySectionRef} id="company" className="section-padding bg-white">
         <div className="container-fluid px-3 px-md-4 px-lg-5" style={{ maxWidth: '1200px' }}>
-          <div className="text-center mb-20">
-            <div className="inline-flex items-center gap-4 text-primary-light text-xs font-semibold tracking-widest uppercase mb-6">
-              <div className="w-8 h-px bg-primary-light"></div>
+          <div className="text-center mb-5 mb-md-6">
+            <div className="d-inline-flex align-items-center gap-3 gap-md-4 mb-4 small text-uppercase fw-semibold" style={{ color: '#2d4a7c', fontSize: '0.75rem', letterSpacing: '0.1em' }}>
+              <div className="bg-primary-light" style={{ width: '2rem', height: '1px' }}></div>
               Company
-              <div className="w-8 h-px bg-primary-light"></div>
+              <div className="bg-primary-light" style={{ width: '2rem', height: '1px' }}></div>
             </div>
-            <h2 className="text-[clamp(1.8rem,3.5vw,2.5rem)] leading-snug mb-4">運営会社</h2>
-            <p className="text-base text-text-light max-w-[600px] mx-auto">
+            <h2 className="responsive-heading lh-sm mb-3 mb-md-4">運営会社</h2>
+            <p className="text-base mx-auto" style={{ color: '#6b6b6b', maxWidth: '600px' }}>
               20年の実績と5,000社以上の取引先を持つ総合不動産会社
             </p>
           </div>
 
-          <div className="grid grid-cols-[1fr_1.5fr] gap-16 items-center">
-            <div className="text-center">
-              <div className="font-serif text-6xl font-bold text-primary tracking-widest mb-4">PLEAST</div>
-              <p className="text-base text-text-light tracking-wider">株式会社PLEAST（プレスト）</p>
+          <div className="row g-4 g-md-5 align-items-center">
+            <div className="col-12 col-lg-4 text-center">
+              <div className="fw-bold mb-3 mb-md-4" style={{ fontFamily: "'Noto Serif JP', serif", fontSize: '4rem', color: '#1a2a4a', letterSpacing: '0.1em' }}>PLEAST</div>
+              <p className="text-base" style={{ color: '#6b6b6b', letterSpacing: '0.05em' }}>株式会社PLEAST（プレスト）</p>
             </div>
 
-            <div className="bg-bg-cream rounded-2xl p-12 relative overflow-hidden shadow-soft">
-              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary to-secondary"></div>
-              <h3 className="text-2xl mb-8 pb-4 border-b border-primary/10">会社概要</h3>
-              <table className="w-full">
-                <tbody>
-                  {[
-                    { label: '会社名', value: '株式会社PLEAST' },
-                    { label: '設立', value: '2005年7月' },
-                    { label: '本社', value: '福岡県博多区祇園町2-35' },
-                    { label: '事業内容', value: '総合不動産事業' },
-                    { label: '取引先', value: '5,000社以上' },
-                    { label: '代表電話', value: <a href="tel:092-283-7555">092-283-7555</a> },
-                    { label: 'フリーダイヤル', value: <a href="tel:0120-929-727">0120-929-727</a> },
-                    { label: 'URL', value: <a href="https://www.pleast.co.jp" target="_blank" rel="noopener noreferrer">https://www.pleast.co.jp</a> },
-                  ].map((row, i) => (
-                    <tr key={i} className="border-b border-primary/5 last:border-0">
-                      <th className="w-[140px] py-4 text-left align-top font-semibold text-primary text-sm">{row.label}</th>
-                      <td className="py-4 text-left align-top text-text-body text-sm">
-                        {row.value}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+            <div className="col-12 col-lg-8">
+              <div className="bg-cream rounded p-5 p-md-6 p-lg-7 position-relative overflow-hidden shadow-soft">
+                <div className="position-absolute top-0 start-0 w-100" style={{ height: '4px', background: 'linear-gradient(to right, #1a2a4a, #c9a962)' }}></div>
+                <h3 className="h4 mb-5 mb-md-6 pb-4 pb-md-5 border-bottom" style={{ borderColor: 'rgba(26, 42, 74, 0.1)' }}>会社概要</h3>
+                <table className="w-100">
+                  <tbody>
+                    {[
+                      { label: '会社名', value: '株式会社PLEAST' },
+                      { label: '設立', value: '2005年7月' },
+                      { label: '本社', value: '福岡県博多区祇園町2-35' },
+                      { label: '事業内容', value: '総合不動産事業' },
+                      { label: '取引先', value: '5,000社以上' },
+                      { label: '代表電話', value: <a href="tel:092-283-7555" className="text-decoration-none" style={{ color: '#3d3d3d' }}>092-283-7555</a> },
+                      { label: 'フリーダイヤル', value: <a href="tel:0120-929-727" className="text-decoration-none" style={{ color: '#3d3d3d' }}>0120-929-727</a> },
+                      { label: 'URL', value: <a href="https://www.pleast.co.jp" target="_blank" rel="noopener noreferrer" className="text-decoration-none" style={{ color: '#3d3d3d' }}>https://www.pleast.co.jp</a> },
+                    ].map((row, i) => (
+                      <tr key={i} className="border-bottom" style={{ borderColor: 'rgba(26, 42, 74, 0.05)' }}>
+                        <th className="py-4 py-md-5 text-start align-top fw-semibold small" style={{ width: '140px', color: '#1a2a4a', fontSize: '0.875rem' }}>{row.label}</th>
+                        <td className="py-4 py-md-5 text-start align-top small" style={{ color: '#3d3d3d', fontSize: '0.875rem' }}>
+                          {row.value}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section ref={contactSectionRef} id="contact" className="py-32 bg-gradient-to-br from-primary to-primary-dark relative overflow-hidden">
+      <section ref={contactSectionRef} id="contact" className="section-padding bg-gradient-primary-dark position-relative overflow-hidden">
         <div
-          className="absolute top-[-25%] right-[-10%] w-[600px] h-[600px] bg-[radial-gradient(circle,rgba(201,169,98,0.15)_0%,transparent_70%)] rounded-full"
+          className="position-absolute top-0 end-0"
+          style={{
+            width: '600px',
+            height: '600px',
+            background: 'radial-gradient(circle, rgba(201,169,98,0.15) 0%, transparent 70%)',
+            borderRadius: '50%',
+            transform: 'translate(25%, -25%)'
+          }}
         ></div>
-        <div className="max-w-[1200px] mx-auto px-12 relative z-10">
+        <div className="container-fluid px-3 px-md-4 px-lg-5 position-relative z-1" style={{ maxWidth: '1200px' }}>
           <div className="text-center">
-            <h2 className="text-[clamp(1.8rem,3.5vw,2.5rem)] text-white mb-4">
-              あなたに最適な<br />
+            <h2 className="responsive-heading text-white mb-4">
+              あなたに最適な<br className="d-none d-md-block" />
               シミュレーションをご案内します
             </h2>
-            <p className="text-white/70 text-lg mb-12">
+            <p className="text-white mb-5 mb-md-6 lead" style={{ opacity: 0.7 }}>
               新築戸建旅館運用 ／ トランスフォーム型トレーラーハウス運用に関するお問い合わせはこちら
             </p>
-            <div className="flex justify-center gap-6 flex-wrap mb-8">
+            <div className="d-flex justify-content-center flex-wrap gap-3 mb-4 mb-md-5">
               <a
                 href="#"
-                className="inline-flex items-center gap-3 py-4 px-10 text-base font-semibold no-underline rounded transition-all duration-300 bg-[#06c755] text-white hover:bg-[#05b04a] hover:-translate-y-1"
+                className="d-inline-flex align-items-center gap-2 text-decoration-none fw-semibold rounded transition-all"
+                style={{
+                  padding: '0.75rem 1.5rem',
+                  backgroundColor: '#06c755',
+                  color: '#ffffff',
+                  fontSize: '1rem',
+                  transition: 'all 0.3s ease',
+                  lineHeight: '1.5'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = '#05b04a'
+                  e.currentTarget.style.transform = 'translateY(-2px)'
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = '#06c755'
+                  e.currentTarget.style.transform = 'translateY(0)'
+                }}
               >
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314" />
                 </svg>
                 LINE公式アカウント
               </a>
               <a
                 href="tel:0120-929-727"
-                className="inline-flex items-center gap-3 py-4 px-10 text-base font-semibold no-underline rounded transition-all duration-300 bg-secondary text-text-dark hover:bg-secondary-light hover:-translate-y-1"
+                className="d-inline-flex align-items-center gap-2 text-decoration-none fw-semibold rounded transition-all"
+                style={{
+                  padding: '0.75rem 1.5rem',
+                  backgroundColor: '#c9a962',
+                  color: '#1a1a1a',
+                  fontSize: '1rem',
+                  transition: 'all 0.3s ease',
+                  lineHeight: '1.5'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = '#d4b87a'
+                  e.currentTarget.style.transform = 'translateY(-2px)'
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = '#c9a962'
+                  e.currentTarget.style.transform = 'translateY(0)'
+                }}
               >
                 <span>📞</span>
                 0120-929-727
               </a>
             </div>
-            <p className="text-white/50 text-sm">※ 相談は無料です。お気軽にお問い合わせください。</p>
+            <p className="text-white-50 small mb-0" style={{ opacity: 0.5 }}>※ 相談は無料です。お気軽にお問い合わせください。</p>
           </div>
         </div>
       </section>
