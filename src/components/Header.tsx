@@ -1,26 +1,38 @@
-import { useState, useEffect } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 
 const Header = () => {
-  const [scrolled, setScrolled] = useState(false)
   const location = useLocation()
+  const navigate = useNavigate()
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 100)
+  const handleNavClick = (hash: string, e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault()
+    
+    if (location.pathname !== '/') {
+      // If not on homepage, navigate to homepage first, then scroll
+      navigate('/')
+      setTimeout(() => {
+        const element = document.querySelector(hash)
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        }
+      }, 100)
+    } else {
+      // If on homepage, just scroll to the section
+      const element = document.querySelector(hash)
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        // Update URL without scrolling
+        window.history.pushState(null, '', hash)
+      }
     }
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
-
-  const isHomePage = location.pathname === '/'
+  }
 
   return (
     <nav
-      className={`navbar navbar-expand-lg fixed-top ${scrolled || !isHomePage ? 'bg-white shadow-sm' : 'bg-transparent'}`}
+      className="navbar navbar-expand-lg fixed-top bg-white shadow-sm"
       style={{
         transition: 'all 0.3s ease',
-        ...(scrolled || !isHomePage ? {} : { backgroundColor: 'transparent' }),
+        backgroundColor: '#ffffff',
         zIndex: 1050
       }}
     >
@@ -33,7 +45,7 @@ const Header = () => {
             fontSize: 'clamp(1.5rem, 2.5vw, 1.875rem)',
             fontWeight: 'bold',
             letterSpacing: '0.1em',
-            color: scrolled || !isHomePage ? '#1a2a4a' : '#ffffff',
+            color: '#1a2a4a',
             textDecoration: 'none',
             transition: 'color 0.3s ease'
           }}
@@ -49,8 +61,8 @@ const Header = () => {
           aria-expanded="false"
           aria-label="Toggle navigation"
           style={{
-            color: scrolled || !isHomePage ? '#1a2a4a' : '#ffffff',
-            borderColor: scrolled || !isHomePage ? '#1a2a4a' : '#ffffff'
+            color: '#1a2a4a',
+            borderColor: '#1a2a4a'
           }}
         >
           <span className="navbar-toggler-icon"></span>
@@ -58,101 +70,110 @@ const Header = () => {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav ms-auto align-items-center gap-3 gap-lg-4">
             <li className="nav-item">
-              <Link
-                to="/#problem"
+              <a
+                href="/#problem"
+                onClick={(e) => handleNavClick('#problem', e)}
                 className="nav-link"
                 style={{
                   fontSize: '0.875rem',
                   fontWeight: '500',
                   letterSpacing: '0.05em',
-                  color: scrolled || !isHomePage ? '#3d3d3d' : 'rgba(255,255,255,0.9)',
+                  color: '#3d3d3d',
                   textDecoration: 'none',
                   position: 'relative',
                   padding: '0.5rem 0',
-                  transition: 'color 0.3s ease'
+                  transition: 'color 0.3s ease',
+                  cursor: 'pointer'
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.color = '#c9a962'
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.color = scrolled || !isHomePage ? '#3d3d3d' : 'rgba(255,255,255,0.9)'
+                  e.currentTarget.style.color = '#3d3d3d'
                 }}
               >
                 課題
-              </Link>
+              </a>
             </li>
             <li className="nav-item">
-              <Link
-                to="/#solution"
+              <a
+                href="/#solution"
+                onClick={(e) => handleNavClick('#solution', e)}
                 className="nav-link"
                 style={{
                   fontSize: '0.875rem',
                   fontWeight: '500',
                   letterSpacing: '0.05em',
-                  color: scrolled || !isHomePage ? '#3d3d3d' : 'rgba(255,255,255,0.9)',
+                  color: '#3d3d3d',
                   textDecoration: 'none',
                   padding: '0.5rem 0',
-                  transition: 'color 0.3s ease'
+                  transition: 'color 0.3s ease',
+                  cursor: 'pointer'
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.color = '#c9a962'
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.color = scrolled || !isHomePage ? '#3d3d3d' : 'rgba(255,255,255,0.9)'
+                  e.currentTarget.style.color = '#3d3d3d'
                 }}
               >
                 商品
-              </Link>
+              </a>
             </li>
             <li className="nav-item">
-              <Link
-                to="/#clt"
+              <a
+                href="/#clt"
+                onClick={(e) => handleNavClick('#clt', e)}
                 className="nav-link"
                 style={{
                   fontSize: '0.875rem',
                   fontWeight: '500',
                   letterSpacing: '0.05em',
-                  color: scrolled || !isHomePage ? '#3d3d3d' : 'rgba(255,255,255,0.9)',
+                  color: '#3d3d3d',
                   textDecoration: 'none',
                   padding: '0.5rem 0',
-                  transition: 'color 0.3s ease'
+                  transition: 'color 0.3s ease',
+                  cursor: 'pointer'
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.color = '#c9a962'
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.color = scrolled || !isHomePage ? '#3d3d3d' : 'rgba(255,255,255,0.9)'
+                  e.currentTarget.style.color = '#3d3d3d'
                 }}
               >
                 CLT構造
-              </Link>
+              </a>
             </li>
             <li className="nav-item">
-              <Link
-                to="/#company"
+              <a
+                href="/#company"
+                onClick={(e) => handleNavClick('#company', e)}
                 className="nav-link"
                 style={{
                   fontSize: '0.875rem',
                   fontWeight: '500',
                   letterSpacing: '0.05em',
-                  color: scrolled || !isHomePage ? '#3d3d3d' : 'rgba(255,255,255,0.9)',
+                  color: '#3d3d3d',
                   textDecoration: 'none',
                   padding: '0.5rem 0',
-                  transition: 'color 0.3s ease'
+                  transition: 'color 0.3s ease',
+                  cursor: 'pointer'
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.color = '#c9a962'
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.color = scrolled || !isHomePage ? '#3d3d3d' : 'rgba(255,255,255,0.9)'
+                  e.currentTarget.style.color = '#3d3d3d'
                 }}
               >
                 会社概要
-              </Link>
+              </a>
             </li>
             <li className="nav-item">
-              <Link
-                to="/#contact"
+              <a
+                href="/#contact"
+                onClick={(e) => handleNavClick('#contact', e)}
                 className="btn"
                 style={{
                   backgroundColor: '#c9a962',
@@ -163,7 +184,8 @@ const Header = () => {
                   fontSize: '0.875rem',
                   border: 'none',
                   textDecoration: 'none',
-                  transition: 'all 0.3s ease'
+                  transition: 'all 0.3s ease',
+                  cursor: 'pointer'
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.backgroundColor = '#d4b87a'
@@ -175,7 +197,7 @@ const Header = () => {
                 }}
               >
                 お問い合わせ
-              </Link>
+              </a>
             </li>
           </ul>
         </div>
