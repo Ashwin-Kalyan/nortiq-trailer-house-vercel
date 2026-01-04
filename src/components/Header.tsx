@@ -70,20 +70,20 @@ const Header = () => {
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse" id="navbarNav">
-          <ul className="navbar-nav ms-auto align-items-center gap-3 gap-lg-4">
+          <ul className="navbar-nav ms-auto align-items-lg-center gap-2 gap-lg-3 gap-xl-4">
             <li className="nav-item">
               <a
                 href="/#problem"
                 onClick={(e) => handleNavClick('#problem', e)}
-                className="nav-link"
+                className="nav-link text-center text-lg-start"
                 style={{
-                  fontSize: '0.875rem',
+                  fontSize: 'clamp(0.813rem, 0.8vw, 0.875rem)',
                   fontWeight: '500',
                   letterSpacing: '0.05em',
                   color: '#3d3d3d',
                   textDecoration: 'none',
                   position: 'relative',
-                  padding: '0.5rem 0',
+                  padding: '0.5rem 1rem',
                   transition: 'color 0.3s ease',
                   cursor: 'pointer'
                 }}
@@ -101,14 +101,14 @@ const Header = () => {
               <a
                 href="/#solution"
                 onClick={(e) => handleNavClick('#solution', e)}
-                className="nav-link"
+                className="nav-link text-center text-lg-start"
                 style={{
-                  fontSize: '0.875rem',
+                  fontSize: 'clamp(0.813rem, 0.8vw, 0.875rem)',
                   fontWeight: '500',
                   letterSpacing: '0.05em',
                   color: '#3d3d3d',
                   textDecoration: 'none',
-                  padding: '0.5rem 0',
+                  padding: '0.5rem 1rem',
                   transition: 'color 0.3s ease',
                   cursor: 'pointer'
                 }}
@@ -126,14 +126,14 @@ const Header = () => {
               <a
                 href="/#clt"
                 onClick={(e) => handleNavClick('#clt', e)}
-                className="nav-link"
+                className="nav-link text-center text-lg-start"
                 style={{
-                  fontSize: '0.875rem',
+                  fontSize: 'clamp(0.813rem, 0.8vw, 0.875rem)',
                   fontWeight: '500',
                   letterSpacing: '0.05em',
                   color: '#3d3d3d',
                   textDecoration: 'none',
-                  padding: '0.5rem 0',
+                  padding: '0.5rem 1rem',
                   transition: 'color 0.3s ease',
                   cursor: 'pointer'
                 }}
@@ -151,14 +151,14 @@ const Header = () => {
               <a
                 href="/#company"
                 onClick={(e) => handleNavClick('#company', e)}
-                className="nav-link"
+                className="nav-link text-center text-lg-start"
                 style={{
-                  fontSize: '0.875rem',
+                  fontSize: 'clamp(0.813rem, 0.8vw, 0.875rem)',
                   fontWeight: '500',
                   letterSpacing: '0.05em',
                   color: '#3d3d3d',
                   textDecoration: 'none',
-                  padding: '0.5rem 0',
+                  padding: '0.5rem 1rem',
                   transition: 'color 0.3s ease',
                   cursor: 'pointer'
                 }}
@@ -173,21 +173,47 @@ const Header = () => {
               </a>
             </li>
             <li className="nav-item">
+              <Link
+                to="/operation"
+                className="nav-link text-center text-lg-start"
+                style={{
+                  fontSize: 'clamp(0.813rem, 0.8vw, 0.875rem)',
+                  fontWeight: '500',
+                  letterSpacing: '0.05em',
+                  color: '#3d3d3d',
+                  textDecoration: 'none',
+                  padding: '0.5rem 1rem',
+                  transition: 'color 0.3s ease',
+                  cursor: 'pointer',
+                  position: 'relative'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.color = '#c9a962'
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.color = '#3d3d3d'
+                }}
+              >
+                運用説明・Q&A
+              </Link>
+            </li>
+            <li className="nav-item d-flex justify-content-center justify-content-lg-start mt-2 mt-lg-0">
               <a
                 href="/#contact"
                 onClick={(e) => handleNavClick('#contact', e)}
-                className="btn"
+                className="btn w-100 w-lg-auto"
                 style={{
                   backgroundColor: '#c9a962',
                   color: '#1a1a1a',
                   padding: '0.625rem 1.5rem',
                   borderRadius: '0.25rem',
                   fontWeight: '600',
-                  fontSize: '0.875rem',
+                  fontSize: 'clamp(0.813rem, 0.8vw, 0.875rem)',
                   border: 'none',
                   textDecoration: 'none',
                   transition: 'all 0.3s ease',
-                  cursor: 'pointer'
+                  cursor: 'pointer',
+                  maxWidth: '200px'
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.backgroundColor = '#d4b87a'

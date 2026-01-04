@@ -1,0 +1,2002 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>トランスフォーム型トレーラーハウス運用 | PLEAST</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a2a4a;
+            --primary-light: #2d4a7c;
+            --primary-dark: #0f1a2e;
+            --secondary: #c9a962;
+            --secondary-light: #d4b87a;
+            --accent: #b8432f;
+            --bg-cream: #f8f9fc;
+            --bg-warm: #f0f2f7;
+            --text-dark: #1a1a1a;
+            --text-body: #3d3d3d;
+            --text-light: #6b6b6b;
+            --white: #ffffff;
+            --shadow-soft: 0 4px 30px rgba(26, 42, 74, 0.08);
+            --shadow-medium: 0 8px 40px rgba(26, 42, 74, 0.12);
+            --shadow-strong: 0 20px 60px rgba(26, 42, 74, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background: var(--bg-cream);
+            color: var(--text-body);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Noto Serif JP', serif;
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1rem 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .header-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: 0.15em;
+            text-decoration: none;
+        }
+
+        nav {
+            display: flex;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        nav a {
+            color: var(--text-body);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--secondary);
+            transition: width 0.3s;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .header-cta {
+            background: var(--secondary);
+            color: var(--text-dark);
+            padding: 0.7rem 1.5rem;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+        }
+
+        .header-cta:hover {
+            background: var(--secondary-light);
+            transform: translateY(-2px);
+        }
+
+        .header-cta::after {
+            display: none;
+        }
+
+        /* Page Hero */
+        .page-hero {
+            padding: 10rem 0 6rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(201, 169, 98, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .page-hero::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 3rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .page-hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .page-hero-text {
+            color: var(--white);
+        }
+
+        .page-hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(201, 169, 98, 0.2);
+            border: 1px solid var(--secondary);
+            color: var(--secondary);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            margin-bottom: 1.5rem;
+        }
+
+        .page-hero-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            color: var(--white);
+            line-height: 1.3;
+            margin-bottom: 1.5rem;
+        }
+
+        .page-hero-title .accent {
+            color: var(--secondary);
+        }
+
+        .page-hero-desc {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            line-height: 1.9;
+            margin-bottom: 2rem;
+        }
+
+        .page-hero-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .page-hero-feature {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.75rem 1.25rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+
+        .page-hero-feature-icon {
+            color: var(--secondary);
+        }
+
+        .page-hero-image {
+            position: relative;
+        }
+
+        .page-hero-image-main {
+            width: 100%;
+            height: 400px;
+            background: url('https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?w=800&q=80');
+            background-size: cover;
+            background-position: center;
+            border-radius: 16px;
+            box-shadow: var(--shadow-strong);
+        }
+
+        .page-hero-image-badge {
+            position: absolute;
+            bottom: -1.5rem;
+            left: 2rem;
+            background: var(--secondary);
+            color: var(--text-dark);
+            padding: 1.25rem 2rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow-strong);
+        }
+
+        .page-hero-image-badge-number {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            display: block;
+            line-height: 1;
+        }
+
+        .page-hero-image-badge-text {
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 6rem 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            color: var(--primary-light);
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .section-label::before,
+        .section-label::after {
+            content: '';
+            width: 30px;
+            height: 1px;
+            background: var(--primary-light);
+        }
+
+        .section-title {
+            font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+            line-height: 1.4;
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            font-size: 1.05rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Target Section */
+        .target-section {
+            background: var(--white);
+        }
+
+        .target-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1.5rem;
+        }
+
+        .target-card {
+            background: var(--bg-cream);
+            padding: 2rem 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .target-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 12px 12px 0 0;
+            transform: scaleX(0);
+            transition: transform 0.4s;
+        }
+
+        .target-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .target-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .target-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 1.25rem;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .target-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            line-height: 1.5;
+        }
+
+        /* Problem Deep Dive Section */
+        .problem-section {
+            background: var(--bg-warm);
+        }
+
+        .problem-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            margin-bottom: 5rem;
+        }
+
+        .problem-content:nth-child(even) {
+            direction: rtl;
+        }
+
+        .problem-content:nth-child(even) > * {
+            direction: ltr;
+        }
+
+        .problem-text h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .problem-text p {
+            color: var(--text-body);
+            margin-bottom: 1.5rem;
+            line-height: 1.9;
+        }
+
+        .problem-stat {
+            display: inline-flex;
+            align-items: baseline;
+            gap: 0.5rem;
+            background: var(--white);
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .problem-stat-number {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .problem-stat-label {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .problem-chart {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .problem-chart svg {
+            width: 100%;
+            height: auto;
+        }
+
+        /* Inheritance Section */
+        .inheritance-section {
+            background: var(--white);
+        }
+
+        .inheritance-comparison {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 2rem;
+            align-items: center;
+            margin-bottom: 3rem;
+        }
+
+        .inheritance-box {
+            background: var(--bg-cream);
+            border-radius: 16px;
+            padding: 3rem;
+            text-align: center;
+        }
+
+        .inheritance-box.before {
+            border: 2px solid var(--accent);
+        }
+
+        .inheritance-box.after {
+            border: 2px solid var(--primary);
+            background: linear-gradient(135deg, rgba(26, 42, 74, 0.05), rgba(45, 74, 124, 0.05));
+        }
+
+        .inheritance-box-label {
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            display: inline-block;
+        }
+
+        .inheritance-box.before .inheritance-box-label {
+            background: rgba(184, 67, 47, 0.1);
+            color: var(--accent);
+        }
+
+        .inheritance-box.after .inheritance-box-label {
+            background: rgba(26, 42, 74, 0.1);
+            color: var(--primary);
+        }
+
+        .inheritance-amount {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .inheritance-box.before .inheritance-amount {
+            color: var(--accent);
+        }
+
+        .inheritance-box.after .inheritance-amount {
+            color: var(--primary);
+        }
+
+        .inheritance-desc {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+        }
+
+        .inheritance-detail {
+            background: var(--white);
+            padding: 1rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            color: var(--text-body);
+        }
+
+        .inheritance-arrow {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--secondary);
+        }
+
+        .inheritance-arrow-icon {
+            font-size: 2rem;
+        }
+
+        .inheritance-arrow-text {
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+        }
+
+        .inheritance-result {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            border-radius: 16px;
+            padding: 3rem;
+            text-align: center;
+            color: var(--white);
+        }
+
+        .inheritance-result h3 {
+            color: var(--white);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .inheritance-result-highlight {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--secondary);
+            display: block;
+            margin-bottom: 1rem;
+        }
+
+        .inheritance-result p {
+            opacity: 0.9;
+            font-size: 1rem;
+        }
+
+        /* Depreciation Section */
+        .depreciation-section {
+            background: var(--bg-warm);
+        }
+
+        .depreciation-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .depreciation-chart {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 2.5rem;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .depreciation-bars {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            height: 250px;
+            padding: 0 1rem;
+            border-bottom: 2px solid var(--bg-cream);
+            margin-bottom: 1rem;
+        }
+
+        .depreciation-bar {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .depreciation-bar-fill {
+            width: 50px;
+            background: linear-gradient(to top, var(--primary), var(--primary-light));
+            border-radius: 8px 8px 0 0;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .depreciation-bar-value {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .depreciation-bar-label {
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+
+        .depreciation-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .depreciation-info p {
+            color: var(--text-body);
+            margin-bottom: 1.5rem;
+            line-height: 1.9;
+        }
+
+        .depreciation-highlight {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 2rem;
+            border-left: 4px solid var(--secondary);
+        }
+
+        .depreciation-highlight h4 {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .depreciation-calc {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .depreciation-calc-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.95rem;
+        }
+
+        .depreciation-calc-row.total {
+            border-top: 1px solid var(--bg-cream);
+            padding-top: 0.75rem;
+            margin-top: 0.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        /* Simulation Section */
+        .simulation-section {
+            background: var(--white);
+        }
+
+        .simulation-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .simulation-card {
+            background: var(--bg-cream);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow-soft);
+            transition: all 0.4s;
+        }
+
+        .simulation-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-strong);
+        }
+
+        .simulation-card-header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: var(--white);
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .simulation-card-units {
+            font-size: 0.85rem;
+            opacity: 0.8;
+            margin-bottom: 0.5rem;
+        }
+
+        .simulation-card-price {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+
+        .simulation-card-price span {
+            font-size: 1rem;
+            font-weight: 400;
+        }
+
+        .simulation-card-body {
+            padding: 2rem;
+        }
+
+        .simulation-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--white);
+        }
+
+        .simulation-row:last-of-type {
+            border-bottom: none;
+        }
+
+        .simulation-row-label {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        .simulation-row-value {
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .simulation-result {
+            background: var(--white);
+            margin: 1rem -2rem -2rem;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .simulation-result-label {
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .simulation-result-value {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .simulation-note {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 2rem;
+            background: var(--bg-cream);
+            border-radius: 12px;
+            border: 2px dashed var(--secondary);
+        }
+
+        .simulation-note p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        .simulation-note strong {
+            color: var(--text-dark);
+        }
+
+        /* SDGs Section */
+        .sdgs-section {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sdgs-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.02'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .sdgs-section .section-label {
+            color: var(--secondary);
+        }
+
+        .sdgs-section .section-label::before,
+        .sdgs-section .section-label::after {
+            background: var(--secondary);
+        }
+
+        .sdgs-section .section-title {
+            color: var(--white);
+        }
+
+        .sdgs-section .section-subtitle {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .sdgs-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .sdgs-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            transition: all 0.4s;
+        }
+
+        .sdgs-card:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .sdgs-icon {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 1.5rem;
+            background: linear-gradient(135deg, var(--secondary), var(--secondary-light));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+
+        .sdgs-title {
+            color: var(--white);
+            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .sdgs-desc {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+
+        /* Company Section */
+        .company-section {
+            background: var(--bg-warm);
+        }
+
+        .company-content {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .company-logo-area {
+            text-align: center;
+        }
+
+        .company-logo-text {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: 0.15em;
+            margin-bottom: 1rem;
+        }
+
+        .company-tagline {
+            font-size: 1rem;
+            color: var(--text-light);
+            letter-spacing: 0.1em;
+        }
+
+        .company-info-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 3rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .company-info-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+
+        .company-info-title {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(26, 42, 74, 0.1);
+        }
+
+        .company-table {
+            width: 100%;
+        }
+
+        .company-table tr {
+            border-bottom: 1px solid rgba(26, 42, 74, 0.05);
+        }
+
+        .company-table tr:last-child {
+            border-bottom: none;
+        }
+
+        .company-table th,
+        .company-table td {
+            padding: 1rem 0;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        .company-table th {
+            width: 140px;
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 0.9rem;
+        }
+
+        .company-table td {
+            color: var(--text-body);
+            font-size: 0.95rem;
+        }
+
+        .company-table td a {
+            color: var(--primary-light);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .company-table td a:hover {
+            color: var(--secondary);
+            text-decoration: underline;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 6rem 0;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(201, 169, 98, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .cta-content {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-title {
+            font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+            color: var(--white);
+            margin-bottom: 1rem;
+        }
+
+        .cta-subtitle {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1.1rem 2.5rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--secondary);
+            color: var(--text-dark);
+        }
+
+        .btn-primary:hover {
+            background: var(--secondary-light);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(201, 169, 98, 0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--white);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--white);
+        }
+
+        .cta-note {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.85rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary-dark);
+            color: var(--white);
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 4rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand .logo {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .footer-brand p {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+            line-height: 1.8;
+        }
+
+        .footer-contact-info {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+
+        .footer-contact-item a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-contact-item a:hover {
+            color: var(--secondary);
+        }
+
+        .footer-links h4 {
+            color: var(--secondary);
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--secondary);
+        }
+
+        .footer-bottom {
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .footer-legal a {
+            color: rgba(255, 255, 255, 0.5);
+            text-decoration: none;
+            margin-left: 2rem;
+        }
+
+        .footer-legal a:hover {
+            color: var(--secondary);
+        }
+
+        /* Fixed CTA */
+        .fixed-cta {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .fixed-cta-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            box-shadow: var(--shadow-strong);
+            transition: all 0.3s;
+        }
+
+        .fixed-cta-btn.line {
+            background: #06c755;
+            color: var(--white);
+        }
+
+        .fixed-cta-btn.contact {
+            background: var(--secondary);
+            color: var(--text-dark);
+        }
+
+        .fixed-cta-btn:hover {
+            transform: translateY(-3px);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .header-inner {
+                padding: 0 2rem;
+            }
+
+            .container {
+                padding: 0 2rem;
+            }
+
+            .page-hero-content {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .target-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .problem-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .problem-content:nth-child(even) {
+                direction: ltr;
+            }
+
+            .inheritance-comparison {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .inheritance-arrow {
+                transform: rotate(90deg);
+            }
+
+            .depreciation-content {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .sdgs-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .company-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                display: none;
+            }
+
+            .page-hero {
+                padding: 8rem 0 4rem;
+            }
+
+            .page-hero-features {
+                flex-direction: column;
+            }
+
+            .target-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .simulation-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .sdgs-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .footer-legal a {
+                margin: 0 1rem;
+            }
+
+            .fixed-cta {
+                bottom: 0;
+                right: 0;
+                left: 0;
+                flex-direction: row;
+                padding: 1rem;
+                background: rgba(255, 255, 255, 0.95);
+                backdrop-filter: blur(10px);
+                box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+                border-radius: 0;
+            }
+
+            .fixed-cta-btn {
+                flex: 1;
+                justify-content: center;
+                border-radius: 8px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .target-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .page-hero-image-main {
+                height: 280px;
+            }
+
+            .depreciation-bars {
+                height: 180px;
+            }
+
+            .depreciation-bar-fill {
+                width: 35px;
+            }
+
+            .company-logo-text {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-inner">
+            <a href="pleast-lp-top-v2.html" class="logo">PLEAST</a>
+            <nav>
+                <a href="pleast-lp-top-v2.html">TOP</a>
+                <a href="#">トレーラーハウス</a>
+                <a href="pleast-shintiku.html">新築戸建旅館</a>
+                <a href="pleast-operation.html">運用説明・Q&A</a>
+                <a href="#contact" class="header-cta">お問い合わせ</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="container">
+            <div class="page-hero-content">
+                <div class="page-hero-text">
+                    <div class="page-hero-badge">
+                        <span>🚚</span>
+                        <span>TRANSFORM TRAILER HOUSE</span>
+                    </div>
+                    <h1 class="page-hero-title">
+                        トランスフォーム型<br>
+                        トレーラーハウス運用
+                    </h1>
+                    <p class="page-hero-desc">
+                        "移動できる実物資産"でありながら、<br>
+                        4年償却による相続評価の大幅圧縮と<br>
+                        年<span class="accent">10%</span>の安定収益を両立。
+                    </p>
+                    <div class="page-hero-features">
+                        <div class="page-hero-feature">
+                            <span class="page-hero-feature-icon">💰</span>
+                            <span>2,500万円〜</span>
+                        </div>
+                        <div class="page-hero-feature">
+                            <span class="page-hero-feature-icon">📈</span>
+                            <span>年間200万円収益</span>
+                        </div>
+                        <div class="page-hero-feature">
+                            <span class="page-hero-feature-icon">📉</span>
+                            <span>4年で簿価ゼロ</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="page-hero-image">
+                    <div class="page-hero-image-main"></div>
+                    <div class="page-hero-image-badge">
+                        <span class="page-hero-image-badge-number">10%</span>
+                        <span class="page-hero-image-badge-text">利回り保証</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Target Section -->
+    <section class="section target-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Target</div>
+                <h2 class="section-title">こんな方におすすめ</h2>
+                <p class="section-subtitle">現金を持っていても増えない、でもリスクは取りたくない方へ</p>
+            </div>
+
+            <div class="target-grid">
+                <div class="target-card">
+                    <div class="target-icon">💵</div>
+                    <h3 class="target-title">現金で多額の資産を<br>保有する方</h3>
+                </div>
+                <div class="target-card">
+                    <div class="target-icon">👨‍👩‍👧‍👦</div>
+                    <h3 class="target-title">相続を見据えた<br>資産対策をしたい方</h3>
+                </div>
+                <div class="target-card">
+                    <div class="target-icon">📊</div>
+                    <h3 class="target-title">節税しながら<br>収入も欲しい方</h3>
+                </div>
+                <div class="target-card">
+                    <div class="target-icon">😤</div>
+                    <h3 class="target-title">株や不動産で<br>損失経験がある方</h3>
+                </div>
+                <div class="target-card">
+                    <div class="target-icon">🌍</div>
+                    <h3 class="target-title">社会貢献にも<br>関心がある方</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="section problem-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Issues</div>
+                <h2 class="section-title">日本人の資産を蝕む "五重苦"</h2>
+                <p class="section-subtitle">あなたの資産を確実に目減りさせる5つの構造的問題</p>
+            </div>
+
+            <div class="problem-content">
+                <div class="problem-text">
+                    <h3>📈 物価上昇（インフレ）</h3>
+                    <p>
+                        30年間で主な食料品・光熱費は約1.5倍に上昇。
+                        銀行預金の金利は0.001%程度。現金で持っていても、
+                        実質的な資産価値は毎年目減りしています。
+                    </p>
+                    <div class="problem-stat">
+                        <span class="problem-stat-number">1.5</span>
+                        <span class="problem-stat-label">倍（30年間の物価上昇）</span>
+                    </div>
+                </div>
+                <div class="problem-chart">
+                    <svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="chartGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" style="stop-color:#1a2a4a;stop-opacity:0.3"/>
+                                <stop offset="100%" style="stop-color:#1a2a4a;stop-opacity:0"/>
+                            </linearGradient>
+                        </defs>
+                        <path d="M 40 160 Q 100 155 160 140 T 280 100 T 380 60" stroke="#1a2a4a" stroke-width="3" fill="none"/>
+                        <path d="M 40 160 Q 100 155 160 140 T 280 100 T 380 60 V 180 H 40 Z" fill="url(#chartGrad)"/>
+                        <text x="40" y="190" font-size="11" fill="#6b6b6b">1994</text>
+                        <text x="200" y="190" font-size="11" fill="#6b6b6b">2009</text>
+                        <text x="360" y="190" font-size="11" fill="#6b6b6b">2024</text>
+                        <text x="200" y="30" font-size="14" font-weight="bold" fill="#1a2a4a" text-anchor="middle">消費者物価指数の推移</text>
+                    </svg>
+                </div>
+            </div>
+
+            <div class="problem-content">
+                <div class="problem-text">
+                    <h3>💰 給与停滞</h3>
+                    <p>
+                        日本の平均賃金は過去30年間ほぼ横ばい。
+                        先進国で唯一成長していません。物価は上がるのに、
+                        収入は増えない — この構造が家計を圧迫します。
+                    </p>
+                    <div class="problem-stat">
+                        <span class="problem-stat-number">30</span>
+                        <span class="problem-stat-label">年間 賃金成長なし</span>
+                    </div>
+                </div>
+                <div class="problem-chart">
+                    <svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="60" y="80" width="50" height="100" fill="#2d4a7c" rx="4"/>
+                        <rect x="130" y="60" width="50" height="120" fill="#c9a962" rx="4"/>
+                        <rect x="200" y="50" width="50" height="130" fill="#c9a962" rx="4"/>
+                        <rect x="270" y="40" width="50" height="140" fill="#c9a962" rx="4"/>
+                        <text x="85" y="195" font-size="10" fill="#6b6b6b" text-anchor="middle">日本</text>
+                        <text x="155" y="195" font-size="10" fill="#6b6b6b" text-anchor="middle">米国</text>
+                        <text x="225" y="195" font-size="10" fill="#6b6b6b" text-anchor="middle">英国</text>
+                        <text x="295" y="195" font-size="10" fill="#6b6b6b" text-anchor="middle">韓国</text>
+                        <text x="200" y="30" font-size="14" font-weight="bold" fill="#1a2a4a" text-anchor="middle">先進国の賃金上昇率比較</text>
+                    </svg>
+                </div>
+            </div>
+
+            <div class="problem-content">
+                <div class="problem-text">
+                    <h3>📊 税負担の増加</h3>
+                    <p>
+                        国民負担率（税金＋社会保険料）は過去20年で10%以上増加。
+                        稼いでも手取りは減る一方です。
+                        合法的な節税対策がますます重要になっています。
+                    </p>
+                    <div class="problem-stat">
+                        <span class="problem-stat-number">47</span>
+                        <span class="problem-stat-label">%（国民負担率 2023年）</span>
+                    </div>
+                </div>
+                <div class="problem-chart">
+                    <svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="taxGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" style="stop-color:#b8432f;stop-opacity:0.3"/>
+                                <stop offset="100%" style="stop-color:#b8432f;stop-opacity:0"/>
+                            </linearGradient>
+                        </defs>
+                        <path d="M 40 150 L 120 140 L 200 120 L 280 90 L 360 60" stroke="#b8432f" stroke-width="3" fill="none"/>
+                        <path d="M 40 150 L 120 140 L 200 120 L 280 90 L 360 60 V 180 H 40 Z" fill="url(#taxGrad)"/>
+                        <circle cx="40" cy="150" r="5" fill="#b8432f"/>
+                        <circle cx="120" cy="140" r="5" fill="#b8432f"/>
+                        <circle cx="200" cy="120" r="5" fill="#b8432f"/>
+                        <circle cx="280" cy="90" r="5" fill="#b8432f"/>
+                        <circle cx="360" cy="60" r="5" fill="#b8432f"/>
+                        <text x="40" y="190" font-size="11" fill="#6b6b6b">2003</text>
+                        <text x="200" y="190" font-size="11" fill="#6b6b6b">2013</text>
+                        <text x="360" y="190" font-size="11" fill="#6b6b6b">2023</text>
+                        <text x="200" y="30" font-size="14" font-weight="bold" fill="#1a2a4a" text-anchor="middle">国民負担率の推移</text>
+                    </svg>
+                </div>
+            </div>
+
+            <div class="problem-content">
+                <div class="problem-text">
+                    <h3>🤖 AIによる雇用リスク</h3>
+                    <p>
+                        ChatGPTをはじめとするAIの急速な進化により、
+                        ホワイトカラーの仕事も安泰ではなくなりました。
+                        給与収入だけに頼らない収入源の確保が急務です。
+                    </p>
+                    <div class="problem-stat">
+                        <span class="problem-stat-number">49</span>
+                        <span class="problem-stat-label">%（AIに代替されうる仕事の割合）</span>
+                    </div>
+                </div>
+                <div class="problem-chart">
+                    <svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="60" y="60" width="80" height="30" fill="#1a2a4a" rx="4"/>
+                        <rect x="60" y="100" width="120" height="30" fill="#2d4a7c" rx="4"/>
+                        <rect x="60" y="140" width="180" height="30" fill="#c9a962" rx="4"/>
+                        <text x="150" y="80" font-size="11" fill="#fff">事務職 30%</text>
+                        <text x="190" y="120" font-size="11" fill="#fff">営業職 45%</text>
+                        <text x="250" y="160" font-size="11" fill="#1a1a1a">専門職 60%</text>
+                        <text x="200" y="30" font-size="14" font-weight="bold" fill="#1a2a4a" text-anchor="middle">職種別AI代替リスク</text>
+                    </svg>
+                </div>
+            </div>
+
+            <div class="problem-content">
+                <div class="problem-text">
+                    <h3>🏛️ 相続税の重圧</h3>
+                    <p>
+                        「資産は三代で消える」と言われます。
+                        相続税率は最大55%。10億円の資産も三代後には
+                        わずか1.8億円に。事前対策なしでは資産は守れません。
+                    </p>
+                    <div class="problem-stat">
+                        <span class="problem-stat-number">55</span>
+                        <span class="problem-stat-label">%（相続税 最高税率）</span>
+                    </div>
+                </div>
+                <div class="problem-chart">
+                    <svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="50" y="50" width="80" height="130" fill="#1a2a4a" rx="4"/>
+                        <rect x="160" y="90" width="80" height="90" fill="#2d4a7c" rx="4"/>
+                        <rect x="270" y="130" width="80" height="50" fill="#c9a962" rx="4"/>
+                        <text x="90" y="40" font-size="12" font-weight="bold" fill="#1a2a4a" text-anchor="middle">10億円</text>
+                        <text x="200" y="80" font-size="12" font-weight="bold" fill="#2d4a7c" text-anchor="middle">4.5億円</text>
+                        <text x="310" y="120" font-size="12" font-weight="bold" fill="#c9a962" text-anchor="middle">1.8億円</text>
+                        <text x="90" y="195" font-size="11" fill="#6b6b6b" text-anchor="middle">初代</text>
+                        <text x="200" y="195" font-size="11" fill="#6b6b6b" text-anchor="middle">二代目</text>
+                        <text x="310" y="195" font-size="11" fill="#6b6b6b" text-anchor="middle">三代目</text>
+                        <text x="200" y="20" font-size="14" font-weight="bold" fill="#1a2a4a" text-anchor="middle">相続税による資産減少イメージ</text>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Inheritance Section -->
+    <section class="section inheritance-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Solution</div>
+                <h2 class="section-title">相続税を"ほぼゼロ"に圧縮する方法</h2>
+                <p class="section-subtitle">2,500万円のトレーラーハウスの場合</p>
+            </div>
+
+            <div class="inheritance-comparison">
+                <div class="inheritance-box before">
+                    <span class="inheritance-box-label">BEFORE</span>
+                    <div class="inheritance-amount">1億円</div>
+                    <p class="inheritance-desc">現金のまま保有</p>
+                    <div class="inheritance-detail">
+                        相続税評価額＝1億円（そのまま課税対象）
+                    </div>
+                </div>
+
+                <div class="inheritance-arrow">
+                    <span class="inheritance-arrow-icon">→</span>
+                    <span class="inheritance-arrow-text">転換</span>
+                </div>
+
+                <div class="inheritance-box after">
+                    <span class="inheritance-box-label">AFTER</span>
+                    <div class="inheritance-amount">2,000万円</div>
+                    <p class="inheritance-desc">トレーラーハウス4台に転換</p>
+                    <div class="inheritance-detail">
+                        4年後の相続評価額＝1台500万円×4台＝2,000万円
+                    </div>
+                </div>
+            </div>
+
+            <div class="inheritance-result">
+                <h3>基礎控除内に収まれば...</h3>
+                <span class="inheritance-result-highlight">相続税 0円</span>
+                <p>
+                    基礎控除3,600万円（配偶者＋子1人の場合4,200万円）を活用すれば、<br>
+                    評価額2,000万円の資産は非課税で相続可能です。
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Depreciation Section -->
+    <section class="section depreciation-section">
+        <div class="container">
+            <div class="depreciation-content">
+                <div class="depreciation-chart">
+                    <h3 style="text-align: center; margin-bottom: 2rem; font-size: 1.2rem;">4年間の減価償却イメージ</h3>
+                    <div class="depreciation-bars">
+                        <div class="depreciation-bar">
+                            <div class="depreciation-bar-fill" style="height: 100%;"></div>
+                            <span class="depreciation-bar-value">625万</span>
+                            <span class="depreciation-bar-label">1年目</span>
+                        </div>
+                        <div class="depreciation-bar">
+                            <div class="depreciation-bar-fill" style="height: 100%;"></div>
+                            <span class="depreciation-bar-value">625万</span>
+                            <span class="depreciation-bar-label">2年目</span>
+                        </div>
+                        <div class="depreciation-bar">
+                            <div class="depreciation-bar-fill" style="height: 100%;"></div>
+                            <span class="depreciation-bar-value">625万</span>
+                            <span class="depreciation-bar-label">3年目</span>
+                        </div>
+                        <div class="depreciation-bar">
+                            <div class="depreciation-bar-fill" style="height: 100%;"></div>
+                            <span class="depreciation-bar-value">625万</span>
+                            <span class="depreciation-bar-label">4年目</span>
+                        </div>
+                    </div>
+                    <p style="text-align: center; font-size: 0.85rem; color: var(--text-light); margin-top: 1rem;">
+                        ※ 2,500万円を4年で均等償却した場合
+                    </p>
+                </div>
+
+                <div class="depreciation-info">
+                    <div class="section-label" style="justify-content: flex-start;">Depreciation</div>
+                    <h3>4年償却で"実質利回り"はさらに高く</h3>
+                    <p>
+                        トレーラーハウスは車両扱いのため、法定耐用年数はわずか4年。
+                        毎年の減価償却費を経費計上することで、
+                        表面利回り10%を超える"実質利回り"を実現できます。
+                    </p>
+
+                    <div class="depreciation-highlight">
+                        <h4>2,500万円投資時の年間収支（概算）</h4>
+                        <div class="depreciation-calc">
+                            <div class="depreciation-calc-row">
+                                <span>リース収益</span>
+                                <span>+200万円</span>
+                            </div>
+                            <div class="depreciation-calc-row">
+                                <span>減価償却費（経費）</span>
+                                <span>−625万円</span>
+                            </div>
+                            <div class="depreciation-calc-row">
+                                <span>課税所得の圧縮効果</span>
+                                <span>約200万円相当</span>
+                            </div>
+                            <div class="depreciation-calc-row total">
+                                <span>実質利回り</span>
+                                <span>15%以上</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Simulation Section -->
+    <section class="section simulation-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Simulation</div>
+                <h2 class="section-title">10年間の収益シミュレーション</h2>
+                <p class="section-subtitle">初期投資から10年後までの収益を試算</p>
+            </div>
+
+            <div class="simulation-grid">
+                <div class="simulation-card">
+                    <div class="simulation-card-header">
+                        <div class="simulation-card-units">1ユニット</div>
+                        <div class="simulation-card-price">2,500<span>万円</span></div>
+                    </div>
+                    <div class="simulation-card-body">
+                        <div class="simulation-row">
+                            <span class="simulation-row-label">年間リース収益</span>
+                            <span class="simulation-row-value">200万円</span>
+                        </div>
+                        <div class="simulation-row">
+                            <span class="simulation-row-label">10年間の累計収益</span>
+                            <span class="simulation-row-value">2,000万円</span>
+                        </div>
+                        <div class="simulation-row">
+                            <span class="simulation-row-label">10年後の売却価格</span>
+                            <span class="simulation-row-value">500万円（保証）</span>
+                        </div>
+                        <div class="simulation-result">
+                            <span class="simulation-result-label">10年後の手取り</span>
+                            <span class="simulation-result-value">約2,000万円</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="simulation-card">
+                    <div class="simulation-card-header">
+                        <div class="simulation-card-units">2ユニット</div>
+                        <div class="simulation-card-price">4,000<span>万円</span></div>
+                    </div>
+                    <div class="simulation-card-body">
+                        <div class="simulation-row">
+                            <span class="simulation-row-label">年間リース収益</span>
+                            <span class="simulation-row-value">320万円</span>
+                        </div>
+                        <div class="simulation-row">
+                            <span class="simulation-row-label">10年間の累計収益</span>
+                            <span class="simulation-row-value">3,200万円</span>
+                        </div>
+                        <div class="simulation-row">
+                            <span class="simulation-row-label">10年後の売却価格</span>
+                            <span class="simulation-row-value">800万円（保証）</span>
+                        </div>
+                        <div class="simulation-result">
+                            <span class="simulation-result-label">10年後の手取り</span>
+                            <span class="simulation-result-value">約3,200万円</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="simulation-note">
+                <p>
+                    ※ 上記は概算シミュレーションです。<strong>減価償却による節税効果</strong>を含めると、<br>
+                    実質的な利回りはさらに高くなります。詳細シミュレーションは個別相談にてご案内いたします。
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SDGs Section -->
+    <section class="section sdgs-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Social Impact</div>
+                <h2 class="section-title">社会貢献にもなる投資</h2>
+                <p class="section-subtitle">収益を得ながら、地域と環境に貢献できます</p>
+            </div>
+
+            <div class="sdgs-grid">
+                <div class="sdgs-card">
+                    <div class="sdgs-icon">🏕️</div>
+                    <h3 class="sdgs-title">災害時対応</h3>
+                    <p class="sdgs-desc">
+                        移動可能なため、災害時には仮設住宅や避難所として活用可能。地域の防災力向上に貢献します。
+                    </p>
+                </div>
+                <div class="sdgs-card">
+                    <div class="sdgs-icon">🏞️</div>
+                    <h3 class="sdgs-title">遊休地活用</h3>
+                    <p class="sdgs-desc">
+                        使われていない土地を観光資源として再活用。空き地問題の解決と地域経済の活性化に寄与します。
+                    </p>
+                </div>
+                <div class="sdgs-card">
+                    <div class="sdgs-icon">🌾</div>
+                    <h3 class="sdgs-title">地方創生</h3>
+                    <p class="sdgs-desc">
+                        観光客を地方に誘導し、地域の雇用創出と経済循環を促進。過疎化対策にも貢献します。
+                    </p>
+                </div>
+                <div class="sdgs-card">
+                    <div class="sdgs-icon">🌲</div>
+                    <h3 class="sdgs-title">環境配慮</h3>
+                    <p class="sdgs-desc">
+                        CLT（木材）構造でCO₂を固定。製造時の環境負荷も低く、サステナブルな建築を実現します。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Company Section -->
+    <section class="section company-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Company</div>
+                <h2 class="section-title">運営会社</h2>
+                <p class="section-subtitle">20年の実績と5,000社以上の取引先を持つ総合不動産会社</p>
+            </div>
+
+            <div class="company-content">
+                <div class="company-logo-area">
+                    <div class="company-logo-text">PLEAST</div>
+                    <p class="company-tagline">株式会社PLEAST（プレスト）</p>
+                </div>
+
+                <div class="company-info-card">
+                    <h3 class="company-info-title">会社概要</h3>
+                    <table class="company-table">
+                        <tr>
+                            <th>会社名</th>
+                            <td>株式会社PLEAST</td>
+                        </tr>
+                        <tr>
+                            <th>設立</th>
+                            <td>2005年7月</td>
+                        </tr>
+                        <tr>
+                            <th>本社</th>
+                            <td>福岡県博多区祇園町2-35</td>
+                        </tr>
+                        <tr>
+                            <th>事業内容</th>
+                            <td>総合不動産事業</td>
+                        </tr>
+                        <tr>
+                            <th>取引先</th>
+                            <td>5,000社以上</td>
+                        </tr>
+                        <tr>
+                            <th>代表電話</th>
+                            <td><a href="tel:092-283-7555">092-283-7555</a></td>
+                        </tr>
+                        <tr>
+                            <th>フリーダイヤル</th>
+                            <td><a href="tel:0120-929-727">0120-929-727</a></td>
+                        </tr>
+                        <tr>
+                            <th>URL</th>
+                            <td><a href="https://www.pleast.co.jp" target="_blank">https://www.pleast.co.jp</a></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section" id="contact">
+        <div class="container">
+            <div class="cta-content">
+                <h2 class="cta-title">あなたに最適な<br>シミュレーションをご案内します</h2>
+                <p class="cta-subtitle">
+                    トランスフォーム型トレーラーハウス運用に関するお問い合わせはこちら
+                </p>
+                <div class="cta-buttons">
+                    <a href="#" class="btn btn-primary" style="background: #06c755;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/>
+                        </svg>
+                        LINE公式アカウント
+                    </a>
+                    <a href="tel:0120-929-727" class="btn btn-primary">
+                        <span>📞</span>
+                        0120-929-727
+                    </a>
+                </div>
+                <p class="cta-note">※ 相談は無料です。お気軽にお問い合わせください。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <a href="pleast-lp-top-v2.html" class="logo">PLEAST</a>
+                    <p>
+                        株式会社PLEAST（プレスト）<br>
+                        〒812-0038 福岡県博多区祇園町2-35
+                    </p>
+                    <div class="footer-contact-info">
+                        <div class="footer-contact-item">
+                            <span>📞</span>
+                            <a href="tel:092-283-7555">092-283-7555</a>
+                        </div>
+                        <div class="footer-contact-item">
+                            <span>🆓</span>
+                            <a href="tel:0120-929-727">0120-929-727</a>（フリーダイヤル）
+                        </div>
+                        <div class="footer-contact-item">
+                            <span>🌐</span>
+                            <a href="https://www.pleast.co.jp" target="_blank">https://www.pleast.co.jp</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>商品</h4>
+                    <ul>
+                        <li><a href="pleast-shintiku.html">新築戸建旅館運用</a></li>
+                        <li><a href="#">トレーラーハウス運用</a></li>
+                        <li><a href="pleast-operation.html">運用説明・Q&A</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>会社情報</h4>
+                    <ul>
+                        <li><a href="#company">会社概要</a></li>
+                        <li><a href="#contact">お問い合わせ</a></li>
+                        <li><a href="#">プライバシーポリシー</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>© 2025 PLEAST Inc. All Rights Reserved.</span>
+                <div class="footer-legal">
+                    <a href="#">プライバシーポリシー</a>
+                    <a href="#">特定商取引法に基づく表記</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Fixed CTA -->
+    <div class="fixed-cta">
+        <a href="#" class="fixed-cta-btn line">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/>
+            </svg>
+            LINE
+        </a>
+        <a href="tel:0120-929-727" class="fixed-cta-btn contact">
+            📞 電話相談
+        </a>
+    </div>
+
+    <script>
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for animation
+        document.querySelectorAll('.target-card, .problem-content, .inheritance-box, .simulation-card, .sdgs-card, .company-info-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+            observer.observe(el);
+        });
+
+        // Staggered animation for grid items
+        document.querySelectorAll('.target-card').forEach((el, i) => {
+            el.style.transitionDelay = `${i * 0.1}s`;
+        });
+
+        document.querySelectorAll('.sdgs-card').forEach((el, i) => {
+            el.style.transitionDelay = `${i * 0.15}s`;
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1233 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新築戸建旅館運用 | PLEAST</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a2a4a;
+            --primary-light: #2d4a7c;
+            --primary-dark: #0f1a2e;
+            --secondary: #c9a962;
+            --secondary-light: #d4b87a;
+            --accent: #b8432f;
+            --bg-cream: #f8f9fc;
+            --bg-warm: #f0f2f7;
+            --text-dark: #1a1a1a;
+            --text-body: #3d3d3d;
+            --text-light: #6b6b6b;
+            --white: #ffffff;
+            --shadow-soft: 0 4px 30px rgba(26, 42, 74, 0.08);
+            --shadow-medium: 0 8px 40px rgba(26, 42, 74, 0.12);
+            --shadow-strong: 0 20px 60px rgba(26, 42, 74, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background: var(--bg-cream);
+            color: var(--text-body);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Noto Serif JP', serif;
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1rem 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .header-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: 0.15em;
+            text-decoration: none;
+        }
+
+        nav {
+            display: flex;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        nav a {
+            color: var(--text-body);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--secondary);
+            transition: width 0.3s;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .header-cta {
+            background: var(--secondary);
+            color: var(--text-dark);
+            padding: 0.7rem 1.5rem;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+        }
+
+        .header-cta:hover {
+            background: var(--secondary-light);
+            transform: translateY(-2px);
+        }
+
+        .header-cta::after {
+            display: none;
+        }
+
+        /* Page Hero */
+        .page-hero {
+            padding: 10rem 0 6rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(201, 169, 98, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .page-hero::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 3rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .page-hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .page-hero-text {
+            color: var(--white);
+        }
+
+        .page-hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(201, 169, 98, 0.2);
+            border: 1px solid var(--secondary);
+            color: var(--secondary);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            margin-bottom: 1.5rem;
+        }
+
+        .page-hero-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            color: var(--white);
+            line-height: 1.3;
+            margin-bottom: 1.5rem;
+        }
+
+        .page-hero-title .accent {
+            color: var(--secondary);
+        }
+
+        .page-hero-desc {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            line-height: 1.9;
+            margin-bottom: 2rem;
+        }
+
+        .page-hero-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .page-hero-feature {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.75rem 1.25rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+
+        .page-hero-feature-icon {
+            color: var(--secondary);
+        }
+
+        .page-hero-image {
+            position: relative;
+        }
+
+        .page-hero-image-main {
+            width: 100%;
+            height: 400px;
+            background: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80');
+            background-size: cover;
+            background-position: center;
+            border-radius: 16px;
+            box-shadow: var(--shadow-strong);
+        }
+
+        .page-hero-image-badge {
+            position: absolute;
+            bottom: -1.5rem;
+            left: 2rem;
+            background: var(--secondary);
+            color: var(--text-dark);
+            padding: 1.25rem 2rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow-strong);
+        }
+
+        .page-hero-image-badge-number {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            display: block;
+            line-height: 1;
+        }
+
+        .page-hero-image-badge-text {
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 6rem 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            color: var(--primary-light);
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .section-label::before,
+        .section-label::after {
+            content: '';
+            width: 30px;
+            height: 1px;
+            background: var(--primary-light);
+        }
+
+        .section-title {
+            font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+            line-height: 1.4;
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            font-size: 1.05rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Inquiry Prompt Section */
+        .inquiry-section {
+            background: var(--white);
+            padding: 8rem 0;
+        }
+
+        .inquiry-box {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .inquiry-icon {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 2rem;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            box-shadow: var(--shadow-medium);
+        }
+
+        .inquiry-title {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .inquiry-desc {
+            font-size: 1.1rem;
+            color: var(--text-body);
+            margin-bottom: 3rem;
+            line-height: 1.9;
+        }
+
+        .inquiry-highlight {
+            background: linear-gradient(135deg, rgba(26, 42, 74, 0.05), rgba(45, 74, 124, 0.08));
+            border: 2px solid var(--primary);
+            border-radius: 16px;
+            padding: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .inquiry-highlight-text {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--primary);
+            line-height: 1.8;
+        }
+
+        .inquiry-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1.25rem 3rem;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: var(--white);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-strong);
+        }
+
+        .btn-line {
+            background: #06c755;
+            color: var(--white);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .btn-line:hover {
+            background: #05b04a;
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-strong);
+        }
+
+        .btn-tel {
+            background: var(--secondary);
+            color: var(--text-dark);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .btn-tel:hover {
+            background: var(--secondary-light);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-strong);
+        }
+
+        .inquiry-note {
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        /* Gallery Section */
+        .gallery-section {
+            background: var(--bg-warm);
+            padding: 6rem 0;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            aspect-ratio: 4/3;
+            cursor: pointer;
+        }
+
+        .gallery-item::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(26, 42, 74, 0.7) 0%, transparent 50%);
+            opacity: 0;
+            transition: opacity 0.4s;
+            z-index: 1;
+        }
+
+        .gallery-item:hover::before {
+            opacity: 1;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-item-label {
+            position: absolute;
+            bottom: 1rem;
+            left: 1rem;
+            color: var(--white);
+            font-weight: 500;
+            font-size: 0.9rem;
+            z-index: 2;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.4s;
+        }
+
+        .gallery-item:hover .gallery-item-label {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .gallery-item.large {
+            grid-column: span 2;
+            grid-row: span 2;
+        }
+
+        /* Company Section */
+        .company-section {
+            background: var(--white);
+        }
+
+        .company-content {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .company-logo-area {
+            text-align: center;
+        }
+
+        .company-logo-text {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: 0.15em;
+            margin-bottom: 1rem;
+        }
+
+        .company-tagline {
+            font-size: 1rem;
+            color: var(--text-light);
+            letter-spacing: 0.1em;
+        }
+
+        .company-info-card {
+            background: var(--bg-cream);
+            border-radius: 16px;
+            padding: 3rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .company-info-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+
+        .company-info-title {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(26, 42, 74, 0.1);
+        }
+
+        .company-table {
+            width: 100%;
+        }
+
+        .company-table tr {
+            border-bottom: 1px solid rgba(26, 42, 74, 0.05);
+        }
+
+        .company-table tr:last-child {
+            border-bottom: none;
+        }
+
+        .company-table th,
+        .company-table td {
+            padding: 1rem 0;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        .company-table th {
+            width: 140px;
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 0.9rem;
+        }
+
+        .company-table td {
+            color: var(--text-body);
+            font-size: 0.95rem;
+        }
+
+        .company-table td a {
+            color: var(--primary-light);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .company-table td a:hover {
+            color: var(--secondary);
+            text-decoration: underline;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 6rem 0;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(201, 169, 98, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .cta-content {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-title {
+            font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+            color: var(--white);
+            margin-bottom: 1rem;
+        }
+
+        .cta-subtitle {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .cta-note {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.85rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary-dark);
+            color: var(--white);
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 4rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand .logo {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .footer-brand p {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+            line-height: 1.8;
+        }
+
+        .footer-contact-info {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+
+        .footer-contact-item a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-contact-item a:hover {
+            color: var(--secondary);
+        }
+
+        .footer-links h4 {
+            color: var(--secondary);
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--secondary);
+        }
+
+        .footer-bottom {
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .footer-legal a {
+            color: rgba(255, 255, 255, 0.5);
+            text-decoration: none;
+            margin-left: 2rem;
+        }
+
+        .footer-legal a:hover {
+            color: var(--secondary);
+        }
+
+        /* Fixed CTA */
+        .fixed-cta {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .fixed-cta-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            box-shadow: var(--shadow-strong);
+            transition: all 0.3s;
+        }
+
+        .fixed-cta-btn.line {
+            background: #06c755;
+            color: var(--white);
+        }
+
+        .fixed-cta-btn.contact {
+            background: var(--secondary);
+            color: var(--text-dark);
+        }
+
+        .fixed-cta-btn:hover {
+            transform: translateY(-3px);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .header-inner {
+                padding: 0 2rem;
+            }
+
+            .container {
+                padding: 0 2rem;
+            }
+
+            .page-hero-content {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .gallery-item.large {
+                grid-column: span 1;
+                grid-row: span 1;
+            }
+
+            .company-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                display: none;
+            }
+
+            .page-hero {
+                padding: 8rem 0 4rem;
+            }
+
+            .page-hero-features {
+                flex-direction: column;
+            }
+
+            .inquiry-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 320px;
+                justify-content: center;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .footer-legal a {
+                margin: 0 1rem;
+            }
+
+            .fixed-cta {
+                bottom: 0;
+                right: 0;
+                left: 0;
+                flex-direction: row;
+                padding: 1rem;
+                background: rgba(255, 255, 255, 0.95);
+                backdrop-filter: blur(10px);
+                box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+                border-radius: 0;
+            }
+
+            .fixed-cta-btn {
+                flex: 1;
+                justify-content: center;
+                border-radius: 8px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-hero-image-main {
+                height: 280px;
+            }
+
+            .inquiry-highlight {
+                padding: 2rem 1.5rem;
+            }
+
+            .inquiry-highlight-text {
+                font-size: 1.1rem;
+            }
+
+            .company-logo-text {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-inner">
+            <a href="pleast-lp-top-v2.html" class="logo">PLEAST</a>
+            <nav>
+                <a href="pleast-lp-top-v2.html">TOP</a>
+                <a href="pleast-trailer-house-v2.html">トレーラーハウス</a>
+                <a href="#">新築戸建旅館</a>
+                <a href="pleast-operation.html">運用説明・Q&A</a>
+                <a href="#contact" class="header-cta">お問い合わせ</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="container">
+            <div class="page-hero-content">
+                <div class="page-hero-text">
+                    <div class="page-hero-badge">
+                        <span>🏠</span>
+                        <span>NEW BUILT INN</span>
+                    </div>
+                    <h1 class="page-hero-title">
+                        新築戸建旅館運用
+                    </h1>
+                    <p class="page-hero-desc">
+                        一棟マンションや区分所有ではなく、<br>
+                        戸建を建築して旅館運用を行い収益を得る投資です。<br>
+                        新築ならではの安心感と、年<span class="accent">10%</span>の高利回りを両立。
+                    </p>
+                    <div class="page-hero-features">
+                        <div class="page-hero-feature">
+                            <span class="page-hero-feature-icon">💰</span>
+                            <span>2,500万円〜</span>
+                        </div>
+                        <div class="page-hero-feature">
+                            <span class="page-hero-feature-icon">📈</span>
+                            <span>年間250万円収益</span>
+                        </div>
+                        <div class="page-hero-feature">
+                            <span class="page-hero-feature-icon">🔧</span>
+                            <span>修繕不安が少ない</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="page-hero-image">
+                    <div class="page-hero-image-main"></div>
+                    <div class="page-hero-image-badge">
+                        <span class="page-hero-image-badge-number">10%</span>
+                        <span class="page-hero-image-badge-text">利回り保証</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Inquiry Prompt Section -->
+    <section class="inquiry-section">
+        <div class="container">
+            <div class="inquiry-box">
+                <div class="inquiry-icon">📋</div>
+                <h2 class="inquiry-title">新築戸建旅館運用について<br>詳しく知りたい方へ</h2>
+                <p class="inquiry-desc">
+                    新築戸建旅館運用は、お客様一人ひとりのご状況に合わせた<br>
+                    オーダーメイドのご提案をさせていただいております。
+                </p>
+
+                <div class="inquiry-highlight">
+                    <p class="inquiry-highlight-text">
+                        新築戸建旅館運用のシミュレーションが知りたい方、<br>
+                        ご興味がある方は、お電話またはお問い合わせフォームより<br>
+                        お気軽にご連絡ください。
+                    </p>
+                </div>
+
+                <div class="inquiry-buttons">
+                    <a href="tel:0120-929-727" class="btn btn-tel">
+                        <span>📞</span>
+                        0120-929-727
+                    </a>
+                    <a href="#" class="btn btn-line">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/>
+                        </svg>
+                        LINE公式アカウント
+                    </a>
+                    <a href="pleast-operation.html#contact" class="btn btn-primary">
+                        <span>✉️</span>
+                        お問い合わせフォーム
+                    </a>
+                </div>
+
+                <p class="inquiry-note">※ 相談は無料です。専門スタッフが丁寧にご説明いたします。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Gallery</div>
+                <h2 class="section-title">実際の物件をご覧ください</h2>
+                <p class="section-subtitle">高品質な設備と洗練されたデザイン</p>
+            </div>
+
+            <div class="gallery-grid">
+                <div class="gallery-item large">
+                    <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80" alt="外観">
+                    <span class="gallery-item-label">外観</span>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=600&q=80" alt="リビング">
+                    <span class="gallery-item-label">リビング</span>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&q=80" alt="キッチン">
+                    <span class="gallery-item-label">キッチン</span>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=600&q=80" alt="浴室">
+                    <span class="gallery-item-label">浴室</span>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&q=80" alt="ベッドルーム">
+                    <span class="gallery-item-label">ベッドルーム</span>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=600&q=80" alt="デッキ">
+                    <span class="gallery-item-label">デッキ</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Company Section -->
+    <section class="section company-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Company</div>
+                <h2 class="section-title">運営会社</h2>
+                <p class="section-subtitle">20年の実績と5,000社以上の取引先を持つ総合不動産会社</p>
+            </div>
+
+            <div class="company-content">
+                <div class="company-logo-area">
+                    <div class="company-logo-text">PLEAST</div>
+                    <p class="company-tagline">株式会社PLEAST（プレスト）</p>
+                </div>
+
+                <div class="company-info-card">
+                    <h3 class="company-info-title">会社概要</h3>
+                    <table class="company-table">
+                        <tr>
+                            <th>会社名</th>
+                            <td>株式会社PLEAST</td>
+                        </tr>
+                        <tr>
+                            <th>設立</th>
+                            <td>2005年7月</td>
+                        </tr>
+                        <tr>
+                            <th>本社</th>
+                            <td>福岡県博多区祇園町2-35</td>
+                        </tr>
+                        <tr>
+                            <th>事業内容</th>
+                            <td>総合不動産事業</td>
+                        </tr>
+                        <tr>
+                            <th>取引先</th>
+                            <td>5,000社以上</td>
+                        </tr>
+                        <tr>
+                            <th>代表電話</th>
+                            <td><a href="tel:092-283-7555">092-283-7555</a></td>
+                        </tr>
+                        <tr>
+                            <th>フリーダイヤル</th>
+                            <td><a href="tel:0120-929-727">0120-929-727</a></td>
+                        </tr>
+                        <tr>
+                            <th>URL</th>
+                            <td><a href="https://www.pleast.co.jp" target="_blank">https://www.pleast.co.jp</a></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section" id="contact">
+        <div class="container">
+            <div class="cta-content">
+                <h2 class="cta-title">まずはお気軽に<br>ご相談ください</h2>
+                <p class="cta-subtitle">
+                    新築戸建旅館運用に関するお問い合わせはこちら
+                </p>
+                <div class="cta-buttons">
+                    <a href="#" class="btn btn-line">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/>
+                        </svg>
+                        LINE公式アカウント
+                    </a>
+                    <a href="tel:0120-929-727" class="btn btn-tel">
+                        <span>📞</span>
+                        0120-929-727
+                    </a>
+                </div>
+                <p class="cta-note">※ 相談は無料です。お気軽にお問い合わせください。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <a href="pleast-lp-top-v2.html" class="logo">PLEAST</a>
+                    <p>
+                        株式会社PLEAST（プレスト）<br>
+                        〒812-0038 福岡県博多区祇園町2-35
+                    </p>
+                    <div class="footer-contact-info">
+                        <div class="footer-contact-item">
+                            <span>📞</span>
+                            <a href="tel:092-283-7555">092-283-7555</a>
+                        </div>
+                        <div class="footer-contact-item">
+                            <span>🆓</span>
+                            <a href="tel:0120-929-727">0120-929-727</a>（フリーダイヤル）
+                        </div>
+                        <div class="footer-contact-item">
+                            <span>🌐</span>
+                            <a href="https://www.pleast.co.jp" target="_blank">https://www.pleast.co.jp</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>商品</h4>
+                    <ul>
+                        <li><a href="#">新築戸建旅館運用</a></li>
+                        <li><a href="pleast-trailer-house-v2.html">トレーラーハウス運用</a></li>
+                        <li><a href="pleast-operation.html">運用説明・Q&A</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>会社情報</h4>
+                    <ul>
+                        <li><a href="#company">会社概要</a></li>
+                        <li><a href="#contact">お問い合わせ</a></li>
+                        <li><a href="#">プライバシーポリシー</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>© 2025 PLEAST Inc. All Rights Reserved.</span>
+                <div class="footer-legal">
+                    <a href="#">プライバシーポリシー</a>
+                    <a href="#">特定商取引法に基づく表記</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Fixed CTA -->
+    <div class="fixed-cta">
+        <a href="#" class="fixed-cta-btn line">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/>
+            </svg>
+            LINE
+        </a>
+        <a href="tel:0120-929-727" class="fixed-cta-btn contact">
+            📞 電話相談
+        </a>
+    </div>
+
+    <script>
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for animation
+        document.querySelectorAll('.inquiry-box, .gallery-item, .company-info-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+            observer.observe(el);
+        });
+
+        // Staggered animation for gallery items
+        document.querySelectorAll('.gallery-item').forEach((el, i) => {
+            el.style.transitionDelay = `${i * 0.08}s`;
+        });
+    </script>
+</body>
+</html>

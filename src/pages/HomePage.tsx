@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
+import ScrollReveal from '../components/ScrollReveal'
 
 const HomePage = () => {
   const problemSectionRef = useRef<HTMLDivElement>(null)
@@ -58,39 +59,42 @@ const HomePage = () => {
             新築戸建旅館とトランスフォーム型トレーラーハウスで、<br className="d-none d-md-block" />
             新時代の不動産投資を実現します。
           </p>
-          <div className="d-flex flex-wrap gap-3 gap-md-4 mb-4 mb-md-5 animate-fade-in-up" style={{ opacity: 0, animationDelay: '0.9s' }}>
-            <div className="d-flex align-items-center gap-2 small" style={{ color: 'rgba(255,255,255,0.9)', fontSize: '1rem' }}>
-              <span className="border border-secondary rounded-circle d-flex align-items-center justify-content-center" style={{ width: '1.5rem', height: '1.5rem', color: '#c9a962', fontSize: '0.75rem' }}>✓</span>
+          <div className="d-flex flex-column flex-md-row flex-wrap gap-2 gap-md-3 gap-lg-4 mb-4 mb-md-5 animate-fade-in-up" style={{ opacity: 0, animationDelay: '0.9s' }}>
+            <div className="d-flex align-items-center gap-2 small" style={{ color: 'rgba(255,255,255,0.9)', fontSize: 'clamp(0.875rem, 1.2vw, 1rem)' }}>
+              <span className="border border-secondary rounded-circle d-flex align-items-center justify-content-center flex-shrink-0" style={{ width: '1.5rem', height: '1.5rem', color: '#c9a962', fontSize: '0.75rem' }}>✓</span>
               <span>利回り10%保証</span>
             </div>
-            <div className="d-flex align-items-center gap-2 small" style={{ color: 'rgba(255,255,255,0.9)', fontSize: '1rem' }}>
-              <span className="border border-secondary rounded-circle d-flex align-items-center justify-content-center" style={{ width: '1.5rem', height: '1.5rem', color: '#c9a962', fontSize: '0.75rem' }}>✓</span>
+            <div className="d-flex align-items-center gap-2 small" style={{ color: 'rgba(255,255,255,0.9)', fontSize: 'clamp(0.875rem, 1.2vw, 1rem)' }}>
+              <span className="border border-secondary rounded-circle d-flex align-items-center justify-content-center flex-shrink-0" style={{ width: '1.5rem', height: '1.5rem', color: '#c9a962', fontSize: '0.75rem' }}>✓</span>
               <span>相続税80%圧縮可能</span>
             </div>
-            <div className="d-flex align-items-center gap-2 small" style={{ color: 'rgba(255,255,255,0.9)', fontSize: '1rem' }}>
-              <span className="border border-secondary rounded-circle d-flex align-items-center justify-content-center" style={{ width: '1.5rem', height: '1.5rem', color: '#c9a962', fontSize: '0.75rem' }}>✓</span>
+            <div className="d-flex align-items-center gap-2 small" style={{ color: 'rgba(255,255,255,0.9)', fontSize: 'clamp(0.875rem, 1.2vw, 1rem)' }}>
+              <span className="border border-secondary rounded-circle d-flex align-items-center justify-content-center flex-shrink-0" style={{ width: '1.5rem', height: '1.5rem', color: '#c9a962', fontSize: '0.75rem' }}>✓</span>
               <span>完全手離れ運用</span>
             </div>
           </div>
           <div className="d-flex flex-column flex-md-row gap-3 animate-fade-in-up" style={{ opacity: 0, animationDelay: '1.1s' }}>
             <a
               href="#contact"
-              className="btn btn-lg d-inline-flex align-items-center justify-content-center gap-2 text-decoration-none transition-all"
+              className="btn btn-lg w-100 w-md-auto d-inline-flex align-items-center justify-content-center gap-2 text-decoration-none transition-all"
               style={{
                 backgroundColor: '#c9a962',
                 color: '#1a1a1a',
-                padding: '1rem 2.5rem',
+                padding: 'clamp(0.875rem, 1.5vw, 1.1rem) clamp(1.5rem, 3vw, 2.5rem)',
                 borderRadius: '0.25rem',
                 fontWeight: 600,
-                transition: 'all 0.3s ease'
+                fontSize: 'clamp(0.875rem, 1vw, 0.95rem)',
+                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.backgroundColor = '#d4b87a'
-                e.currentTarget.style.transform = 'translateY(-2px)'
+                e.currentTarget.style.transform = 'translateY(-3px)'
+                e.currentTarget.style.boxShadow = '0 10px 30px rgba(201, 169, 98, 0.3)'
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.backgroundColor = '#c9a962'
                 e.currentTarget.style.transform = 'translateY(0)'
+                e.currentTarget.style.boxShadow = 'none'
               }}
             >
               無料相談はこちら
@@ -98,18 +102,38 @@ const HomePage = () => {
             </a>
             <a
               href="#solution"
-              className="btn btn-lg btn-outline-light d-inline-flex align-items-center justify-content-center gap-2 text-decoration-none"
-              style={{ padding: '1rem 2.5rem' }}
+              className="btn btn-lg w-100 w-md-auto d-inline-flex align-items-center justify-content-center gap-2 text-decoration-none"
+              style={{
+                backgroundColor: 'transparent',
+                color: '#ffffff',
+                border: '1px solid rgba(255, 255, 255, 0.4)',
+                padding: 'clamp(0.875rem, 1.5vw, 1.1rem) clamp(1.5rem, 3vw, 2.5rem)',
+                borderRadius: '0.25rem',
+                fontWeight: 600,
+                fontSize: 'clamp(0.875rem, 1vw, 0.95rem)',
+                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.1)'
+                e.currentTarget.style.borderColor = '#ffffff'
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = 'transparent'
+                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.4)'
+              }}
             >
               詳しく見る
             </a>
           </div>
         </div>
+        <div className="position-absolute start-50 translate-middle-x" style={{ bottom: '3rem', transform: 'translateX(-50%)', color: 'rgba(255, 255, 255, 0.6)', fontSize: '0.75rem', letterSpacing: '0.15em', textTransform: 'uppercase', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.75rem', opacity: 0, animation: 'fadeInUp 0.8s 1.3s forwards' }}>
+          <span>Scroll</span>
+          <div className="d-flex align-items-center justify-content-center" style={{ width: '1px', height: '50px', background: 'linear-gradient(to bottom, rgba(255,255,255,0.6), transparent)', animation: 'scrollPulse 2s infinite' }}></div>
+        </div>
       </section>
 
       {/* Problem Section */}
       <section ref={problemSectionRef} id="problem" className="section-padding bg-white position-relative">
-        <div className="position-absolute top-0 start-0 w-100" style={{ height: '1px', background: 'linear-gradient(to right, transparent, rgba(26,42,74,0.1), transparent)' }}></div>
         <div className="container-fluid px-3 px-md-4 px-lg-5" style={{ maxWidth: '1200px' }}>
           <div className="text-center mb-4 mb-md-5">
             <div className="d-inline-flex align-items-center gap-3 gap-md-4 mb-4 small text-uppercase fw-semibold" style={{ color: '#2d4a7c', fontSize: '0.75rem', letterSpacing: '0.1em' }}>
@@ -121,12 +145,12 @@ const HomePage = () => {
               「資産が減る時代」—<br />
               あなたの資産は大丈夫ですか？
             </h2>
-            <p className="text-base mx-auto" style={{ color: '#6b6b6b', maxWidth: '600px' }}>
+            <p className="text-base mx-auto mb-4 mb-md-5" style={{ color: '#6b6b6b', maxWidth: '600px' }}>
               日本人の資産を確実に目減りさせる"五重苦"が押し寄せています
             </p>
           </div>
 
-          <div className="row g-3 g-md-4">
+          <div className="row g-3 g-md-4 mb-4 mb-md-5">
             {[
               { icon: '📈', title: '物価上昇', desc: '30年で主な食料品・光熱費は1.5倍に上昇' },
               { icon: '💰', title: '給与停滞', desc: '日本の平均賃金は30年ほぼ横ばい' },
@@ -136,30 +160,34 @@ const HomePage = () => {
             ].map((item, i) => (
               <div key={i} className="col-12 col-sm-6 col-md-4 col-lg">
                 <div
-                  className="bg-cream p-4 p-md-5 rounded text-center position-relative overflow-hidden transition-all h-100"
-                  style={{ transition: 'all 0.3s ease' }}
+                  className="bg-white p-4 p-md-5 rounded border position-relative h-100 transition-all"
+                  style={{ 
+                    borderColor: 'rgba(26, 42, 74, 0.1)',
+                    transition: 'all 0.3s ease'
+                  }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.transform = 'translateY(-4px)'
-                    e.currentTarget.style.boxShadow = '0 8px 40px rgba(26, 42, 74, 0.12)'
+                    e.currentTarget.style.boxShadow = '0 8px 24px rgba(26, 42, 74, 0.1)'
+                    e.currentTarget.style.borderColor = 'rgba(26, 42, 74, 0.2)'
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.transform = 'translateY(0)'
                     e.currentTarget.style.boxShadow = 'none'
+                    e.currentTarget.style.borderColor = 'rgba(26, 42, 74, 0.1)'
                   }}
                 >
-                  <div className="position-absolute top-0 start-0 w-100" style={{ height: '2px', background: 'linear-gradient(to right, #b8432f, #c9a962)', transform: 'scaleX(0)', transition: 'transform 0.3s ease' }}></div>
-                  <div className="mx-auto mb-3 mb-md-4 bg-gradient-primary rounded-circle d-flex align-items-center justify-content-center" style={{ width: '3.75rem', height: '3.75rem', fontSize: '1.5rem' }}>
-                    {item.icon}
+                  <div className="mx-auto mb-3 mb-md-4 bg-primary rounded-circle d-flex align-items-center justify-content-center text-white" style={{ width: '3rem', height: '3rem', fontSize: '1.25rem' }}>
+                  {item.icon}
                   </div>
-                  <h3 className="h5 fw-semibold mb-2 mb-md-3" style={{ color: '#1a1a1a' }}>{item.title}</h3>
-                  <p className="small" style={{ color: '#6b6b6b', lineHeight: '1.8' }}>{item.desc}</p>
+                  <h3 className="h6 fw-semibold mb-2 mb-md-3 text-center" style={{ color: '#1a1a1a', fontSize: '0.95rem' }}>{item.title}</h3>
+                  <p className="small mb-0 text-center" style={{ color: '#6b6b6b', lineHeight: '1.6', fontSize: '0.8rem' }}>{item.desc}</p>
                 </div>
               </div>
             ))}
           </div>
 
-          <div className="mt-4 mt-md-5 text-center p-4 p-md-5 bg-gradient-primary rounded text-white">
-            <p className="h5 fw-normal mb-0" style={{ fontFamily: "'Noto Serif JP', serif", lineHeight: '1.8' }}>
+          <div className="text-center p-4 p-md-5 bg-primary rounded text-white">
+            <p className="h5 fw-normal mb-0" style={{ fontFamily: "'Noto Serif JP', serif", lineHeight: '1.8', color: '#ffffff' }}>
               現金で持っていても、インフレには勝てません。<br className="d-none d-md-block" />
               今こそ、資産の形を変える時です。
             </p>
@@ -170,99 +198,105 @@ const HomePage = () => {
       {/* Solution Section */}
       <section ref={solutionSectionRef} id="solution" className="section-padding bg-warm position-relative">
         <div className="container-fluid px-3 px-md-4 px-lg-5" style={{ maxWidth: '1200px' }}>
-          <div className="text-center mb-4 mb-md-5">
-            <div className="d-inline-flex align-items-center gap-3 gap-md-4 mb-4 small text-uppercase fw-semibold" style={{ color: '#2d4a7c', fontSize: '0.75rem', letterSpacing: '0.1em' }}>
-              <div className="bg-primary-light" style={{ width: '2rem', height: '1px' }}></div>
+          <ScrollReveal>
+            <div className="text-center mb-4 mb-md-5">
+              <div className="d-inline-flex align-items-center gap-3 gap-md-4 mb-4 small text-uppercase fw-semibold" style={{ color: '#2d4a7c', fontSize: '0.75rem', letterSpacing: '0.1em' }}>
+                <div className="bg-primary-light" style={{ width: '2rem', height: '1px' }}></div>
               Solution
-              <div className="bg-primary-light" style={{ width: '2rem', height: '1px' }}></div>
+                <div className="bg-primary-light" style={{ width: '2rem', height: '1px' }}></div>
             </div>
-            <h2 className="responsive-heading lh-sm mb-3 mb-md-4">
+              <h2 className="responsive-heading lh-sm mb-3 mb-md-4">
               PLEASTの解決策 —<br />
               「動く実物資産」で資産を守る
             </h2>
-            <p className="text-base mx-auto" style={{ color: '#6b6b6b', maxWidth: '600px' }}>
+              <p className="text-base mx-auto" style={{ color: '#6b6b6b', maxWidth: '600px' }}>
               2つの投資商品で、相続対策と高利回りを両立
             </p>
           </div>
+          </ScrollReveal>
 
           <div className="row g-4 g-md-5">
             <div className="col-12 col-lg-6">
-              <div className="bg-white rounded overflow-hidden shadow-soft transition-all h-100" style={{ transition: 'all 0.5s ease' }} onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-10px)'; e.currentTarget.style.boxShadow = '0 20px 60px rgba(26, 42, 74, 0.15)' }} onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 4px 30px rgba(26, 42, 74, 0.08)' }}>
-                <div
+              <ScrollReveal delay={1}>
+                <div className="bg-white rounded overflow-hidden shadow-soft transition-all h-100" style={{ transition: 'all 0.5s ease' }} onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-10px)'; e.currentTarget.style.boxShadow = '0 20px 60px rgba(26, 42, 74, 0.15)' }} onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 4px 30px rgba(26, 42, 74, 0.08)' }}>
+              <div
                   className="bg-cover position-relative"
-                  style={{
+                style={{
                     height: '280px',
-                    backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.3) 100%), url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80')`,
-                  }}
-                >
+                  backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.3) 100%), url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80')`,
+                }}
+              >
                   <span className="position-absolute top-0 start-0 m-3 bg-secondary text-dark py-2 px-3 small fw-bold text-uppercase rounded" style={{ color: '#1a1a1a', fontSize: '0.75rem', letterSpacing: '0.05em' }}>
-                    利回り10%保証
-                  </span>
-                </div>
+                  利回り10%保証
+                </span>
+              </div>
                 <div className="p-4 p-md-5">
                   <h3 className="h4 mb-3 mb-md-4">新築戸建旅館運用</h3>
                   <p className="mb-4 small" style={{ color: '#6b6b6b' }}>
-                    一棟マンションや区分所有ではなく、戸建を建築して旅館運用を行い収益を得る投資です。
-                  </p>
+                  一棟マンションや区分所有ではなく、戸建を建築して旅館運用を行い収益を得る投資です。
+                </p>
                   <ul className="list-unstyled mb-4">
-                    {[
-                      '物件価格2,500万円〜で年間250万円の収益',
-                      '新築のため修繕不安が少ない',
-                      '運用はPLEASTが旅館業として代行',
-                      '実需転用可能で出口戦略も安心',
-                    ].map((item, i) => (
+                  {[
+                    '物件価格2,500万円〜で年間250万円の収益',
+                    '新築のため修繕不安が少ない',
+                    '運用はPLEASTが旅館業として代行',
+                    '実需転用可能で出口戦略も安心',
+                  ].map((item, i) => (
                       <li key={i} className="d-flex align-items-start gap-2 mb-2 small">
                         <span className="fw-bold flex-shrink-0" style={{ color: '#2d4a7c' }}>✓</span>
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
                   <Link to="/shintiku" className="d-inline-flex align-items-center gap-2 text-decoration-none small fw-semibold transition-all" style={{ color: '#1a2a4a', transition: 'all 0.3s ease' }} onMouseEnter={(e) => { e.currentTarget.style.gap = '0.5rem'; e.currentTarget.style.color = '#2d4a7c' }} onMouseLeave={(e) => { e.currentTarget.style.gap = '0.5rem'; e.currentTarget.style.color = '#1a2a4a' }}>
-                    詳しく見る <span>→</span>
+                  詳しく見る <span>→</span>
                   </Link>
                 </div>
-              </div>
+                </div>
+              </ScrollReveal>
             </div>
 
             <div className="col-12 col-lg-6">
-              <div className="bg-white rounded overflow-hidden shadow-soft transition-all h-100" style={{ transition: 'all 0.5s ease' }} onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-10px)'; e.currentTarget.style.boxShadow = '0 20px 60px rgba(26, 42, 74, 0.15)' }} onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 4px 30px rgba(26, 42, 74, 0.08)' }}>
-                <div
+              <ScrollReveal delay={2}>
+                <div className="bg-white rounded overflow-hidden shadow-soft transition-all h-100" style={{ transition: 'all 0.5s ease' }} onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-10px)'; e.currentTarget.style.boxShadow = '0 20px 60px rgba(26, 42, 74, 0.15)' }} onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 4px 30px rgba(26, 42, 74, 0.08)' }}>
+              <div
                   className="bg-cover position-relative"
-                  style={{
+                style={{
                     height: '280px',
-                    backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.3) 100%), url('https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?w=800&q=80')`,
-                  }}
-                >
+                  backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.3) 100%), url('https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?w=800&q=80')`,
+                }}
+              >
                   <span className="position-absolute top-0 start-0 m-3 bg-secondary text-dark py-2 px-3 small fw-bold text-uppercase rounded" style={{ color: '#1a1a1a', fontSize: '0.75rem', letterSpacing: '0.05em' }}>
-                    4年償却で節税
-                  </span>
-                </div>
+                  4年償却で節税
+                </span>
+              </div>
                 <div className="p-4 p-md-5">
                   <h3 className="h4 mb-3 mb-md-4">
-                    トランスフォーム型<br />
-                    トレーラーハウス運用
-                  </h3>
+                  トランスフォーム型<br />
+                  トレーラーハウス運用
+                </h3>
                   <p className="mb-4 small" style={{ color: '#6b6b6b' }}>
-                    "移動できる実物資産"でありながら、4年償却による相続評価の大幅圧縮と年10%の安定収益を両立。
-                  </p>
+                  "移動できる実物資産"でありながら、4年償却による相続評価の大幅圧縮と年10%の安定収益を両立。
+                </p>
                   <ul className="list-unstyled mb-4">
-                    {[
-                      '1台2,500万円〜で年間200万円の収益',
-                      '4年で簿価ゼロ、相続評価は大幅圧縮',
-                      '移動可能で場所選定の自由度が高い',
-                      'CLT構造でSDGs・地方創生にも貢献',
-                    ].map((item, i) => (
+                  {[
+                    '1台2,500万円〜で年間200万円の収益',
+                    '4年で簿価ゼロ、相続評価は大幅圧縮',
+                    '移動可能で場所選定の自由度が高い',
+                    'CLT構造でSDGs・地方創生にも貢献',
+                  ].map((item, i) => (
                       <li key={i} className="d-flex align-items-start gap-2 mb-2 small">
                         <span className="fw-bold flex-shrink-0" style={{ color: '#2d4a7c' }}>✓</span>
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                  <Link to="/trailer-house" className="d-inline-flex align-items-center gap-2 text-decoration-none small fw-semibold transition-all" style={{ color: '#1a2a4a', transition: 'all 0.3s ease' }} onMouseEnter={(e) => { e.currentTarget.style.gap = '0.5rem'; e.currentTarget.style.color = '#2d4a7c' }} onMouseLeave={(e) => { e.currentTarget.style.gap = '0.5rem'; e.currentTarget.style.color = '#1a2a4a' }}>
-                    詳しく見る <span>→</span>
-                  </Link>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+                    <Link to="/trailer-house" className="d-inline-flex align-items-center gap-2 text-decoration-none small fw-semibold transition-all" style={{ color: '#1a2a4a', transition: 'all 0.3s ease' }} onMouseEnter={(e) => { e.currentTarget.style.gap = '0.5rem'; e.currentTarget.style.color = '#2d4a7c' }} onMouseLeave={(e) => { e.currentTarget.style.gap = '0.5rem'; e.currentTarget.style.color = '#1a2a4a' }}>
+                      詳しく見る <span>→</span>
+                    </Link>
+                  </div>
                 </div>
-              </div>
+              </ScrollReveal>
             </div>
           </div>
         </div>
@@ -300,52 +334,63 @@ const HomePage = () => {
       <section ref={cltSectionRef} id="clt" className="section-padding bg-white">
         <div className="container-fluid px-3 px-md-4 px-lg-5" style={{ maxWidth: '1200px' }}>
           <div className="row g-4 g-md-5 align-items-center">
-            <div className="col-12 col-lg-6 order-2 order-lg-1">
-              <div className="d-inline-flex align-items-center gap-3 gap-md-4 mb-4 small text-uppercase fw-semibold" style={{ color: '#2d4a7c', fontSize: '0.75rem', letterSpacing: '0.1em' }}>
-                <div className="bg-primary-light" style={{ width: '2rem', height: '1px' }}></div>
-                Technology
-                <div className="bg-primary-light" style={{ width: '2rem', height: '1px' }}></div>
-              </div>
-              <h2 className="h3 mb-4 mb-md-5">なぜCLTセルユニットなのか？</h2>
-              <p className="lead mb-4 mb-md-5" style={{ color: '#3d3d3d', lineHeight: '1.8' }}>
-                CLT（Cross Laminated Timber）は、木材を直交に積層した次世代の建築素材。
-                100%木材の箱型ユニットでありながら、コンクリート並みの強度を持ち、
-                従来の建築の常識を覆す革新的な構造です。
-              </p>
-              <div className="row g-3 g-md-4">
-                {[
-                  { icon: '💪', title: '圧倒的な強度', desc: '曲げ強さは鉄の約15倍、コンクリートの約400倍' },
-                  { icon: '🏠', title: '高断熱・高耐震', desc: '夏は涼しく冬は暖かい、地震にも強い' },
-                  { icon: '⚡', title: '工期短縮', desc: '従来の木造・鉄骨の約1/3に短縮' },
-                  { icon: '🌿', title: '環境貢献', desc: 'CO₂固定で地球環境に貢献' },
-                  { icon: '🚚', title: '移動可能', desc: 'ユニット解体で別場所へ移動可能' },
-                  { icon: '🔄', title: '転用可能', desc: '住宅への転用で出口戦略が広がる' },
-                ].map((feature, i) => (
-                  <div key={i} className="flex gap-4">
-                    <div className="w-10 h-10 bg-bg-cream rounded-lg flex items-center justify-center flex-shrink-0 text-xl">
-                      {feature.icon}
+            <div className="col-12 col-lg-6">
+              <ScrollReveal>
+                <div className="d-inline-flex align-items-center gap-3 gap-md-4 mb-4 small text-uppercase fw-semibold" style={{ color: '#2d4a7c', fontSize: '0.75rem', letterSpacing: '0.1em' }}>
+                  <div className="bg-primary-light" style={{ width: '2rem', height: '1px' }}></div>
+                  Technology
+                  <div className="bg-primary-light" style={{ width: '2rem', height: '1px' }}></div>
+                </div>
+                <h2 className="h3 mb-4 mb-md-5">なぜCLTセルユニットなのか？</h2>
+                <p className="lead mb-4 mb-md-5" style={{ color: '#3d3d3d', lineHeight: '1.8' }}>
+                  CLT（Cross Laminated Timber）は、木材を直交に積層した次世代の建築素材。
+                  100%木材の箱型ユニットでありながら、コンクリート並みの強度を持ち、
+                  従来の建築の常識を覆す革新的な構造です。
+                </p>
+                <div className="row g-3 g-md-4">
+                  {[
+                    { icon: '💪', title: '圧倒的な強度', desc: '曲げ強さは鉄の約15倍、コンクリートの約400倍' },
+                    { icon: '🏠', title: '高断熱・高耐震', desc: '夏は涼しく冬は暖かい、地震にも強い' },
+                    { icon: '⚡', title: '工期短縮', desc: '従来の木造・鉄骨の約1/3に短縮' },
+                    { icon: '🌿', title: '環境貢献', desc: 'CO₂固定で地球環境に貢献' },
+                    { icon: '🚚', title: '移動可能', desc: 'ユニット解体で別場所へ移動可能' },
+                    { icon: '🔄', title: '転用可能', desc: '住宅への転用で出口戦略が広がる' },
+                  ].map((feature, i) => (
+                    <div key={i} className="col-12 col-md-6">
+                      <ScrollReveal delay={Math.floor(i / 2) + 1}>
+                        <div className="d-flex gap-3">
+                          <div className="bg-cream rounded d-flex align-items-center justify-content-center flex-shrink-0" style={{ width: '2.5rem', height: '2.5rem', fontSize: '1.25rem' }}>
+                            {feature.icon}
+                          </div>
+                          <div>
+                            <h4 className="small fw-semibold mb-1" style={{ fontSize: '0.875rem', color: '#1a1a1a' }}>{feature.title}</h4>
+                            <p className="small mb-0" style={{ fontSize: '0.75rem', color: '#6b6b6b', lineHeight: '1.5' }}>{feature.desc}</p>
+                          </div>
+                        </div>
+                      </ScrollReveal>
                     </div>
-                    <div>
-                      <h4 className="text-sm font-semibold mb-1">{feature.title}</h4>
-                      <p className="text-xs text-text-light">{feature.desc}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+              </ScrollReveal>
             </div>
-            <div className="col-12 col-lg-6 order-1 order-lg-2 position-relative">
-              <div
-                className="w-100 bg-cover rounded"
-                style={{
-                  height: '400px',
-                  minHeight: '300px',
-                  backgroundImage: `linear-gradient(135deg, rgba(26, 42, 74, 0.1), rgba(201, 169, 98, 0.1)), url('https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=800&q=80')`,
-                }}
-              ></div>
-              <div className="position-absolute bottom-0 start-50 translate-middle-x translate-middle-y bg-secondary text-dark p-4 rounded text-center shadow-strong" style={{ color: '#1a1a1a', transform: 'translate(-50%, 50%)' }}>
-                <span className="d-block fw-bold" style={{ fontFamily: "'Noto Serif JP', serif", fontSize: '1.875rem' }}>1/5</span>
-                <span className="small fw-medium" style={{ fontSize: '0.75rem' }}>重量は鉄筋の約1/5</span>
-              </div>
+            <div className="col-12 col-lg-6 position-relative">
+              <ScrollReveal delay={2}>
+                <div
+                  className="w-100 bg-cover rounded position-relative"
+                  style={{
+                    height: '500px',
+                    minHeight: '400px',
+                    backgroundImage: `url('https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=800&q=80')`,
+                    backgroundPosition: 'center',
+                    backgroundSize: 'cover'
+                  }}
+                >
+                  <div className="position-absolute bottom-0 end-0 m-4 bg-secondary rounded p-3 text-center shadow-strong" style={{ backgroundColor: '#c9a962', minWidth: '80px' }}>
+                    <span className="d-block fw-bold text-white mb-1" style={{ fontFamily: "'Noto Serif JP', serif", fontSize: '1.5rem', lineHeight: '1' }}>1/5</span>
+                    <span className="small text-white d-block" style={{ fontSize: '0.7rem', lineHeight: '1.3' }}>重量は鉄筋の約1/5</span>
+                  </div>
+                </div>
+              </ScrollReveal>
             </div>
           </div>
         </div>
@@ -359,25 +404,25 @@ const HomePage = () => {
               <div className="bg-white rounded p-4 p-md-5 shadow-soft position-relative overflow-hidden h-100">
                 <div className="position-absolute top-0 start-0 w-100" style={{ height: '4px', background: 'linear-gradient(to right, #1a2a4a, #c9a962)' }}></div>
                 <h3 className="h5 mb-4 mb-md-5 d-flex align-items-center gap-2">
-                  <span>📍</span> 運用エリア
-                </h3>
+                <span>📍</span> 運用エリア
+              </h3>
                 <div className="d-flex flex-column gap-3">
-                  {[
-                    { icon: '🏖️', name: '糸島市', desc: '人気の海辺リゾート。福岡市街地からアクセス良好' },
-                    { icon: '🏯', name: '唐津市', desc: '唐津城、虹の松原など歴史・自然の観光名所' },
-                    { icon: '🦑', name: '呼子', desc: '新鮮なイカの名所。朝市も人気のスポット' },
-                  ].map((location, i) => (
+                {[
+                  { icon: '🏖️', name: '糸島市', desc: '人気の海辺リゾート。福岡市街地からアクセス良好' },
+                  { icon: '🏯', name: '唐津市', desc: '唐津城、虹の松原など歴史・自然の観光名所' },
+                  { icon: '🦑', name: '呼子', desc: '新鮮なイカの名所。朝市も人気のスポット' },
+                ].map((location, i) => (
                     <div key={i} className="d-flex gap-3 gap-md-4 p-3 p-md-4 bg-cream rounded transition-all" style={{ transition: 'all 0.3s ease' }} onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateX(8px)'; e.currentTarget.style.boxShadow = '0 4px 30px rgba(26, 42, 74, 0.08)' }} onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateX(0)'; e.currentTarget.style.boxShadow = 'none' }}>
                       <div className="bg-gradient-primary rounded d-flex align-items-center justify-content-center text-white flex-shrink-0" style={{ width: '3rem', height: '3rem', fontSize: '1.5rem' }}>
-                        {location.icon}
-                      </div>
-                      <div>
+                      {location.icon}
+                    </div>
+                    <div>
                         <div className="fw-semibold mb-1" style={{ fontSize: '1.125rem' }}>{location.name}</div>
                         <div className="small" style={{ color: '#6b6b6b', fontSize: '0.75rem' }}>{location.desc}</div>
                       </div>
                     </div>
                   ))}
-                </div>
+                  </div>
               </div>
             </div>
             <div className="col-12 col-lg-6 order-1 order-lg-2">
@@ -430,26 +475,26 @@ const HomePage = () => {
                 <div className="position-absolute top-0 start-0 w-100" style={{ height: '4px', background: 'linear-gradient(to right, #1a2a4a, #c9a962)' }}></div>
                 <h3 className="h4 mb-5 mb-md-6 pb-4 pb-md-5 border-bottom" style={{ borderColor: 'rgba(26, 42, 74, 0.1)' }}>会社概要</h3>
                 <table className="w-100">
-                  <tbody>
-                    {[
-                      { label: '会社名', value: '株式会社PLEAST' },
-                      { label: '設立', value: '2005年7月' },
-                      { label: '本社', value: '福岡県博多区祇園町2-35' },
-                      { label: '事業内容', value: '総合不動産事業' },
-                      { label: '取引先', value: '5,000社以上' },
+                <tbody>
+                  {[
+                    { label: '会社名', value: '株式会社PLEAST' },
+                    { label: '設立', value: '2005年7月' },
+                    { label: '本社', value: '福岡県博多区祇園町2-35' },
+                    { label: '事業内容', value: '総合不動産事業' },
+                    { label: '取引先', value: '5,000社以上' },
                       { label: '代表電話', value: <a href="tel:092-283-7555" className="text-decoration-none" style={{ color: '#3d3d3d' }}>092-283-7555</a> },
                       { label: 'フリーダイヤル', value: <a href="tel:0120-929-727" className="text-decoration-none" style={{ color: '#3d3d3d' }}>0120-929-727</a> },
                       { label: 'URL', value: <a href="https://www.pleast.co.jp" target="_blank" rel="noopener noreferrer" className="text-decoration-none" style={{ color: '#3d3d3d' }}>https://www.pleast.co.jp</a> },
-                    ].map((row, i) => (
+                  ].map((row, i) => (
                       <tr key={i} className="border-bottom" style={{ borderColor: 'rgba(26, 42, 74, 0.05)' }}>
                         <th className="py-4 py-md-5 text-start align-top fw-semibold small" style={{ width: '140px', color: '#1a2a4a', fontSize: '0.875rem' }}>{row.label}</th>
                         <td className="py-4 py-md-5 text-start align-top small" style={{ color: '#3d3d3d', fontSize: '0.875rem' }}>
-                          {row.value}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+                        {row.value}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
               </div>
             </div>
           </div>

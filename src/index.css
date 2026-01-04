@@ -171,6 +171,49 @@ h1, h2, h3, h4 {
   animation: scrollPulse 2s infinite;
 }
 
+/* Scroll reveal animations */
+@keyframes scrollReveal {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.scroll-reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.scroll-reveal-delay-1 {
+  transition-delay: 0.1s;
+}
+
+.scroll-reveal-delay-2 {
+  transition-delay: 0.2s;
+}
+
+.scroll-reveal-delay-3 {
+  transition-delay: 0.3s;
+}
+
+.scroll-reveal-delay-4 {
+  transition-delay: 0.4s;
+}
+
+.scroll-reveal-delay-5 {
+  transition-delay: 0.5s;
+}
+
 /* Hero section responsive height */
 .hero-section {
   min-height: 100vh;
@@ -184,19 +227,64 @@ h1, h2, h3, h4 {
 }
 
 /* Mobile-first button adjustments */
-@media (max-width: 767px) {
+@media (max-width: 767.98px) {
   .btn-lg {
-    padding: 0.75rem 1.5rem;
+    padding: 0.875rem 1.5rem;
     font-size: 0.875rem;
-  }
-  
-  .btn {
     width: 100%;
-    margin-bottom: 0.5rem;
   }
   
-  .btn:last-child {
-    margin-bottom: 0;
+  .btn:not(.btn-lg) {
+    width: 100%;
+    max-width: 100%;
+  }
+  
+  /* Hero section mobile adjustments */
+  .hero-section {
+    min-height: 100vh;
+    padding-top: 5rem;
+    padding-bottom: 3rem;
+  }
+  
+  /* Ensure proper spacing on mobile */
+  .section-padding {
+    padding: 3rem 1rem;
+  }
+  
+  /* Problem grid mobile */
+  .problem-grid .col-lg {
+    margin-bottom: 1rem;
+  }
+  
+  /* Text adjustments for mobile */
+  .responsive-hero {
+    font-size: clamp(1.75rem, 6vw, 2.5rem);
+  }
+  
+  .responsive-heading {
+    font-size: clamp(1.25rem, 4vw, 1.8rem);
+  }
+  
+  .responsive-title {
+    font-size: clamp(1.5rem, 5vw, 2rem);
+  }
+}
+
+@media (max-width: 575.98px) {
+  /* Extra small devices */
+  .hero-section {
+    padding-top: 4rem;
+    padding-bottom: 2rem;
+  }
+  
+  .section-padding {
+    padding: 2.5rem 0.75rem;
+  }
+  
+  /* Ensure containers have proper padding */
+  .container-fluid {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
   }
 }
 

@@ -2,50 +2,79 @@ import { useState, useEffect } from 'react'
 
 const FixedCTA = () => {
   const [visible, setVisible] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => {
       setVisible(window.scrollY > 500)
     }
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768)
+    }
+    checkMobile()
+    handleScroll() // Initial check
     window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
+    window.addEventListener('resize', checkMobile)
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      window.removeEventListener('resize', checkMobile)
+    }
+  }, [])
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768)
+    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
   }, [])
 
   return (
     <div
-      className={`position-fixed d-flex flex-column flex-md-row gap-3 transition-all ${visible ? 'opacity-100' : 'opacity-0'} ${visible ? 'translate-y-0' : 'translate-y-5'}`}
+      className={`position-fixed d-flex ${visible ? 'visible' : ''}`}
       style={{
-        bottom: '0',
-        right: '0',
-        left: '0',
-        zIndex: 1040,
-        padding: '1rem',
-        backgroundColor: 'rgba(255,255,255,0.95)',
-        backdropFilter: 'blur(10px)',
-        boxShadow: '0 -4px 20px rgba(0,0,0,0.1)',
-        transition: 'all 0.3s ease',
-        transform: visible ? 'translateY(0)' : 'translateY(100%)'
+        bottom: isMobile ? '0' : '2rem',
+        right: isMobile ? '0' : '2rem',
+        left: isMobile ? '0' : 'auto',
+        zIndex: 999,
+        flexDirection: isMobile ? 'row' : 'column',
+        gap: '0.75rem',
+        padding: isMobile ? '1rem' : '0',
+        backgroundColor: isMobile ? 'rgba(255, 255, 255, 0.95)' : 'transparent',
+        backdropFilter: isMobile ? 'blur(10px)' : 'none',
+        boxShadow: isMobile ? '0 -4px 20px rgba(0, 0, 0, 0.1)' : 'none',
+        borderRadius: isMobile ? '0' : '0',
+        opacity: visible ? 1 : 0,
+        transform: visible ? 'translateY(0)' : 'translateY(20px)',
+        transition: 'all 0.4s ease',
+        pointerEvents: visible ? 'auto' : 'none'
       }}
+      id="fixedCta"
     >
       <a
         href="#"
-        className="btn flex-fill d-flex align-items-center justify-content-center gap-2"
+        className="fixed-cta-btn line"
         style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '0.75rem',
+          padding: '1rem 1.5rem',
+          borderRadius: isMobile ? '8px' : '50px',
+          textDecoration: 'none',
+          fontWeight: 600,
+          fontSize: '0.9rem',
           backgroundColor: '#06c755',
           color: '#ffffff',
-          padding: '1rem',
-          borderRadius: '0.5rem',
-          fontWeight: '600',
-          fontSize: '0.875rem',
-          textDecoration: 'none',
-          transition: 'all 0.3s ease'
+          boxShadow: '0 20px 60px rgba(26, 42, 74, 0.15)',
+          transition: 'all 0.3s ease',
+          flex: isMobile ? '1' : 'auto',
+          justifyContent: 'center'
         }}
         onMouseEnter={(e) => {
-          e.currentTarget.style.backgroundColor = '#05b04a'
-          e.currentTarget.style.transform = 'translateY(-2px)'
+          e.currentTarget.style.transform = 'translateY(-3px)'
         }}
         onMouseLeave={(e) => {
-          e.currentTarget.style.backgroundColor = '#06c755'
           e.currentTarget.style.transform = 'translateY(0)'
         }}
       >
@@ -56,27 +85,32 @@ const FixedCTA = () => {
       </a>
       <a
         href="tel:0120-929-727"
-        className="btn flex-fill d-flex align-items-center justify-content-center gap-2"
+        className="fixed-cta-btn contact"
         style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '0.75rem',
+          padding: '1rem 1.5rem',
+          borderRadius: isMobile ? '8px' : '50px',
+          textDecoration: 'none',
+          fontWeight: 600,
+          fontSize: '0.9rem',
           backgroundColor: '#c9a962',
           color: '#1a1a1a',
-          padding: '1rem',
-          borderRadius: '0.5rem',
-          fontWeight: '600',
-          fontSize: '0.875rem',
-          textDecoration: 'none',
-          transition: 'all 0.3s ease'
+          boxShadow: '0 20px 60px rgba(26, 42, 74, 0.15)',
+          transition: 'all 0.3s ease',
+          flex: isMobile ? '1' : 'auto',
+          justifyContent: 'center'
         }}
         onMouseEnter={(e) => {
-          e.currentTarget.style.backgroundColor = '#d4b87a'
-          e.currentTarget.style.transform = 'translateY(-2px)'
+          e.currentTarget.style.transform = 'translateY(-3px)'
         }}
         onMouseLeave={(e) => {
-          e.currentTarget.style.backgroundColor = '#c9a962'
           e.currentTarget.style.transform = 'translateY(0)'
         }}
       >
-        📞 電話相談
+        <span>📞</span>
+        電話相談
       </a>
     </div>
   )
