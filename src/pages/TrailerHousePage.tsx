@@ -122,7 +122,7 @@ const TrailerHousePage = () => {
                 トレーラーハウス運用
               </h1>
               <p className="page-hero-desc" style={{
-                fontSize: '1.1rem',
+                fontSize: 'clamp(0.95rem, 2vw, 1.1rem)',
                 color: 'rgba(255, 255, 255, 0.85)',
                 marginBottom: '2rem',
                 lineHeight: 1.9
@@ -218,10 +218,9 @@ const TrailerHousePage = () => {
         background: '#ffffff',
         padding: '8rem 0'
       }}>
-        <div className="container" style={{
+        <div className="container px-3 px-md-4 px-lg-5" style={{
           maxWidth: '1200px',
-          margin: '0 auto',
-          padding: '0 3rem'
+          margin: '0 auto'
         }}>
           <div className="section-header" style={{
             textAlign: 'center',
@@ -322,10 +321,9 @@ const TrailerHousePage = () => {
         background: '#f0f2f7',
         padding: '8rem 0'
       }}>
-        <div className="container" style={{
+        <div className="container px-3 px-md-4 px-lg-5" style={{
           maxWidth: '1200px',
-          margin: '0 auto',
-          padding: '0 3rem'
+          margin: '0 auto'
         }}>
           <div className="section-header" style={{
             textAlign: 'center',
@@ -524,10 +522,9 @@ const TrailerHousePage = () => {
         background: '#ffffff',
         padding: '8rem 0'
       }}>
-        <div className="container" style={{
+        <div className="container px-3 px-md-4 px-lg-5" style={{
           maxWidth: '1200px',
-          margin: '0 auto',
-          padding: '0 3rem'
+          margin: '0 auto'
         }}>
           <div className="section-header" style={{
             textAlign: 'center',
@@ -710,10 +707,9 @@ const TrailerHousePage = () => {
         background: '#f0f2f7',
         padding: '8rem 0'
       }}>
-        <div className="container" style={{
+        <div className="container px-3 px-md-4 px-lg-5" style={{
           maxWidth: '1200px',
-          margin: '0 auto',
-          padding: '0 3rem'
+          margin: '0 auto'
         }}>
           <div className="depreciation-content" style={{
             display: 'grid',
@@ -868,10 +864,9 @@ const TrailerHousePage = () => {
         background: '#ffffff',
         padding: '8rem 0'
       }}>
-        <div className="container" style={{
+        <div className="container px-3 px-md-4 px-lg-5" style={{
           maxWidth: '1200px',
-          margin: '0 auto',
-          padding: '0 3rem'
+          margin: '0 auto'
         }}>
           <div className="section-header" style={{
             textAlign: 'center',
@@ -1165,10 +1160,9 @@ const TrailerHousePage = () => {
         background: '#ffffff',
         padding: '8rem 0'
       }}>
-        <div className="container" style={{
+        <div className="container px-3 px-md-4 px-lg-5" style={{
           maxWidth: '1200px',
-          margin: '0 auto',
-          padding: '0 3rem'
+          margin: '0 auto'
         }}>
           <div className="section-header" style={{
             textAlign: 'center',

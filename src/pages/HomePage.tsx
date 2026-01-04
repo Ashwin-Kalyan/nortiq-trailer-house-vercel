@@ -94,12 +94,11 @@ const HomePage = () => {
           opacity: 0.03,
           pointerEvents: 'none'
         }}></div>
-        <div className="hero-content container" style={{
+        <div className="hero-content container px-3 px-md-4 px-lg-5" style={{
           position: 'relative',
           zIndex: 2,
           maxWidth: '1400px',
           margin: '0 auto',
-          padding: '0 3rem',
           width: '100%'
         }}>
           <div className="hero-tagline" style={{
@@ -131,7 +130,7 @@ const HomePage = () => {
             年<span style={{ color: '#c9a962', display: 'inline-block' }}>10%</span>の収益を。
           </h1>
           <p className="hero-subtitle" style={{
-            fontSize: '1.1rem',
+            fontSize: 'clamp(0.95rem, 2vw, 1.1rem)',
             color: 'rgba(255, 255, 255, 0.85)',
             maxWidth: '600px',
             marginBottom: '3rem',

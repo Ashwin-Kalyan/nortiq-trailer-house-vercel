@@ -155,13 +155,13 @@ const OperationPage = () => {
   return (
     <>
       {/* Page Hero */}
-      <section className="section-padding position-relative overflow-hidden" style={{ paddingTop: '10rem', paddingBottom: '5rem', background: 'linear-gradient(135deg, #1a2a4a 0%, #2d4a7c 100%)' }}>
-        <div className="position-absolute top-0 start-0" style={{ width: '800px', height: '800px', background: 'radial-gradient(circle, rgba(201,169,98,0.1) 0%, transparent 70%)', borderRadius: '50%', transform: 'translate(-20%, -50%)' }}></div>
+      <section className="section-padding position-relative overflow-hidden pt-5 pt-md-6 pb-4 pb-md-5" style={{ background: 'linear-gradient(135deg, #1a2a4a 0%, #2d4a7c 100%)' }}>
+        <div className="position-absolute top-0 start-0 d-none d-md-block" style={{ width: '800px', height: '800px', background: 'radial-gradient(circle, rgba(201,169,98,0.1) 0%, transparent 70%)', borderRadius: '50%', transform: 'translate(-20%, -50%)' }}></div>
         <div className="container-fluid px-3 px-md-4 px-lg-5 position-relative z-1 text-center" style={{ maxWidth: '1200px' }}>
           <h1 className="text-white responsive-title mb-3 mb-md-4" style={{ lineHeight: '1.3' }}>
             運用説明・Q&A・お問い合わせ
           </h1>
-          <p className="text-white mx-auto" style={{ fontSize: '1.1rem', opacity: 0.8, maxWidth: '600px', lineHeight: '1.8' }}>
+          <p className="text-white mx-auto" style={{ fontSize: 'clamp(0.95rem, 2vw, 1.1rem)', opacity: 0.8, maxWidth: '600px', lineHeight: '1.8' }}>
             ご購入から運用まで、PLEASTが全てサポートいたします。<br className="d-none d-md-block" />
             よくあるご質問とお問い合わせ方法をご案内します。
           </p>
@@ -188,11 +188,11 @@ const OperationPage = () => {
           </ScrollReveal>
 
           <div className="position-relative" style={{ maxWidth: '900px', margin: '0 auto' }}>
-            <div className="position-absolute start-50 top-0 bottom-0 translate-middle-x" style={{ width: '2px', background: 'linear-gradient(to bottom, #c9a962, #1a2a4a)' }}></div>
+            <div className="position-absolute start-50 top-0 bottom-0 translate-middle-x d-none d-md-block" style={{ width: '2px', background: 'linear-gradient(to bottom, #c9a962, #1a2a4a)' }}></div>
             
             {flowSteps.map((step, i) => (
               <ScrollReveal key={i} delay={i + 1}>
-                <div className={`d-flex align-items-center mb-4 mb-md-5 position-relative flow-step ${i % 2 === 0 ? '' : 'flex-row-reverse'}`}>
+                <div className={`d-flex flex-column flex-md-row align-items-md-center mb-4 mb-md-5 position-relative flow-step ${i % 2 === 0 ? '' : 'flex-md-row-reverse'}`}>
                   <div 
                     className={`bg-cream p-4 p-md-5 rounded shadow-soft transition-all h-100 flow-step-content`}
                     style={{ 
@@ -209,21 +209,21 @@ const OperationPage = () => {
                       e.currentTarget.style.boxShadow = '0 4px 30px rgba(26, 42, 74, 0.08)'
                     }}
                   >
-                    <h3 className="h5 mb-2 mb-md-3 d-flex align-items-center gap-2 flow-step-title" style={{ fontSize: '1.2rem', justifyContent: i % 2 === 0 ? 'flex-end' : 'flex-start' }}>
+                    <h3 className="h5 mb-2 mb-md-3 d-flex align-items-center gap-2 flow-step-title" style={{ fontSize: 'clamp(1rem, 2.5vw, 1.2rem)', justifyContent: i % 2 === 0 ? 'flex-end' : 'flex-start' }}>
                       {step.title}
                     </h3>
-                    <p className="mb-0 flow-step-desc" style={{ fontSize: '0.95rem', color: '#6b6b6b', lineHeight: '1.7' }}>
+                    <p className="mb-0 flow-step-desc" style={{ fontSize: 'clamp(0.875rem, 2vw, 0.95rem)', color: '#6b6b6b', lineHeight: '1.7' }}>
                       {step.desc}
                     </p>
                 </div>
                   <div 
-                    className="position-absolute start-50 translate-middle-x bg-primary rounded-circle d-flex align-items-center justify-content-center text-white fw-bold shadow-medium flow-step-number"
+                    className="position-absolute start-50 start-md-50 translate-middle-x translate-md-middle-x bg-primary rounded-circle d-flex align-items-center justify-content-center text-white fw-bold shadow-medium flow-step-number"
                     style={{
-                      width: '60px',
-                      height: '60px',
+                      width: 'clamp(50px, 8vw, 60px)',
+                      height: 'clamp(50px, 8vw, 60px)',
                       background: 'linear-gradient(135deg, #1a2a4a, #2d4a7c)',
                       fontFamily: "'Noto Serif JP', serif",
-                      fontSize: '1.2rem',
+                      fontSize: 'clamp(1rem, 2.5vw, 1.2rem)',
                       zIndex: 1
                     }}
                   >
@@ -236,8 +236,8 @@ const OperationPage = () => {
 
           <ScrollReveal>
             <div className="text-center mt-5 mt-md-6 p-4 p-md-5 bg-primary rounded shadow-soft mx-auto" style={{ maxWidth: '700px', background: 'linear-gradient(135deg, #1a2a4a, #2d4a7c)' }}>
-              <h3 className="text-white mb-3 mb-md-4" style={{ fontSize: '1.5rem' }}>オーナー様は収益を受け取るだけ</h3>
-              <p className="text-white mb-0" style={{ fontSize: '1.05rem', opacity: 0.9, lineHeight: '1.8' }}>
+              <h3 className="text-white mb-3 mb-md-4" style={{ fontSize: 'clamp(1.25rem, 3vw, 1.5rem)' }}>オーナー様は収益を受け取るだけ</h3>
+              <p className="text-white mb-0" style={{ fontSize: 'clamp(0.95rem, 2vw, 1.05rem)', opacity: 0.9, lineHeight: '1.8' }}>
                 運営の手間は一切かかりません。<br className="d-none d-md-block" />
               PLEASTが責任を持って旅館運営を行います。
             </p>
@@ -332,7 +332,7 @@ const OperationPage = () => {
                     <div className="rounded-circle d-flex align-items-center justify-content-center text-white" style={{ width: '50px', height: '50px', fontSize: '1.5rem', backgroundColor: '#2d4a7c' }}>
                       ✓
                     </div>
-                    <h3 className="h4 mb-0 merit-box-title" style={{ fontSize: '1.3rem', color: '#3d3d3d' }}>メリット</h3>
+                    <h3 className="h4 mb-0 merit-box-title" style={{ fontSize: 'clamp(1.1rem, 3vw, 1.3rem)', color: '#3d3d3d' }}>メリット</h3>
               </div>
                   <ul className="list-unstyled mb-0 merit-list">
                     {merits.map((item, i) => (
@@ -340,7 +340,7 @@ const OperationPage = () => {
                         <span className="rounded-circle d-flex align-items-center justify-content-center flex-shrink-0 fw-bold small" style={{ width: '24px', height: '24px', fontSize: '0.75rem', backgroundColor: 'rgba(45, 74, 124, 0.1)', color: '#2d4a7c' }}>
                           ✓
                         </span>
-                        <span style={{ fontSize: '0.95rem', color: '#3d3d3d' }}>{item}</span>
+                        <span style={{ fontSize: 'clamp(0.875rem, 2vw, 0.95rem)', color: '#3d3d3d' }}>{item}</span>
                   </li>
                 ))}
               </ul>
@@ -361,7 +361,7 @@ const OperationPage = () => {
                     <div className="rounded-circle d-flex align-items-center justify-content-center text-white" style={{ width: '50px', height: '50px', fontSize: '1.5rem', backgroundColor: '#c8432f' }}>
                       !
                     </div>
-                    <h3 className="h4 mb-0 merit-box-title" style={{ fontSize: '1.3rem', color: '#3d3d3d' }}>デメリット・リスク</h3>
+                    <h3 className="h4 mb-0 merit-box-title" style={{ fontSize: 'clamp(1.1rem, 3vw, 1.3rem)', color: '#3d3d3d' }}>デメリット・リスク</h3>
               </div>
                   <ul className="list-unstyled mb-0 merit-list">
                     {demerits.map((item, i) => (
@@ -369,7 +369,7 @@ const OperationPage = () => {
                         <span className="rounded-circle d-flex align-items-center justify-content-center flex-shrink-0 fw-bold small" style={{ width: '24px', height: '24px', fontSize: '0.75rem', backgroundColor: 'rgba(200, 67, 47, 0.1)', color: '#c8432f' }}>
                           △
                         </span>
-                        <span style={{ fontSize: '0.95rem', color: '#3d3d3d' }}>{item}</span>
+                        <span style={{ fontSize: 'clamp(0.875rem, 2vw, 0.95rem)', color: '#3d3d3d' }}>{item}</span>
                   </li>
                 ))}
               </ul>
@@ -419,15 +419,15 @@ const OperationPage = () => {
                       <div className="bg-white bg-opacity-15 rounded d-flex align-items-center justify-content-center risk-card-icon" style={{ width: '45px', height: '45px', fontSize: '1.25rem', borderRadius: '10px' }}>
                     {risk.icon}
                   </div>
-                      <h3 className="h5 mb-0 text-white risk-card-title" style={{ fontSize: '1.1rem' }}>{risk.title}</h3>
+                      <h3 className="h5 mb-0 text-white risk-card-title" style={{ fontSize: 'clamp(1rem, 2.5vw, 1.1rem)' }}>{risk.title}</h3>
                     </div>
                     <div className="p-4 p-md-5 risk-card-body">
-                      <p className="mb-0" style={{ fontSize: '0.95rem', color: '#3d3d3d', lineHeight: '1.8' }}>{risk.desc}</p>
+                      <p className="mb-0" style={{ fontSize: 'clamp(0.875rem, 2vw, 0.95rem)', color: '#3d3d3d', lineHeight: '1.8' }}>{risk.desc}</p>
                       <div className="mt-3 mt-md-4 p-3 p-md-4 bg-cream rounded risk-solution" style={{ borderLeft: '3px solid #c9a962' }}>
                         <div className="small fw-bold text-secondary text-uppercase mb-2 risk-solution-label" style={{ fontSize: '0.75rem', letterSpacing: '0.1em' }}>
                           対策
                         </div>
-                        <p className="mb-0" style={{ fontSize: '0.9rem', color: '#3d3d3d' }}>{risk.solution}</p>
+                        <p className="mb-0" style={{ fontSize: 'clamp(0.85rem, 2vw, 0.9rem)', color: '#3d3d3d' }}>{risk.solution}</p>
                       </div>
                 </div>
                   </div>
@@ -497,8 +497,8 @@ const OperationPage = () => {
                     transition: 'max-height 0.4s ease'
                   }}
                 >
-                  <div className="faq-answer-content" style={{ padding: '0 0 1.5rem 3.5rem', color: '#3d3d3d', lineHeight: '1.9' }}>
-                    <p className="mb-0" style={{ fontSize: '0.95rem' }}>{faq.a}</p>
+                  <div className="faq-answer-content ps-4 ps-md-5" style={{ paddingBottom: '1.5rem', color: '#3d3d3d', lineHeight: '1.9' }}>
+                    <p className="mb-0" style={{ fontSize: 'clamp(0.875rem, 2vw, 0.95rem)' }}>{faq.a}</p>
                   </div>
                 </div>
               </div>
@@ -624,7 +624,7 @@ const OperationPage = () => {
                     <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314" />
                   </svg>
                   </div>
-                  <h3 className="h5 mb-2 mb-md-3 contact-method-title" style={{ fontSize: '1.2rem' }}>LINE公式アカウント</h3>
+                  <h3 className="h5 mb-2 mb-md-3 contact-method-title" style={{ fontSize: 'clamp(1rem, 2.5vw, 1.2rem)' }}>LINE公式アカウント</h3>
                   <p className="small mb-3 mb-md-4 contact-method-desc" style={{ fontSize: '0.9rem', color: '#6b6b6b' }}>
                     友だち追加で気軽にご相談<br />24時間受付中
                   </p>
@@ -672,7 +672,7 @@ const OperationPage = () => {
                     ✉️
                   </div>
                   <h3 className="h5 mb-2 mb-md-3 contact-method-title" style={{ fontSize: '1.2rem' }}>無料相談フォーム</h3>
-                  <p className="small mb-3 mb-md-4 contact-method-desc" style={{ fontSize: '0.9rem', color: '#6b6b6b' }}>
+                  <p className="small mb-3 mb-md-4 contact-method-desc" style={{ fontSize: 'clamp(0.85rem, 2vw, 0.9rem)', color: '#6b6b6b' }}>
                     下記フォームからお問い合わせ<br />担当者より折り返しご連絡
                   </p>
                   <a 
@@ -725,8 +725,8 @@ const OperationPage = () => {
                   <div className="mx-auto mb-3 mb-md-4 bg-primary rounded-circle d-flex align-items-center justify-content-center contact-method-icon" style={{ width: '70px', height: '70px', fontSize: '1.75rem' }}>
                     📞
                   </div>
-                  <h3 className="h5 mb-2 mb-md-3 contact-method-title" style={{ fontSize: '1.2rem' }}>お電話</h3>
-                  <p className="small mb-3 mb-md-4 contact-method-desc" style={{ fontSize: '0.9rem', color: '#6b6b6b' }}>
+                  <h3 className="h5 mb-2 mb-md-3 contact-method-title" style={{ fontSize: 'clamp(1rem, 2.5vw, 1.2rem)' }}>お電話</h3>
+                  <p className="small mb-3 mb-md-4 contact-method-desc" style={{ fontSize: 'clamp(0.85rem, 2vw, 0.9rem)', color: '#6b6b6b' }}>
                     受付時間 10:00〜18:00<br />（土日祝除く）
                   </p>
                   <a 

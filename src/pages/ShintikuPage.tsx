@@ -1,7 +1,9 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 const ShintikuPage = () => {
+  const [lightboxImage, setLightboxImage] = useState<{ src: string; label: string } | null>(null)
+
   useEffect(() => {
     // Smooth scroll handling
     const handleHashChange = () => {
@@ -118,7 +120,7 @@ const ShintikuPage = () => {
                 新築戸建旅館運用
               </h1>
               <p className="page-hero-desc" style={{
-                fontSize: '1.1rem',
+                fontSize: 'clamp(0.95rem, 2vw, 1.1rem)',
                 color: 'rgba(255, 255, 255, 0.85)',
                 marginBottom: '2rem',
                 lineHeight: 1.9
@@ -428,15 +430,20 @@ const ShintikuPage = () => {
               { src: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&q=80', label: 'ベッドルーム', large: false },
               { src: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=600&q=80', label: 'デッキ', large: false },
             ].map((item, i) => (
-              <div key={i} className={`gallery-item ${item.large ? 'large' : ''}`} style={{
-                position: 'relative',
-                borderRadius: '12px',
-                overflow: 'hidden',
-                aspectRatio: '4/3',
-                cursor: 'pointer',
-                gridColumn: item.large ? 'span 2' : 'span 1',
-                gridRow: item.large ? 'span 2' : 'span 1'
-              }} onMouseEnter={(e) => {
+              <div 
+                key={i} 
+                className={`gallery-item ${item.large ? 'large' : ''}`} 
+                style={{
+                  position: 'relative',
+                  borderRadius: '12px',
+                  overflow: 'hidden',
+                  aspectRatio: '4/3',
+                  cursor: 'pointer',
+                  gridColumn: item.large ? 'span 2' : 'span 1',
+                  gridRow: item.large ? 'span 2' : 'span 1'
+                }}
+                onClick={() => setLightboxImage({ src: item.src, label: item.label })}
+                onMouseEnter={(e) => {
                 const overlay = e.currentTarget.querySelector('.gallery-overlay') as HTMLElement
                 const label = e.currentTarget.querySelector('.gallery-item-label') as HTMLElement
                 const img = e.currentTarget.querySelector('img') as HTMLElement
@@ -490,6 +497,111 @@ const ShintikuPage = () => {
           </div>
         </div>
       </section>
+
+      {/* Image Lightbox Modal */}
+      {lightboxImage && (
+        <div
+          className="lightbox-overlay"
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: 'rgba(0, 0, 0, 0.95)',
+            zIndex: 9999,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '1rem',
+            opacity: 0,
+            animation: 'fadeIn 0.3s ease forwards',
+            cursor: 'pointer'
+          }}
+          onClick={() => setLightboxImage(null)}
+        >
+          <div
+            className="lightbox-content"
+            style={{
+              position: 'relative',
+              maxWidth: '90vw',
+              maxHeight: '90vh',
+              width: 'auto',
+              height: 'auto',
+              transform: 'scale(0.8)',
+              animation: 'scaleIn 0.3s ease forwards'
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setLightboxImage(null)}
+              style={{
+                position: 'absolute',
+                top: '-50px',
+                right: 0,
+                backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                border: '2px solid rgba(255, 255, 255, 0.5)',
+                borderRadius: '50%',
+                width: '40px',
+                height: '40px',
+                color: '#ffffff',
+                fontSize: '1.5rem',
+                lineHeight: '1',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                transition: 'all 0.3s ease',
+                backdropFilter: 'blur(10px)',
+                zIndex: 10000
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.3)'
+                e.currentTarget.style.transform = 'scale(1.1)'
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.2)'
+                e.currentTarget.style.transform = 'scale(1)'
+              }}
+            >
+              ×
+            </button>
+            <img
+              src={lightboxImage.src}
+              alt={lightboxImage.label}
+              style={{
+                maxWidth: '100%',
+                maxHeight: '90vh',
+                width: 'auto',
+                height: 'auto',
+                objectFit: 'contain',
+                borderRadius: '8px',
+                boxShadow: '0 20px 60px rgba(0, 0, 0, 0.5)'
+              }}
+            />
+            {lightboxImage.label && (
+              <div
+                style={{
+                  position: 'absolute',
+                  bottom: '-3rem',
+                  left: '50%',
+                  transform: 'translateX(-50%)',
+                  color: '#ffffff',
+                  fontSize: 'clamp(1rem, 2vw, 1.1rem)',
+                  fontWeight: 500,
+                  textAlign: 'center',
+                  padding: '0.5rem 1rem',
+                  backgroundColor: 'rgba(26, 42, 74, 0.8)',
+                  borderRadius: '8px',
+                  backdropFilter: 'blur(10px)'
+                }}
+              >
+                {lightboxImage.label}
+              </div>
+            )}
+          </div>
+        </div>
+      )}
 
       {/* Company Section - matching HTML exactly */}
       <section className="section company-section" style={{
