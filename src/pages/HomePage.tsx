@@ -226,16 +226,17 @@ const HomePage = () => {
 
             <div className="col-12 col-lg-6">
               <div className="bg-white rounded overflow-hidden shadow-soft transition-all h-100" style={{ transition: 'all 0.5s ease' }} onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-10px)'; e.currentTarget.style.boxShadow = '0 20px 60px rgba(26, 42, 74, 0.15)' }} onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 4px 30px rgba(26, 42, 74, 0.08)' }}>
-              <div
-                className="h-70 bg-cover bg-center relative"
-                style={{
-                  backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.3) 100%), url('https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?w=800&q=80')`,
-                }}
-              >
-                <span className="absolute top-6 left-6 bg-secondary text-text-dark py-2 px-4 text-xs font-bold tracking-wider rounded">
-                  4年償却で節税
-                </span>
-              </div>
+                <div
+                  className="bg-cover position-relative"
+                  style={{
+                    height: '280px',
+                    backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.3) 100%), url('https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?w=800&q=80')`,
+                  }}
+                >
+                  <span className="position-absolute top-0 start-0 m-3 bg-secondary text-dark py-2 px-3 small fw-bold text-uppercase rounded" style={{ color: '#1a1a1a', fontSize: '0.75rem', letterSpacing: '0.05em' }}>
+                    4年償却で節税
+                  </span>
+                </div>
                 <div className="p-4 p-md-5">
                   <h3 className="h4 mb-3 mb-md-4">
                     トランスフォーム型<br />
