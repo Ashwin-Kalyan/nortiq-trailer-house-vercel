@@ -105,10 +105,6 @@ const HomePage = () => {
             </a>
           </div>
         </div>
-        <div className="position-absolute bottom-0 start-50 translate-middle-x mb-4 mb-md-5 text-white-50 small text-uppercase d-flex flex-column align-items-center gap-2 animate-fade-in-up" style={{ opacity: 0, animationDelay: '1.3s', fontSize: '0.75rem', letterSpacing: '0.1em' }}>
-          <span>Scroll</span>
-          <div className="bg-gradient" style={{ width: '1px', height: '3rem', background: 'linear-gradient(to bottom, rgba(255,255,255,0.6), transparent)' }}></div>
-        </div>
       </section>
 
       {/* Problem Section */}

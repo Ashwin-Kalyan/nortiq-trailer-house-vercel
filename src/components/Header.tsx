@@ -29,10 +29,12 @@ const Header = () => {
 
   return (
     <nav
-      className="navbar navbar-expand-lg fixed-top bg-white shadow-sm"
+      className="navbar navbar-expand-lg fixed-top shadow-sm"
       style={{
         transition: 'all 0.3s ease',
-        backgroundColor: '#ffffff',
+        backgroundColor: 'rgba(255, 255, 255, 0.85)',
+        backdropFilter: 'blur(10px)',
+        WebkitBackdropFilter: 'blur(10px)',
         zIndex: 1050
       }}
     >
