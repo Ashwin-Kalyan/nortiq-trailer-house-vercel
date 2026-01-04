@@ -5,10 +5,10 @@ const TrailerHousePage = () => {
       <section className="section-padding bg-gradient-primary position-relative overflow-hidden" style={{ paddingTop: '10rem', paddingBottom: '6rem' }}>
         <div className="absolute top-[-25%] right-[-10%] w-[800px] h-[800px] bg-[radial-gradient(circle,rgba(201,169,98,0.1)_0%,transparent_70%)] rounded-full"></div>
         <div className="absolute bottom-[-15%] left-[-5%] w-[600px] h-[600px] bg-[radial-gradient(circle,rgba(255,255,255,0.05)_0%,transparent_70%)] rounded-full"></div>
-        <div className="max-w-[1200px] mx-auto px-12 relative z-10">
+        <div className="container-fluid px-3 px-md-4 px-lg-5 position-relative z-1" style={{ maxWidth: '1200px' }}>
           <div className="row g-4 g-md-5 align-items-center">
             <div className="col-12 col-lg-6">
-            <div className="text-white">
+              <div className="text-white">
               <div className="inline-flex items-center gap-2 bg-secondary/20 border border-secondary text-secondary py-2 px-4 rounded-full text-xs font-semibold tracking-wider mb-6">
                 <span>🚚</span>
                 <span>TRANSFORM TRAILER HOUSE</span>
@@ -34,8 +34,9 @@ const TrailerHousePage = () => {
                   </div>
                 ))}
               </div>
+              </div>
             </div>
-            <div className="relative">
+            <div className="col-12 col-lg-6 position-relative">
               <div
                 className="w-full h-[400px] bg-cover bg-center rounded-2xl shadow-strong"
                 style={{
@@ -173,7 +174,7 @@ const TrailerHousePage = () => {
 
           <div className="row g-4 align-items-center mb-4 mb-md-5">
             <div className="col-12 col-md-4">
-            <div className="bg-bg-cream rounded-2xl p-12 text-center border-2 border-accent">
+              <div className="bg-cream rounded p-4 p-md-5 text-center border border-2" style={{ borderColor: '#b8432f' }}>
               <span className="text-xs font-bold tracking-wider uppercase mb-6 inline-block py-2 px-4 bg-accent/10 text-accent rounded-full">
                 BEFORE
               </span>
@@ -182,14 +183,16 @@ const TrailerHousePage = () => {
               <div className="bg-white p-4 rounded-lg text-xs text-text-body">
                 相続税評価額＝1億円（そのまま課税対象）
               </div>
+              </div>
             </div>
 
-            <div className="flex flex-col items-center gap-2 text-secondary">
-              <span className="text-3xl">→</span>
-              <span className="text-xs font-semibold tracking-wider">転換</span>
+            <div className="col-12 col-md-auto d-flex flex-column align-items-center gap-2" style={{ color: '#c9a962' }}>
+              <span className="fs-3">→</span>
+              <span className="small fw-semibold text-uppercase" style={{ letterSpacing: '0.05em' }}>転換</span>
             </div>
 
-            <div className="bg-gradient-to-br from-primary/5 to-primary-light/5 rounded-2xl p-12 text-center border-2 border-primary">
+            <div className="col-12 col-md-4">
+              <div className="bg-gradient-primary rounded p-4 p-md-5 text-center border border-2" style={{ borderColor: '#1a2a4a', background: 'linear-gradient(to bottom right, rgba(26,42,74,0.05), rgba(45,74,124,0.05))' }}>
               <span className="text-xs font-bold tracking-wider uppercase mb-6 inline-block py-2 px-4 bg-primary/10 text-primary rounded-full">
                 AFTER
               </span>
@@ -197,6 +200,7 @@ const TrailerHousePage = () => {
               <p className="text-sm text-text-light mb-6">トレーラーハウス4台に転換</p>
               <div className="bg-white p-4 rounded-lg text-xs text-text-body">
                 4年後の相続評価額＝1台500万円×4台＝2,000万円
+              </div>
               </div>
             </div>
           </div>
@@ -217,7 +221,7 @@ const TrailerHousePage = () => {
         <div className="container-fluid px-3 px-md-4 px-lg-5" style={{ maxWidth: '1200px' }}>
           <div className="row g-4 g-md-5 align-items-center">
             <div className="col-12 col-lg-6">
-            <div className="bg-white rounded-2xl p-10 shadow-soft">
+              <div className="bg-white rounded p-4 p-md-5 shadow-soft">
               <h3 className="text-center mb-8 text-lg">4年間の減価償却イメージ</h3>
               <div className="flex items-end justify-between h-[250px] px-4 pb-4 border-b-2 border-bg-cream mb-4">
                 {[1, 2, 3, 4].map((year) => (
@@ -231,9 +235,10 @@ const TrailerHousePage = () => {
               <p className="text-center text-xs text-text-light mt-4">
                 ※ 2,500万円を4年で均等償却した場合
               </p>
+              </div>
             </div>
 
-            <div>
+            <div className="col-12 col-lg-6">
               <div className="inline-flex items-center gap-4 text-primary-light text-xs font-semibold tracking-widest uppercase mb-6">
                 <div className="w-8 h-px bg-primary-light"></div>
                 Depreciation

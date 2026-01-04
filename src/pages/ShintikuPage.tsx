@@ -7,10 +7,10 @@ const ShintikuPage = () => {
       <section className="section-padding bg-gradient-primary position-relative overflow-hidden" style={{ paddingTop: '10rem', paddingBottom: '6rem' }}>
         <div className="absolute top-[-25%] right-[-10%] w-[800px] h-[800px] bg-[radial-gradient(circle,rgba(201,169,98,0.1)_0%,transparent_70%)] rounded-full"></div>
         <div className="absolute bottom-[-15%] left-[-5%] w-[600px] h-[600px] bg-[radial-gradient(circle,rgba(255,255,255,0.05)_0%,transparent_70%)] rounded-full"></div>
-        <div className="max-w-[1200px] mx-auto px-12 relative z-10">
+        <div className="container-fluid px-3 px-md-4 px-lg-5 position-relative z-1" style={{ maxWidth: '1200px' }}>
           <div className="row g-4 g-md-5 align-items-center">
             <div className="col-12 col-lg-6">
-            <div className="text-white">
+              <div className="text-white">
               <div className="inline-flex items-center gap-2 bg-secondary/20 border border-secondary text-secondary py-2 px-4 rounded-full text-xs font-semibold tracking-wider mb-6">
                 <span>🏠</span>
                 <span>NEW BUILT INN</span>
@@ -35,8 +35,9 @@ const ShintikuPage = () => {
                   </div>
                 ))}
               </div>
+              </div>
             </div>
-            <div className="relative">
+            <div className="col-12 col-lg-6 position-relative">
               <div
                 className="w-full h-[400px] bg-cover bg-center rounded-2xl shadow-strong"
                 style={{
@@ -155,9 +156,9 @@ const ShintikuPage = () => {
       </section>
 
       {/* Company Section */}
-      <section id="company" className="py-24 bg-white">
+      <section id="company" className="section-padding bg-white">
         <div className="container-fluid px-3 px-md-4 px-lg-5" style={{ maxWidth: '1200px' }}>
-          <div className="text-center mb-16">
+          <div className="text-center mb-4 mb-md-5">
             <div className="inline-flex items-center gap-4 text-primary-light text-xs font-semibold tracking-widest uppercase mb-4">
               <div className="w-8 h-px bg-primary-light"></div>
               Company
@@ -171,12 +172,14 @@ const ShintikuPage = () => {
 
           <div className="row g-4 g-md-5 align-items-center">
             <div className="col-12 col-lg-4">
-            <div className="text-center">
-              <div className="font-serif text-6xl font-bold text-primary tracking-widest mb-4">PLEAST</div>
-              <p className="text-base text-text-light tracking-wider">株式会社PLEAST（プレスト）</p>
+              <div className="text-center">
+                <div className="font-serif text-6xl font-bold text-primary tracking-widest mb-4" style={{ fontFamily: "'Noto Serif JP', serif", letterSpacing: '0.1em', color: '#1a2a4a' }}>PLEAST</div>
+                <p className="text-base text-text-light tracking-wider" style={{ color: '#6b6b6b', letterSpacing: '0.05em' }}>株式会社PLEAST（プレスト）</p>
+              </div>
             </div>
 
-            <div className="bg-bg-cream rounded-2xl p-12 relative overflow-hidden shadow-soft">
+            <div className="col-12 col-lg-8">
+              <div className="bg-cream rounded p-4 p-md-5 position-relative overflow-hidden shadow-soft">
               <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary to-secondary"></div>
               <h3 className="text-2xl mb-8 pb-4 border-b border-primary/10">会社概要</h3>
               <table className="w-full">
@@ -200,6 +203,7 @@ const ShintikuPage = () => {
                   ))}
                 </tbody>
               </table>
+              </div>
             </div>
           </div>
         </div>
