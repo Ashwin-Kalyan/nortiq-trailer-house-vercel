@@ -157,13 +157,6 @@ const OperationPage = () => {
         content: ''
       })
 
-      // Reset checkboxes
-      const form = e.currentTarget
-      const checkboxes = form.querySelectorAll('input[type="checkbox"]')
-      checkboxes.forEach((cb) => {
-        ;(cb as HTMLInputElement).checked = false
-      })
-
       // Scroll to top of form to show success message
       const formElement = document.getElementById('contact-form')
       if (formElement) {
