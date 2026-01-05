@@ -3,6 +3,20 @@ import ScrollReveal from '../components/ScrollReveal'
 
 const OperationPage = () => {
   const [activeFaq, setActiveFaq] = useState<number | null>(null)
+  const [formData, setFormData] = useState({
+    consultation_method: [] as string[],
+    consultation_type: [] as string[],
+    name: '',
+    furigana: '',
+    email: '',
+    phone: '',
+    content: ''
+  })
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
+  const [errorMessage, setErrorMessage] = useState('')
+
+  const API_URL = 'https://nortiq-trailer-house-backend.onrender.com'
 
   useEffect(() => {
     const hash = window.location.hash
@@ -66,6 +80,108 @@ const OperationPage = () => {
       clearTimeout(timer)
     }
   }, [activeFaq])
+
+  const handleCheckboxChange = (name: 'consultation_method' | 'consultation_type', value: string, checked: boolean) => {
+    setFormData(prev => {
+      const currentValues = prev[name]
+      if (checked) {
+        return { ...prev, [name]: [...currentValues, value] }
+      } else {
+        return { ...prev, [name]: currentValues.filter(v => v !== value) }
+      }
+    })
+  }
+
+  const handleInputChange = (name: string, value: string) => {
+    setFormData(prev => ({ ...prev, [name]: value }))
+  }
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    setIsSubmitting(true)
+    setSubmitStatus('idle')
+    setErrorMessage('')
+
+    // Validate required fields
+    if (formData.consultation_method.length === 0) {
+      setErrorMessage('ご相談方法を選択してください')
+      setIsSubmitting(false)
+      return
+    }
+    if (formData.consultation_type.length === 0) {
+      setErrorMessage('ご相談の種類を選択してください')
+      setIsSubmitting(false)
+      return
+    }
+    if (!formData.name || !formData.furigana || !formData.email || !formData.phone) {
+      setErrorMessage('必須項目を入力してください')
+      setIsSubmitting(false)
+      return
+    }
+
+    // Format data for backend
+    const submitData = {
+      consultation_method: formData.consultation_method.join(', '),
+      consultation_type: formData.consultation_type.join(', '),
+      name: formData.name,
+      furigana: formData.furigana,
+      email: formData.email,
+      phone: formData.phone,
+      content: formData.content || ''
+    }
+
+    try {
+      const response = await fetch(`${API_URL}/submit`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(submitData)
+      })
+
+      if (!response.ok) {
+        throw new Error('送信に失敗しました。しばらくしてから再度お試しください。')
+      }
+
+      await response.json()
+      setSubmitStatus('success')
+      
+      // Reset form
+      setFormData({
+        consultation_method: [],
+        consultation_type: [],
+        name: '',
+        furigana: '',
+        email: '',
+        phone: '',
+        content: ''
+      })
+
+      // Reset checkboxes
+      const form = e.currentTarget
+      const checkboxes = form.querySelectorAll('input[type="checkbox"]')
+      checkboxes.forEach((cb) => {
+        ;(cb as HTMLInputElement).checked = false
+      })
+
+      // Scroll to top of form to show success message
+      const formElement = document.getElementById('contact-form')
+      if (formElement) {
+        formElement.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      }
+
+      // Clear success message after 5 seconds
+      setTimeout(() => {
+        setSubmitStatus('idle')
+      }, 5000)
+    } catch (error) {
+      console.error('Form submission error:', error)
+      setSubmitStatus('error')
+      setErrorMessage(error instanceof Error ? error.message : '送信に失敗しました。しばらくしてから再度お試しください。')
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
 
   const flowSteps = [
     { num: 1, title: '📞 無料相談・シミュレーション', desc: 'お客様のご状況やご希望をヒアリングし、最適な投資プランと収益シミュレーションをご提案します。' },
@@ -760,18 +876,63 @@ const OperationPage = () => {
           <ScrollReveal>
             <div id="contact-form" className="mx-auto bg-cream rounded p-4 p-md-5 contact-form-wrapper" style={{ maxWidth: '800px', borderRadius: '20px' }}>
               <h3 className="text-center h4 mb-4 mb-md-5 contact-form-title" style={{ fontSize: '1.5rem' }}>お問い合わせフォーム</h3>
-            <form>
+              
+              {/* Success Message */}
+              {submitStatus === 'success' && (
+                <div className="alert alert-success mb-4" style={{
+                  backgroundColor: '#d4edda',
+                  color: '#155724',
+                  padding: '1rem 1.5rem',
+                  borderRadius: '8px',
+                  border: '1px solid #c3e6cb'
+                }}>
+                  <strong>送信完了</strong><br />
+                  お問い合わせありがとうございます。担当者より折り返しご連絡いたします。
+                </div>
+              )}
+
+              {/* Error Message */}
+              {submitStatus === 'error' && (
+                <div className="alert alert-danger mb-4" style={{
+                  backgroundColor: '#f8d7da',
+                  color: '#721c24',
+                  padding: '1rem 1.5rem',
+                  borderRadius: '8px',
+                  border: '1px solid #f5c6cb'
+                }}>
+                  <strong>エラー</strong><br />
+                  {errorMessage}
+                </div>
+              )}
+
+            <form onSubmit={handleSubmit}>
                 <div className="mb-4 mb-md-5 form-group">
                   <label className="d-block fw-semibold small mb-2 mb-md-3 form-label" style={{ fontSize: '0.9rem', color: '#1a1a1a' }}>
                     ご相談方法<span className="text-accent ms-1" style={{ color: '#b8432f', fontSize: '0.75rem' }}>*</span>
                   </label>
                   <div className="d-flex flex-wrap gap-3 gap-md-4 form-checkbox-group">
                     <label className="d-flex align-items-center gap-2 cursor-pointer form-checkbox">
-                      <input type="checkbox" name="method" value="online" className="form-check-input" style={{ width: '20px', height: '20px', accentColor: '#1a2a4a' }} />
+                      <input 
+                        type="checkbox" 
+                        name="method" 
+                        value="オンライン（Team / Zoom）" 
+                        className="form-check-input" 
+                        style={{ width: '20px', height: '20px', accentColor: '#1a2a4a' }}
+                        checked={formData.consultation_method.includes('オンライン（Team / Zoom）')}
+                        onChange={(e) => handleCheckboxChange('consultation_method', e.target.value, e.target.checked)}
+                      />
                       <span className="small" style={{ fontSize: '0.95rem' }}>オンライン（Teams / Zoom）</span>
                     </label>
                     <label className="d-flex align-items-center gap-2 cursor-pointer form-checkbox">
-                      <input type="checkbox" name="method" value="phone" className="form-check-input" style={{ width: '20px', height: '20px', accentColor: '#1a2a4a' }} />
+                      <input 
+                        type="checkbox" 
+                        name="method" 
+                        value="電話" 
+                        className="form-check-input" 
+                        style={{ width: '20px', height: '20px', accentColor: '#1a2a4a' }}
+                        checked={formData.consultation_method.includes('電話')}
+                        onChange={(e) => handleCheckboxChange('consultation_method', e.target.value, e.target.checked)}
+                      />
                       <span className="small" style={{ fontSize: '0.95rem' }}>電話</span>
                   </label>
                 </div>
@@ -783,13 +944,21 @@ const OperationPage = () => {
                 </label>
                   <div className="d-flex flex-wrap gap-3 gap-md-4 form-checkbox-group">
                     {[
-                      { value: 'trailer', label: 'トレーラーハウスについて聞きたい' },
-                      { value: 'inn', label: '新築戸建旅館について聞きたい' },
-                      { value: 'estimate', label: 'お見積りについて聞きたい' },
-                      { value: 'other', label: 'その他' },
+                      { value: 'トレーラーハウスについて聞きたい', label: 'トレーラーハウスについて聞きたい' },
+                      { value: '新築戸建施設について聞きたい', label: '新築戸建旅館について聞きたい' },
+                      { value: 'お見積りについて聞きたい', label: 'お見積りについて聞きたい' },
+                      { value: 'その他', label: 'その他' },
                     ].map((option, i) => (
                       <label key={i} className="d-flex align-items-center gap-2 cursor-pointer form-checkbox">
-                        <input type="checkbox" name="type" value={option.value} className="form-check-input" style={{ width: '20px', height: '20px', accentColor: '#1a2a4a' }} />
+                        <input 
+                          type="checkbox" 
+                          name="type" 
+                          value={option.value} 
+                          className="form-check-input" 
+                          style={{ width: '20px', height: '20px', accentColor: '#1a2a4a' }}
+                          checked={formData.consultation_type.includes(option.value)}
+                          onChange={(e) => handleCheckboxChange('consultation_type', e.target.value, e.target.checked)}
+                        />
                         <span className="small" style={{ fontSize: '0.95rem' }}>{option.label}</span>
                       </label>
                     ))}
@@ -803,25 +972,28 @@ const OperationPage = () => {
                   </label>
                   <input
                     type="text"
-                      className="form-control form-input w-100" 
+                    name="name"
+                    className="form-control form-input w-100" 
                     placeholder="山田 太郎"
                     required
-                      style={{ 
-                        padding: '1rem 1.25rem',
-                        border: '2px solid #f0f2f7',
-                        borderRadius: '8px',
-                        fontSize: '1rem',
-                        transition: 'all 0.3s ease',
-                        backgroundColor: '#ffffff'
-                      }}
-                      onFocus={(e) => {
-                        e.currentTarget.style.borderColor = '#1a2a4a'
-                        e.currentTarget.style.boxShadow = '0 0 0 3px rgba(26, 42, 74, 0.1)'
-                      }}
-                      onBlur={(e) => {
-                        e.currentTarget.style.borderColor = '#f0f2f7'
-                        e.currentTarget.style.boxShadow = 'none'
-                      }}
+                    value={formData.name}
+                    onChange={(e) => handleInputChange('name', e.target.value)}
+                    style={{ 
+                      padding: '1rem 1.25rem',
+                      border: '2px solid #f0f2f7',
+                      borderRadius: '8px',
+                      fontSize: '1rem',
+                      transition: 'all 0.3s ease',
+                      backgroundColor: '#ffffff'
+                    }}
+                    onFocus={(e) => {
+                      e.currentTarget.style.borderColor = '#1a2a4a'
+                      e.currentTarget.style.boxShadow = '0 0 0 3px rgba(26, 42, 74, 0.1)'
+                    }}
+                    onBlur={(e) => {
+                      e.currentTarget.style.borderColor = '#f0f2f7'
+                      e.currentTarget.style.boxShadow = 'none'
+                    }}
                   />
                 </div>
                   <div className="col-12 col-md-6 form-group">
@@ -830,25 +1002,28 @@ const OperationPage = () => {
                   </label>
                   <input
                     type="text"
-                      className="form-control form-input w-100" 
+                    name="furigana"
+                    className="form-control form-input w-100" 
                     placeholder="やまだ たろう"
                     required
-                      style={{ 
-                        padding: '1rem 1.25rem',
-                        border: '2px solid #f0f2f7',
-                        borderRadius: '8px',
-                        fontSize: '1rem',
-                        transition: 'all 0.3s ease',
-                        backgroundColor: '#ffffff'
-                      }}
-                      onFocus={(e) => {
-                        e.currentTarget.style.borderColor = '#1a2a4a'
-                        e.currentTarget.style.boxShadow = '0 0 0 3px rgba(26, 42, 74, 0.1)'
-                      }}
-                      onBlur={(e) => {
-                        e.currentTarget.style.borderColor = '#f0f2f7'
-                        e.currentTarget.style.boxShadow = 'none'
-                      }}
+                    value={formData.furigana}
+                    onChange={(e) => handleInputChange('furigana', e.target.value)}
+                    style={{ 
+                      padding: '1rem 1.25rem',
+                      border: '2px solid #f0f2f7',
+                      borderRadius: '8px',
+                      fontSize: '1rem',
+                      transition: 'all 0.3s ease',
+                      backgroundColor: '#ffffff'
+                    }}
+                    onFocus={(e) => {
+                      e.currentTarget.style.borderColor = '#1a2a4a'
+                      e.currentTarget.style.boxShadow = '0 0 0 3px rgba(26, 42, 74, 0.1)'
+                    }}
+                    onBlur={(e) => {
+                      e.currentTarget.style.borderColor = '#f0f2f7'
+                      e.currentTarget.style.boxShadow = 'none'
+                    }}
                   />
                 </div>
               </div>
@@ -860,25 +1035,28 @@ const OperationPage = () => {
                   </label>
                   <input
                     type="email"
-                      className="form-control form-input w-100" 
+                    name="email"
+                    className="form-control form-input w-100" 
                     placeholder="example@email.com"
                     required
-                      style={{ 
-                        padding: '1rem 1.25rem',
-                        border: '2px solid #f0f2f7',
-                        borderRadius: '8px',
-                        fontSize: '1rem',
-                        transition: 'all 0.3s ease',
-                        backgroundColor: '#ffffff'
-                      }}
-                      onFocus={(e) => {
-                        e.currentTarget.style.borderColor = '#1a2a4a'
-                        e.currentTarget.style.boxShadow = '0 0 0 3px rgba(26, 42, 74, 0.1)'
-                      }}
-                      onBlur={(e) => {
-                        e.currentTarget.style.borderColor = '#f0f2f7'
-                        e.currentTarget.style.boxShadow = 'none'
-                      }}
+                    value={formData.email}
+                    onChange={(e) => handleInputChange('email', e.target.value)}
+                    style={{ 
+                      padding: '1rem 1.25rem',
+                      border: '2px solid #f0f2f7',
+                      borderRadius: '8px',
+                      fontSize: '1rem',
+                      transition: 'all 0.3s ease',
+                      backgroundColor: '#ffffff'
+                    }}
+                    onFocus={(e) => {
+                      e.currentTarget.style.borderColor = '#1a2a4a'
+                      e.currentTarget.style.boxShadow = '0 0 0 3px rgba(26, 42, 74, 0.1)'
+                    }}
+                    onBlur={(e) => {
+                      e.currentTarget.style.borderColor = '#f0f2f7'
+                      e.currentTarget.style.boxShadow = 'none'
+                    }}
                   />
                 </div>
                   <div className="col-12 col-md-6 form-group">
@@ -887,25 +1065,28 @@ const OperationPage = () => {
                   </label>
                   <input
                     type="tel"
-                      className="form-control form-input w-100" 
+                    name="phone"
+                    className="form-control form-input w-100" 
                     placeholder="090-1234-5678"
                     required
-                      style={{ 
-                        padding: '1rem 1.25rem',
-                        border: '2px solid #f0f2f7',
-                        borderRadius: '8px',
-                        fontSize: '1rem',
-                        transition: 'all 0.3s ease',
-                        backgroundColor: '#ffffff'
-                      }}
-                      onFocus={(e) => {
-                        e.currentTarget.style.borderColor = '#1a2a4a'
-                        e.currentTarget.style.boxShadow = '0 0 0 3px rgba(26, 42, 74, 0.1)'
-                      }}
-                      onBlur={(e) => {
-                        e.currentTarget.style.borderColor = '#f0f2f7'
-                        e.currentTarget.style.boxShadow = 'none'
-                      }}
+                    value={formData.phone}
+                    onChange={(e) => handleInputChange('phone', e.target.value)}
+                    style={{ 
+                      padding: '1rem 1.25rem',
+                      border: '2px solid #f0f2f7',
+                      borderRadius: '8px',
+                      fontSize: '1rem',
+                      transition: 'all 0.3s ease',
+                      backgroundColor: '#ffffff'
+                    }}
+                    onFocus={(e) => {
+                      e.currentTarget.style.borderColor = '#1a2a4a'
+                      e.currentTarget.style.boxShadow = '0 0 0 3px rgba(26, 42, 74, 0.1)'
+                    }}
+                    onBlur={(e) => {
+                      e.currentTarget.style.borderColor = '#f0f2f7'
+                      e.currentTarget.style.boxShadow = 'none'
+                    }}
                   />
                 </div>
               </div>
@@ -915,8 +1096,11 @@ const OperationPage = () => {
                     ご相談内容
                   </label>
                 <textarea
+                    name="content"
                     className="form-control form-textarea w-100" 
                   placeholder="ご質問やご要望がございましたらご記入ください"
+                    value={formData.content}
+                    onChange={(e) => handleInputChange('content', e.target.value)}
                     style={{ 
                       padding: '1rem 1.25rem',
                       border: '2px solid #f0f2f7',
@@ -954,23 +1138,28 @@ const OperationPage = () => {
 
               <button
                 type="submit"
-                  className="w-100 py-3 py-md-4 text-white rounded fw-semibold border-0 form-submit"
-                  style={{ 
-                    background: 'linear-gradient(135deg, #1a2a4a, #2d4a7c)',
-                    borderRadius: '8px',
-                    fontSize: '1.1rem',
-                    transition: 'all 0.3s ease'
-                  }}
-                  onMouseEnter={(e) => {
+                disabled={isSubmitting}
+                className="w-100 py-3 py-md-4 text-white rounded fw-semibold border-0 form-submit"
+                style={{ 
+                  background: isSubmitting ? '#6b6b6b' : 'linear-gradient(135deg, #1a2a4a, #2d4a7c)',
+                  borderRadius: '8px',
+                  fontSize: '1.1rem',
+                  transition: 'all 0.3s ease',
+                  cursor: isSubmitting ? 'not-allowed' : 'pointer',
+                  opacity: isSubmitting ? 0.7 : 1
+                }}
+                onMouseEnter={(e) => {
+                  if (!isSubmitting) {
                     e.currentTarget.style.transform = 'translateY(-2px)'
                     e.currentTarget.style.boxShadow = '0 8px 40px rgba(26, 42, 74, 0.12)'
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = 'translateY(0)'
-                    e.currentTarget.style.boxShadow = 'none'
-                  }}
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0)'
+                  e.currentTarget.style.boxShadow = 'none'
+                }}
               >
-                入力内容を送信
+                {isSubmitting ? '送信中...' : '入力内容を送信'}
               </button>
             </form>
           </div>
