@@ -168,23 +168,7 @@ nav a:hover::after {
   display: none;
 }
 
-@media (max-width: 1024px) {
-  .header-inner {
-    padding: 0 2rem;
-    height: 80px;
-  }
-
-  nav {
-    gap: 1.5rem;
-  }
-
-  .header-cta {
-    padding: 0.6rem 1.25rem;
-    font-size: 0.85rem;
-  }
-}
-
-/* Mobile Menu Toggle Button */
+/* Mobile Menu Toggle */
 .mobile-menu-toggle {
   background: none;
   border: none;
@@ -212,36 +196,16 @@ nav a:hover::after {
   background: var(--secondary);
 }
 
-.mobile-menu-toggle.open span:nth-child(1) {
+.mobile-menu-toggle.active span:nth-child(1) {
   transform: rotate(45deg) translate(8px, 8px);
 }
 
-.mobile-menu-toggle.open span:nth-child(2) {
+.mobile-menu-toggle.active span:nth-child(2) {
   opacity: 0;
 }
 
-.mobile-menu-toggle.open span:nth-child(3) {
+.mobile-menu-toggle.active span:nth-child(3) {
   transform: rotate(-45deg) translate(8px, -8px);
-}
-
-/* Mobile Menu Backdrop */
-.mobile-menu-backdrop {
-  position: fixed;
-  top: 70px;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
-  z-index: 998;
-}
-
-.mobile-menu.open ~ .mobile-menu-backdrop,
-.mobile-menu.open {
-  opacity: 1;
-  visibility: visible;
 }
 
 /* Mobile Menu */
@@ -251,15 +215,8 @@ nav a:hover::after {
   left: 0;
   right: 0;
   background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.3s ease;
   z-index: 999;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-}
-
-.mobile-menu.open {
-  max-height: 100vh;
 }
 
 .mobile-nav {
@@ -308,6 +265,22 @@ nav a:hover::after {
   box-shadow: 0 6px 20px rgba(212, 165, 116, 0.4);
 }
 
+@media (max-width: 1024px) {
+  .header-inner {
+    padding: 0 2rem;
+    height: 80px;
+  }
+
+  nav {
+    gap: 1.5rem;
+  }
+
+  .header-cta {
+    padding: 0.6rem 1.25rem;
+    font-size: 0.85rem;
+  }
+}
+
 @media (max-width: 768px) {
   .header-inner {
     padding: 0 1.5rem;
@@ -332,5 +305,9 @@ nav a:hover::after {
 
   .anniversary-box .text {
     font-size: 0.45rem;
+  }
+
+  .mobile-menu {
+    top: 70px;
   }
 }
