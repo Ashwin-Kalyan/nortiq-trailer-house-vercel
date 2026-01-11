@@ -158,27 +158,102 @@ const TrailerPage = () => {
               {
                 title: '📈 物価上昇（インフレ）',
                 desc: '30年間で主な食料品・光熱費は約1.5倍に上昇。銀行預金の金利は0.001%程度。現金で持っていても、実質的な資産価値は毎年目減りしています。',
-                stat: { number: '1.5', label: '倍（30年間の物価上昇）' }
+                stat: { number: '1.5', label: '倍（30年間の物価上昇）' },
+                chart: (
+                  <svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                      <linearGradient id="chartGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" style={{stopColor:'#8B1A1A',stopOpacity:0.3}}/>
+                        <stop offset="100%" style={{stopColor:'#8B1A1A',stopOpacity:0}}/>
+                      </linearGradient>
+                    </defs>
+                    <path d="M 40 160 Q 100 155 160 140 T 280 100 T 380 60" stroke="#8B1A1A" strokeWidth="3" fill="none"/>
+                    <path d="M 40 160 Q 100 155 160 140 T 280 100 T 380 60 V 180 H 40 Z" fill="url(#chartGrad)"/>
+                    <text x="40" y="190" fontSize="11" fill="#6b6b6b">1994</text>
+                    <text x="200" y="190" fontSize="11" fill="#6b6b6b">2009</text>
+                    <text x="360" y="190" fontSize="11" fill="#6b6b6b">2024</text>
+                    <text x="200" y="30" fontSize="14" fontWeight="bold" fill="#8B1A1A" textAnchor="middle">消費者物価指数の推移</text>
+                  </svg>
+                )
               },
               {
                 title: '💰 給与停滞',
                 desc: '日本の平均賃金は過去30年間ほぼ横ばい。先進国で唯一成長していません。物価は上がるのに、収入は増えない — この構造が家計を圧迫します。',
-                stat: { number: '30', label: '年間 賃金成長なし' }
+                stat: { number: '30', label: '年間 賃金成長なし' },
+                chart: (
+                  <svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="60" y="80" width="50" height="100" fill="#A52A2A" rx="4"/>
+                    <rect x="130" y="60" width="50" height="120" fill="#c9a962" rx="4"/>
+                    <rect x="200" y="50" width="50" height="130" fill="#c9a962" rx="4"/>
+                    <rect x="270" y="40" width="50" height="140" fill="#c9a962" rx="4"/>
+                    <text x="85" y="195" fontSize="10" fill="#6b6b6b" textAnchor="middle">日本</text>
+                    <text x="155" y="195" fontSize="10" fill="#6b6b6b" textAnchor="middle">米国</text>
+                    <text x="225" y="195" fontSize="10" fill="#6b6b6b" textAnchor="middle">英国</text>
+                    <text x="295" y="195" fontSize="10" fill="#6b6b6b" textAnchor="middle">韓国</text>
+                    <text x="200" y="30" fontSize="14" fontWeight="bold" fill="#8B1A1A" textAnchor="middle">先進国の賃金上昇率比較</text>
+                  </svg>
+                )
               },
               {
                 title: '📊 税負担の増加',
                 desc: '国民負担率（税金＋社会保険料）は過去20年で10%以上増加。稼いでも手取りは減る一方です。合法的な節税対策がますます重要になっています。',
-                stat: { number: '47', label: '%（国民負担率 2023年）' }
+                stat: { number: '47', label: '%（国民負担率 2023年）' },
+                chart: (
+                  <svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                      <linearGradient id="taxGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" style={{stopColor:'#b8432f',stopOpacity:0.3}}/>
+                        <stop offset="100%" style={{stopColor:'#b8432f',stopOpacity:0}}/>
+                      </linearGradient>
+                    </defs>
+                    <path d="M 40 150 L 120 140 L 200 120 L 280 90 L 360 60" stroke="#b8432f" strokeWidth="3" fill="none"/>
+                    <path d="M 40 150 L 120 140 L 200 120 L 280 90 L 360 60 V 180 H 40 Z" fill="url(#taxGrad)"/>
+                    <circle cx="40" cy="150" r="5" fill="#b8432f"/>
+                    <circle cx="120" cy="140" r="5" fill="#b8432f"/>
+                    <circle cx="200" cy="120" r="5" fill="#b8432f"/>
+                    <circle cx="280" cy="90" r="5" fill="#b8432f"/>
+                    <circle cx="360" cy="60" r="5" fill="#b8432f"/>
+                    <text x="40" y="190" fontSize="11" fill="#6b6b6b">2003</text>
+                    <text x="200" y="190" fontSize="11" fill="#6b6b6b">2013</text>
+                    <text x="360" y="190" fontSize="11" fill="#6b6b6b">2023</text>
+                    <text x="200" y="30" fontSize="14" fontWeight="bold" fill="#8B1A1A" textAnchor="middle">国民負担率の推移</text>
+                  </svg>
+                )
               },
               {
                 title: '🤖 AIによる雇用リスク',
                 desc: 'ChatGPTをはじめとするAIの急速な進化により、ホワイトカラーの仕事も安泰ではなくなりました。給与収入だけに頼らない収入源の確保が急務です。',
-                stat: { number: '49', label: '%（AIに代替されうる仕事の割合）' }
+                stat: { number: '49', label: '%（AIに代替されうる仕事の割合）' },
+                chart: (
+                  <svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="60" y="60" width="80" height="30" fill="#8B1A1A" rx="4"/>
+                    <rect x="60" y="100" width="120" height="30" fill="#A52A2A" rx="4"/>
+                    <rect x="60" y="140" width="180" height="30" fill="#c9a962" rx="4"/>
+                    <text x="150" y="80" fontSize="11" fill="#fff">事務職 30%</text>
+                    <text x="190" y="120" fontSize="11" fill="#fff">営業職 45%</text>
+                    <text x="250" y="160" fontSize="11" fill="#1a1a1a">専門職 60%</text>
+                    <text x="200" y="30" fontSize="14" fontWeight="bold" fill="#8B1A1A" textAnchor="middle">職種別AI代替リスク</text>
+                  </svg>
+                )
               },
               {
                 title: '🏛️ 相続税の重圧',
                 desc: '"資産は三代で消える"と言われます。相続税率は最大55%。10億円の資産も三代後にはわずか1.8億円に。事前対策なしでは資産は守れません。',
-                stat: { number: '55', label: '%（相続税 最高税率）' }
+                stat: { number: '55', label: '%（相続税 最高税率）' },
+                chart: (
+                  <svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="50" y="50" width="80" height="130" fill="#8B1A1A" rx="4"/>
+                    <rect x="160" y="90" width="80" height="90" fill="#A52A2A" rx="4"/>
+                    <rect x="270" y="130" width="80" height="50" fill="#c9a962" rx="4"/>
+                    <text x="90" y="40" fontSize="12" fontWeight="bold" fill="#8B1A1A" textAnchor="middle">10億円</text>
+                    <text x="200" y="80" fontSize="12" fontWeight="bold" fill="#A52A2A" textAnchor="middle">4.5億円</text>
+                    <text x="310" y="120" fontSize="12" fontWeight="bold" fill="#c9a962" textAnchor="middle">1.8億円</text>
+                    <text x="90" y="195" fontSize="11" fill="#6b6b6b" textAnchor="middle">初代</text>
+                    <text x="200" y="195" fontSize="11" fill="#6b6b6b" textAnchor="middle">二代目</text>
+                    <text x="310" y="195" fontSize="11" fill="#6b6b6b" textAnchor="middle">三代目</text>
+                    <text x="200" y="20" fontSize="14" fontWeight="bold" fill="#8B1A1A" textAnchor="middle">相続税による資産減少イメージ</text>
+                  </svg>
+                )
               },
             ].map((problem, i) => (
               <div key={i} className="problem-content">
@@ -191,9 +266,7 @@ const TrailerPage = () => {
                   </div>
                 </div>
                 <div className="problem-chart">
-                  <div style={{ width: '100%', height: '200px', background: 'var(--bg-cream)', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    Chart Placeholder
-                  </div>
+                  {problem.chart}
                 </div>
               </div>
             ))}

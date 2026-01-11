@@ -38,7 +38,7 @@ const Header = () => {
               <Link to="/">TOP</Link>
               <Link to="/trailer">トレーラーハウス</Link>
               <Link to="/shintiku">新築ヴィラタイプ旅館</Link>
-              <Link to="/operation">運用説明・Q&A</Link>
+              <Link to="/operation">Q&A</Link>
               <Link to="/#contact" className="header-cta">お問い合わせ</Link>
             </>
           )}
