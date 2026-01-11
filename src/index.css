@@ -4,6 +4,24 @@
 
 @import 'bootstrap/dist/css/bootstrap.min.css';
 
+:root {
+  --primary: #2C5F4A;
+  --primary-light: #3d7a5f;
+  --primary-dark: #1e4435;
+  --secondary: #D4A574;
+  --secondary-light: #e0b88a;
+  --accent: #C9302C;
+  --bg-cream: #f9f7f4;
+  --bg-warm: #f3f0eb;
+  --text-dark: #1a1a1a;
+  --text-body: #3d3d3d;
+  --text-light: #6b6b6b;
+  --white: #ffffff;
+  --shadow-soft: 0 4px 30px rgba(44, 95, 74, 0.08);
+  --shadow-medium: 0 8px 40px rgba(44, 95, 74, 0.12);
+  --shadow-strong: 0 20px 60px rgba(44, 95, 74, 0.15);
+}
+
 * {
   margin: 0;
   padding: 0;
