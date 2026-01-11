@@ -19,11 +19,15 @@ const Header = () => {
     setMobileMenuOpen(!mobileMenuOpen)
   }
 
+  const closeMobileMenu = () => {
+    setMobileMenuOpen(false)
+  }
+
   return (
     <header id="header" className={scrolled ? 'scrolled' : ''}>
       <div className="header-inner container-fluid px-3 px-md-4 px-lg-5">
         <div className="logo-area d-flex align-items-center">
-          <Link to="/" className="logo">PLEAST</Link>
+          <Link to="/" className="logo" onClick={closeMobileMenu}>PLEAST</Link>
           <div className="anniversary-box d-none d-sm-flex">
             <span className="number">20th</span>
             <span className="text">ANNIVERSARY</span>
@@ -50,39 +54,39 @@ const Header = () => {
           )}
         </nav>
         <button 
+          type="button"
           className={`mobile-menu-toggle d-lg-none ${mobileMenuOpen ? 'active' : ''}`}
           onClick={toggleMobileMenu}
           aria-label="Toggle menu"
+          aria-expanded={mobileMenuOpen}
         >
           <span></span>
           <span></span>
           <span></span>
         </button>
       </div>
-      {mobileMenuOpen && (
-        <div className="mobile-menu d-lg-none">
-          <nav className="mobile-nav">
-            {location.pathname === '/' ? (
-              <>
-                <a href="#problem" onClick={() => setMobileMenuOpen(false)}>課題</a>
-                <a href="#solution" onClick={() => setMobileMenuOpen(false)}>商品</a>
-                <a href="#clt" onClick={() => setMobileMenuOpen(false)}>CLT構造</a>
-                <a href="#company" onClick={() => setMobileMenuOpen(false)}>会社概要</a>
-                <Link to="/operation" onClick={() => setMobileMenuOpen(false)}>Q&A</Link>
-                <a href="#contact" className="header-cta" onClick={() => setMobileMenuOpen(false)}>お問い合わせ</a>
-              </>
-            ) : (
-              <>
-                <Link to="/" onClick={() => setMobileMenuOpen(false)}>TOP</Link>
-                <Link to="/trailer" onClick={() => setMobileMenuOpen(false)}>トレーラーハウス</Link>
-                <Link to="/shintiku" onClick={() => setMobileMenuOpen(false)}>新築ヴィラタイプ旅館</Link>
-                <Link to="/operation" onClick={() => setMobileMenuOpen(false)}>Q&A</Link>
-                <Link to="/#contact" className="header-cta" onClick={() => setMobileMenuOpen(false)}>お問い合わせ</Link>
-              </>
-            )}
-          </nav>
-        </div>
-      )}
+      <div className={`mobile-menu d-lg-none ${mobileMenuOpen ? 'open' : ''}`}>
+        <nav className="mobile-nav">
+          {location.pathname === '/' ? (
+            <>
+              <a href="#problem" onClick={closeMobileMenu}>課題</a>
+              <a href="#solution" onClick={closeMobileMenu}>商品</a>
+              <a href="#clt" onClick={closeMobileMenu}>CLT構造</a>
+              <a href="#company" onClick={closeMobileMenu}>会社概要</a>
+              <Link to="/operation" onClick={closeMobileMenu}>Q&A</Link>
+              <a href="#contact" className="header-cta" onClick={closeMobileMenu}>お問い合わせ</a>
+            </>
+          ) : (
+            <>
+              <Link to="/" onClick={closeMobileMenu}>TOP</Link>
+              <Link to="/trailer" onClick={closeMobileMenu}>トレーラーハウス</Link>
+              <Link to="/shintiku" onClick={closeMobileMenu}>新築ヴィラタイプ旅館</Link>
+              <Link to="/operation" onClick={closeMobileMenu}>Q&A</Link>
+              <Link to="/#contact" className="header-cta" onClick={closeMobileMenu}>お問い合わせ</Link>
+            </>
+          )}
+        </nav>
+      </div>
     </header>
   )
 }

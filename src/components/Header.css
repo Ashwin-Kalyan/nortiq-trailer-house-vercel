@@ -8,7 +8,7 @@ header {
   background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
   padding: 0;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  overflow: hidden;
+  overflow: visible;
 }
 
 header::before {
@@ -34,6 +34,7 @@ header.scrolled {
   justify-content: space-between;
   align-items: center;
   height: 90px;
+  position: relative;
 }
 
 /* Bootstrap responsive padding overrides */
@@ -168,7 +169,7 @@ nav a:hover::after {
   display: none;
 }
 
-/* Mobile Menu Toggle */
+/* Mobile Menu Toggle Button */
 .mobile-menu-toggle {
   background: none;
   border: none;
@@ -215,8 +216,15 @@ nav a:hover::after {
   left: 0;
   right: 0;
   background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
   z-index: 999;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.mobile-menu.open {
+  max-height: 600px;
 }
 
 .mobile-nav {
