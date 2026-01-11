@@ -31,6 +31,7 @@ const Header = () => {
               <a href="#solution">商品</a>
               <a href="#clt">CLT構造</a>
               <a href="#company">会社概要</a>
+              <Link to="/operation">Q&A</Link>
               <a href="#contact" className="header-cta">お問い合わせ</a>
             </>
           ) : (
