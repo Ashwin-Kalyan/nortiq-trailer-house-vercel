@@ -9,21 +9,21 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #1a2a4a;
-            --primary-light: #2d4a7c;
-            --primary-dark: #0f1a2e;
-            --secondary: #c9a962;
-            --secondary-light: #d4b87a;
-            --accent: #b8432f;
-            --bg-cream: #f8f9fc;
-            --bg-warm: #f0f2f7;
+            --primary: #8B1A1A;
+            --primary-light: #A52A2A;
+            --primary-dark: #5C0000;
+            --secondary: #C9A962;
+            --secondary-light: #D4B87A;
+            --accent: #D4756A;
+            --bg-cream: #faf8f6;
+            --bg-warm: #f5f2ef;
             --text-dark: #1a1a1a;
             --text-body: #3d3d3d;
             --text-light: #6b6b6b;
             --white: #ffffff;
-            --shadow-soft: 0 4px 30px rgba(26, 42, 74, 0.08);
-            --shadow-medium: 0 8px 40px rgba(26, 42, 74, 0.12);
-            --shadow-strong: 0 20px 60px rgba(26, 42, 74, 0.15);
+            --shadow-soft: 0 4px 30px rgba(139, 26, 26, 0.08);
+            --shadow-medium: 0 8px 40px rgba(139, 26, 26, 0.12);
+            --shadow-strong: 0 20px 60px rgba(139, 26, 26, 0.15);
         }
 
         * {
@@ -50,17 +50,32 @@
             font-weight: 600;
         }
 
-        /* Header */
+        /* Header - Mega Premium */
         header {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             z-index: 1000;
-            padding: 1rem 0;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            box-shadow: var(--shadow-soft);
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            padding: 0;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--secondary), var(--secondary-light), var(--secondary));
+        }
+
+        header.scrolled {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            box-shadow: 0 4px 30px rgba(139, 26, 26, 0.3);
         }
 
         .header-inner {
@@ -70,42 +85,80 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            height: 90px;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
         }
 
         .logo {
             font-family: 'Noto Serif JP', serif;
-            font-size: 1.8rem;
+            font-size: 2rem;
             font-weight: 700;
-            color: var(--primary);
+            color: var(--white);
             letter-spacing: 0.15em;
             text-decoration: none;
+            transition: color 0.4s;
+        }
+
+        .anniversary-box {
+            background: rgba(201, 169, 98, 0.2);
+            border: 1px solid var(--secondary);
+            border-radius: 8px;
+            padding: 0.4rem 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            line-height: 1.2;
+        }
+
+        .anniversary-box .number {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--secondary);
+        }
+
+        .anniversary-box .text {
+            font-size: 0.55rem;
+            color: var(--secondary-light);
+            letter-spacing: 0.1em;
         }
 
         nav {
             display: flex;
-            gap: 2.5rem;
+            gap: 2rem;
             align-items: center;
         }
 
         nav a {
-            color: var(--text-body);
+            color: var(--white);
             text-decoration: none;
             font-size: 0.9rem;
             font-weight: 500;
             letter-spacing: 0.05em;
             transition: all 0.3s;
             position: relative;
+            opacity: 0.9;
+            padding-bottom: 5px;
         }
 
         nav a::after {
             content: '';
             position: absolute;
-            bottom: -4px;
+            bottom: 0;
             left: 0;
             width: 0;
-            height: 1px;
+            height: 2px;
             background: var(--secondary);
             transition: width 0.3s;
+        }
+
+        nav a:hover {
+            opacity: 1;
         }
 
         nav a:hover::after {
@@ -113,18 +166,19 @@
         }
 
         .header-cta {
-            background: var(--secondary);
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-light) 100%);
             color: var(--text-dark);
-            padding: 0.7rem 1.5rem;
-            border-radius: 4px;
-            font-weight: 600;
-            font-size: 0.85rem;
+            padding: 0.8rem 2rem;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.9rem;
             transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(201, 169, 98, 0.3);
         }
 
         .header-cta:hover {
-            background: var(--secondary-light);
             transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(201, 169, 98, 0.4);
         }
 
         .header-cta::after {
@@ -470,7 +524,7 @@
 
         .inheritance-box.after {
             border: 2px solid var(--primary);
-            background: linear-gradient(135deg, rgba(26, 42, 74, 0.05), rgba(45, 74, 124, 0.05));
+            background: linear-gradient(135deg, rgba(139, 26, 26, 0.05), rgba(165, 42, 42, 0.05));
         }
 
         .inheritance-box-label {
@@ -490,7 +544,7 @@
         }
 
         .inheritance-box.after .inheritance-box-label {
-            background: rgba(26, 42, 74, 0.1);
+            background: rgba(139, 26, 26, 0.1);
             color: var(--primary);
         }
 
@@ -910,7 +964,7 @@
             font-size: 1.5rem;
             margin-bottom: 2rem;
             padding-bottom: 1rem;
-            border-bottom: 1px solid rgba(26, 42, 74, 0.1);
+            border-bottom: 1px solid rgba(139, 26, 26, 0.1);
         }
 
         .company-table {
@@ -918,7 +972,7 @@
         }
 
         .company-table tr {
-            border-bottom: 1px solid rgba(26, 42, 74, 0.05);
+            border-bottom: 1px solid rgba(139, 26, 26, 0.05);
         }
 
         .company-table tr:last-child {
@@ -1042,103 +1096,6 @@
         }
 
         /* Footer */
-        footer {
-            background: var(--primary-dark);
-            color: var(--white);
-            padding: 4rem 0 2rem;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr;
-            gap: 4rem;
-            margin-bottom: 3rem;
-        }
-
-        .footer-brand .logo {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            display: inline-block;
-        }
-
-        .footer-brand p {
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 0.9rem;
-            line-height: 1.8;
-        }
-
-        .footer-contact-info {
-            margin-top: 1.5rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .footer-contact-item {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            margin-bottom: 0.75rem;
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 0.9rem;
-        }
-
-        .footer-contact-item a {
-            color: rgba(255, 255, 255, 0.7);
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .footer-contact-item a:hover {
-            color: var(--secondary);
-        }
-
-        .footer-links h4 {
-            color: var(--secondary);
-            font-size: 0.85rem;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            margin-bottom: 1.5rem;
-        }
-
-        .footer-links ul {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 0.75rem;
-        }
-
-        .footer-links a {
-            color: rgba(255, 255, 255, 0.7);
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: color 0.3s;
-        }
-
-        .footer-links a:hover {
-            color: var(--secondary);
-        }
-
-        .footer-bottom {
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.8rem;
-            color: rgba(255, 255, 255, 0.5);
-        }
-
-        .footer-legal a {
-            color: rgba(255, 255, 255, 0.5);
-            text-decoration: none;
-            margin-left: 2rem;
-        }
-
-        .footer-legal a:hover {
-            color: var(--secondary);
-        }
-
         /* Fixed CTA */
         .fixed-cta {
             position: fixed;
@@ -1181,6 +1138,16 @@
         @media (max-width: 1024px) {
             .header-inner {
                 padding: 0 2rem;
+                height: 80px;
+            }
+
+            nav {
+                gap: 1.5rem;
+            }
+
+            .header-cta {
+                padding: 0.6rem 1.25rem;
+                font-size: 0.85rem;
             }
 
             .container {
@@ -1227,15 +1194,32 @@
                 grid-template-columns: 1fr;
                 gap: 2rem;
             }
-
-            .footer-content {
-                grid-template-columns: 1fr 1fr;
-            }
         }
 
         @media (max-width: 768px) {
+            .header-inner {
+                padding: 0 1.5rem;
+                height: 70px;
+            }
+
             nav {
                 display: none;
+            }
+
+            .logo {
+                font-size: 1.5rem;
+            }
+
+            .anniversary-box {
+                padding: 0.3rem 0.6rem;
+            }
+
+            .anniversary-box .number {
+                font-size: 0.9rem;
+            }
+
+            .anniversary-box .text {
+                font-size: 0.45rem;
             }
 
             .page-hero {
@@ -1267,21 +1251,6 @@
                 width: 100%;
                 max-width: 300px;
                 justify-content: center;
-            }
-
-            .footer-content {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-
-            .footer-bottom {
-                flex-direction: column;
-                gap: 1rem;
-                text-align: center;
-            }
-
-            .footer-legal a {
-                margin: 0 1rem;
             }
 
             .fixed-cta {
@@ -1328,14 +1297,20 @@
 </head>
 <body>
     <!-- Header -->
-    <header>
+    <header id="header">
         <div class="header-inner">
-            <a href="pleast-lp-top-v2.html" class="logo">PLEAST</a>
+            <div class="logo-area">
+                <a href="pleast-lp-top-v3.html" class="logo">PLEAST</a>
+                <div class="anniversary-box">
+                    <span class="number">20th</span>
+                    <span class="text">ANNIVERSARY</span>
+                </div>
+            </div>
             <nav>
-                <a href="pleast-lp-top-v2.html">TOP</a>
+                <a href="pleast-lp-top-v3.html">TOP</a>
                 <a href="#">トレーラーハウス</a>
-                <a href="pleast-shintiku.html">新築戸建旅館</a>
-                <a href="pleast-operation.html">運用説明・Q&A</a>
+                <a href="pleast-shintiku-v2.html">新築ヴィラタイプ旅館</a>
+                <a href="pleast-operation-v2.html">運用説明・Q&A</a>
                 <a href="#contact" class="header-cta">お問い合わせ</a>
             </nav>
         </div>
@@ -1445,16 +1420,16 @@
                     <svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
                         <defs>
                             <linearGradient id="chartGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                                <stop offset="0%" style="stop-color:#1a2a4a;stop-opacity:0.3"/>
-                                <stop offset="100%" style="stop-color:#1a2a4a;stop-opacity:0"/>
+                                <stop offset="0%" style="stop-color:#8B1A1A;stop-opacity:0.3"/>
+                                <stop offset="100%" style="stop-color:#8B1A1A;stop-opacity:0"/>
                             </linearGradient>
                         </defs>
-                        <path d="M 40 160 Q 100 155 160 140 T 280 100 T 380 60" stroke="#1a2a4a" stroke-width="3" fill="none"/>
+                        <path d="M 40 160 Q 100 155 160 140 T 280 100 T 380 60" stroke="#8B1A1A" stroke-width="3" fill="none"/>
                         <path d="M 40 160 Q 100 155 160 140 T 280 100 T 380 60 V 180 H 40 Z" fill="url(#chartGrad)"/>
                         <text x="40" y="190" font-size="11" fill="#6b6b6b">1994</text>
                         <text x="200" y="190" font-size="11" fill="#6b6b6b">2009</text>
                         <text x="360" y="190" font-size="11" fill="#6b6b6b">2024</text>
-                        <text x="200" y="30" font-size="14" font-weight="bold" fill="#1a2a4a" text-anchor="middle">消費者物価指数の推移</text>
+                        <text x="200" y="30" font-size="14" font-weight="bold" fill="#8B1A1A" text-anchor="middle">消費者物価指数の推移</text>
                     </svg>
                 </div>
             </div>
@@ -1474,7 +1449,7 @@
                 </div>
                 <div class="problem-chart">
                     <svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
-                        <rect x="60" y="80" width="50" height="100" fill="#2d4a7c" rx="4"/>
+                        <rect x="60" y="80" width="50" height="100" fill="#A52A2A" rx="4"/>
                         <rect x="130" y="60" width="50" height="120" fill="#c9a962" rx="4"/>
                         <rect x="200" y="50" width="50" height="130" fill="#c9a962" rx="4"/>
                         <rect x="270" y="40" width="50" height="140" fill="#c9a962" rx="4"/>
@@ -1482,7 +1457,7 @@
                         <text x="155" y="195" font-size="10" fill="#6b6b6b" text-anchor="middle">米国</text>
                         <text x="225" y="195" font-size="10" fill="#6b6b6b" text-anchor="middle">英国</text>
                         <text x="295" y="195" font-size="10" fill="#6b6b6b" text-anchor="middle">韓国</text>
-                        <text x="200" y="30" font-size="14" font-weight="bold" fill="#1a2a4a" text-anchor="middle">先進国の賃金上昇率比較</text>
+                        <text x="200" y="30" font-size="14" font-weight="bold" fill="#8B1A1A" text-anchor="middle">先進国の賃金上昇率比較</text>
                     </svg>
                 </div>
             </div>
@@ -1518,7 +1493,7 @@
                         <text x="40" y="190" font-size="11" fill="#6b6b6b">2003</text>
                         <text x="200" y="190" font-size="11" fill="#6b6b6b">2013</text>
                         <text x="360" y="190" font-size="11" fill="#6b6b6b">2023</text>
-                        <text x="200" y="30" font-size="14" font-weight="bold" fill="#1a2a4a" text-anchor="middle">国民負担率の推移</text>
+                        <text x="200" y="30" font-size="14" font-weight="bold" fill="#8B1A1A" text-anchor="middle">国民負担率の推移</text>
                     </svg>
                 </div>
             </div>
@@ -1538,13 +1513,13 @@
                 </div>
                 <div class="problem-chart">
                     <svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
-                        <rect x="60" y="60" width="80" height="30" fill="#1a2a4a" rx="4"/>
-                        <rect x="60" y="100" width="120" height="30" fill="#2d4a7c" rx="4"/>
+                        <rect x="60" y="60" width="80" height="30" fill="#8B1A1A" rx="4"/>
+                        <rect x="60" y="100" width="120" height="30" fill="#A52A2A" rx="4"/>
                         <rect x="60" y="140" width="180" height="30" fill="#c9a962" rx="4"/>
                         <text x="150" y="80" font-size="11" fill="#fff">事務職 30%</text>
                         <text x="190" y="120" font-size="11" fill="#fff">営業職 45%</text>
                         <text x="250" y="160" font-size="11" fill="#1a1a1a">専門職 60%</text>
-                        <text x="200" y="30" font-size="14" font-weight="bold" fill="#1a2a4a" text-anchor="middle">職種別AI代替リスク</text>
+                        <text x="200" y="30" font-size="14" font-weight="bold" fill="#8B1A1A" text-anchor="middle">職種別AI代替リスク</text>
                     </svg>
                 </div>
             </div>
@@ -1564,16 +1539,16 @@
                 </div>
                 <div class="problem-chart">
                     <svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
-                        <rect x="50" y="50" width="80" height="130" fill="#1a2a4a" rx="4"/>
-                        <rect x="160" y="90" width="80" height="90" fill="#2d4a7c" rx="4"/>
+                        <rect x="50" y="50" width="80" height="130" fill="#8B1A1A" rx="4"/>
+                        <rect x="160" y="90" width="80" height="90" fill="#A52A2A" rx="4"/>
                         <rect x="270" y="130" width="80" height="50" fill="#c9a962" rx="4"/>
-                        <text x="90" y="40" font-size="12" font-weight="bold" fill="#1a2a4a" text-anchor="middle">10億円</text>
-                        <text x="200" y="80" font-size="12" font-weight="bold" fill="#2d4a7c" text-anchor="middle">4.5億円</text>
+                        <text x="90" y="40" font-size="12" font-weight="bold" fill="#8B1A1A" text-anchor="middle">10億円</text>
+                        <text x="200" y="80" font-size="12" font-weight="bold" fill="#A52A2A" text-anchor="middle">4.5億円</text>
                         <text x="310" y="120" font-size="12" font-weight="bold" fill="#c9a962" text-anchor="middle">1.8億円</text>
                         <text x="90" y="195" font-size="11" fill="#6b6b6b" text-anchor="middle">初代</text>
                         <text x="200" y="195" font-size="11" fill="#6b6b6b" text-anchor="middle">二代目</text>
                         <text x="310" y="195" font-size="11" fill="#6b6b6b" text-anchor="middle">三代目</text>
-                        <text x="200" y="20" font-size="14" font-weight="bold" fill="#1a2a4a" text-anchor="middle">相続税による資産減少イメージ</text>
+                        <text x="200" y="20" font-size="14" font-weight="bold" fill="#8B1A1A" text-anchor="middle">相続税による資産減少イメージ</text>
                     </svg>
                 </div>
             </div>
@@ -1811,7 +1786,7 @@
             <div class="section-header">
                 <div class="section-label">Company</div>
                 <h2 class="section-title">運営会社</h2>
-                <p class="section-subtitle">20年の実績と5,000社以上の取引先を持つ総合不動産会社</p>
+                <p class="section-subtitle">創業20年の実績を持つ総合不動産会社</p>
             </div>
 
             <div class="company-content">
@@ -1840,16 +1815,8 @@
                             <td>総合不動産事業</td>
                         </tr>
                         <tr>
-                            <th>取引先</th>
-                            <td>5,000社以上</td>
-                        </tr>
-                        <tr>
                             <th>代表電話</th>
                             <td><a href="tel:092-283-7555">092-283-7555</a></td>
-                        </tr>
-                        <tr>
-                            <th>フリーダイヤル</th>
-                            <td><a href="tel:0120-929-727">0120-929-727</a></td>
                         </tr>
                         <tr>
                             <th>URL</th>
@@ -1876,67 +1843,15 @@
                         </svg>
                         LINE公式アカウント
                     </a>
-                    <a href="tel:0120-929-727" class="btn btn-primary">
+                    <a href="tel:0120-727-875" class="btn btn-primary">
                         <span>📞</span>
-                        0120-929-727
+                        0120-727-875
                     </a>
                 </div>
                 <p class="cta-note">※ 相談は無料です。お気軽にお問い合わせください。</p>
             </div>
         </div>
     </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <a href="pleast-lp-top-v2.html" class="logo">PLEAST</a>
-                    <p>
-                        株式会社PLEAST（プレスト）<br>
-                        〒812-0038 福岡県博多区祇園町2-35
-                    </p>
-                    <div class="footer-contact-info">
-                        <div class="footer-contact-item">
-                            <span>📞</span>
-                            <a href="tel:092-283-7555">092-283-7555</a>
-                        </div>
-                        <div class="footer-contact-item">
-                            <span>🆓</span>
-                            <a href="tel:0120-929-727">0120-929-727</a>（フリーダイヤル）
-                        </div>
-                        <div class="footer-contact-item">
-                            <span>🌐</span>
-                            <a href="https://www.pleast.co.jp" target="_blank">https://www.pleast.co.jp</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="footer-links">
-                    <h4>商品</h4>
-                    <ul>
-                        <li><a href="pleast-shintiku.html">新築戸建旅館運用</a></li>
-                        <li><a href="#">トレーラーハウス運用</a></li>
-                        <li><a href="pleast-operation.html">運用説明・Q&A</a></li>
-                    </ul>
-                </div>
-                <div class="footer-links">
-                    <h4>会社情報</h4>
-                    <ul>
-                        <li><a href="#company">会社概要</a></li>
-                        <li><a href="#contact">お問い合わせ</a></li>
-                        <li><a href="#">プライバシーポリシー</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <span>© 2025 PLEAST Inc. All Rights Reserved.</span>
-                <div class="footer-legal">
-                    <a href="#">プライバシーポリシー</a>
-                    <a href="#">特定商取引法に基づく表記</a>
-                </div>
-            </div>
-        </div>
-    </footer>
 
     <!-- Fixed CTA -->
     <div class="fixed-cta">
@@ -1946,8 +1861,8 @@
             </svg>
             LINE
         </a>
-        <a href="tel:0120-929-727" class="fixed-cta-btn contact">
-            📞 電話相談
+        <a href="tel:0120-727-875" class="fixed-cta-btn contact">
+            📞 0120-727-875
         </a>
     </div>
 

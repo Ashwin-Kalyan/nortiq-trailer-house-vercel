@@ -9,21 +9,21 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #1a2a4a;
-            --primary-light: #2d4a7c;
-            --primary-dark: #0f1a2e;
-            --secondary: #c9a962;
-            --secondary-light: #d4b87a;
-            --accent: #b8432f;
-            --bg-cream: #f8f9fc;
-            --bg-warm: #f0f2f7;
+            --primary: #2C5F4A;
+            --primary-light: #3d7a5f;
+            --primary-dark: #1e4435;
+            --secondary: #D4A574;
+            --secondary-light: #e0b88a;
+            --accent: #C9302C;
+            --bg-cream: #f9f7f4;
+            --bg-warm: #f3f0eb;
             --text-dark: #1a1a1a;
             --text-body: #3d3d3d;
             --text-light: #6b6b6b;
             --white: #ffffff;
-            --shadow-soft: 0 4px 30px rgba(26, 42, 74, 0.08);
-            --shadow-medium: 0 8px 40px rgba(26, 42, 74, 0.12);
-            --shadow-strong: 0 20px 60px rgba(26, 42, 74, 0.15);
+            --shadow-soft: 0 4px 30px rgba(44, 95, 74, 0.08);
+            --shadow-medium: 0 8px 40px rgba(44, 95, 74, 0.12);
+            --shadow-strong: 0 20px 60px rgba(44, 95, 74, 0.15);
         }
 
         * {
@@ -51,21 +51,32 @@
             font-weight: 600;
         }
 
-        /* Header */
+        /* Header - Mega Premium */
         header {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             z-index: 1000;
-            padding: 1rem 0;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            padding: 0;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--secondary), #e0b88a, var(--secondary));
         }
 
         header.scrolled {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            box-shadow: var(--shadow-soft);
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            box-shadow: 0 4px 30px rgba(44, 95, 74, 0.3);
         }
 
         .header-inner {
@@ -75,11 +86,18 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            height: 90px;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
         }
 
         .logo {
             font-family: 'Noto Serif JP', serif;
-            font-size: 1.8rem;
+            font-size: 2rem;
             font-weight: 700;
             color: var(--white);
             letter-spacing: 0.15em;
@@ -88,38 +106,68 @@
         }
 
         header.scrolled .logo {
-            color: var(--primary);
+            color: var(--white);
+        }
+
+        .anniversary-box {
+            background: rgba(212, 165, 116, 0.2);
+            border: 1px solid var(--secondary);
+            border-radius: 8px;
+            padding: 0.4rem 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            line-height: 1.2;
+        }
+
+        .anniversary-box .number {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--secondary);
+        }
+
+        .anniversary-box .text {
+            font-size: 0.55rem;
+            color: var(--secondary-light);
+            letter-spacing: 0.1em;
         }
 
         nav {
             display: flex;
-            gap: 2.5rem;
+            gap: 2rem;
             align-items: center;
         }
 
         nav a {
-            color: rgba(255, 255, 255, 0.9);
+            color: var(--white);
             text-decoration: none;
             font-size: 0.9rem;
             font-weight: 500;
             letter-spacing: 0.05em;
             transition: all 0.3s;
             position: relative;
+            opacity: 0.9;
+            padding-bottom: 5px;
         }
 
         header.scrolled nav a {
-            color: var(--text-body);
+            color: var(--white);
         }
 
         nav a::after {
             content: '';
             position: absolute;
-            bottom: -4px;
+            bottom: 0;
             left: 0;
             width: 0;
-            height: 1px;
+            height: 2px;
             background: var(--secondary);
             transition: width 0.3s;
+        }
+
+        nav a:hover {
+            opacity: 1;
         }
 
         nav a:hover::after {
@@ -127,18 +175,19 @@
         }
 
         .header-cta {
-            background: var(--secondary);
+            background: linear-gradient(135deg, var(--secondary) 0%, #e0b88a 100%);
             color: var(--text-dark);
-            padding: 0.7rem 1.5rem;
-            border-radius: 4px;
-            font-weight: 600;
-            font-size: 0.85rem;
+            padding: 0.8rem 2rem;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.9rem;
             transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(212, 165, 116, 0.3);
         }
 
         .header-cta:hover {
-            background: var(--secondary-light);
             transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212, 165, 116, 0.4);
         }
 
         .header-cta::after {
@@ -159,9 +208,9 @@
             position: absolute;
             inset: 0;
             background: linear-gradient(135deg, 
-                rgba(26, 42, 74, 0.92) 0%, 
-                rgba(45, 74, 124, 0.85) 50%,
-                rgba(15, 26, 46, 0.95) 100%
+                rgba(44, 95, 74, 0.92) 0%, 
+                rgba(61, 122, 95, 0.85) 50%,
+                rgba(30, 68, 53, 0.95) 100%
             ),
             url('https://images.unsplash.com/photo-1587061949409-02df41d5e562?w=1920&q=80');
             background-size: cover;
@@ -184,6 +233,186 @@
             margin: 0 auto;
             padding: 0 3rem;
             width: 100%;
+        }
+
+        /* Anniversary Section */
+        /* Anniversary Section - Elegant Ribbon Celebration */
+        .anniversary-section {
+            position: relative;
+            height: 750px;
+            overflow: hidden;
+            background: linear-gradient(135deg, #1a1a1a 0%, #252525 100%);
+        }
+
+        .anniversary-bg {
+            position: absolute;
+            inset: 0;
+            background: url('IMG_1317.jpg') center/cover;
+            opacity: 0.4;
+            filter: brightness(0.8);
+        }
+
+        .anniversary-overlay {
+            position: absolute;
+            inset: 0;
+            background: 
+                radial-gradient(ellipse at 50% 30%, rgba(184, 134, 11, 0.2) 0%, transparent 50%),
+                linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.7) 100%);
+        }
+
+        /* Confetti Animation */
+        .confetti-container {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            opacity: 0.7;
+            animation: confettiFall 5s ease-in-out infinite;
+        }
+
+        .confetti:nth-child(1) { left: 5%; background: var(--secondary); border-radius: 50%; animation-delay: 0s; }
+        .confetti:nth-child(2) { left: 10%; background: var(--secondary-light); width: 8px; height: 8px; animation-delay: 0.5s; }
+        .confetti:nth-child(3) { left: 15%; background: var(--primary); border-radius: 50%; animation-delay: 1s; }
+        .confetti:nth-child(4) { left: 25%; background: var(--secondary); width: 6px; height: 6px; animation-delay: 0.3s; }
+        .confetti:nth-child(5) { left: 35%; background: var(--secondary-light); border-radius: 50%; animation-delay: 1.5s; }
+        .confetti:nth-child(6) { left: 45%; background: var(--primary-light); animation-delay: 0.8s; }
+        .confetti:nth-child(7) { left: 55%; background: var(--secondary); border-radius: 50%; width: 12px; height: 12px; animation-delay: 2s; }
+        .confetti:nth-child(8) { left: 65%; background: var(--secondary-light); animation-delay: 0.2s; }
+        .confetti:nth-child(9) { left: 75%; background: var(--secondary); border-radius: 50%; animation-delay: 1.2s; }
+        .confetti:nth-child(10) { left: 85%; background: var(--primary); width: 8px; height: 8px; animation-delay: 0.7s; }
+        .confetti:nth-child(11) { left: 90%; background: var(--secondary-light); border-radius: 50%; animation-delay: 1.8s; }
+        .confetti:nth-child(12) { left: 95%; background: var(--secondary); animation-delay: 0.4s; }
+
+        @keyframes confettiFall {
+            0% { transform: translateY(-100px) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.7; }
+            90% { opacity: 0.7; }
+            100% { transform: translateY(850px) rotate(720deg); opacity: 0; }
+        }
+
+        .anniversary-content {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: var(--white);
+            z-index: 2;
+            padding: 3rem 2rem;
+        }
+
+        /* Elegant Ribbon */
+        .elegant-ribbon {
+            position: relative;
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-light) 50%, var(--secondary) 100%);
+            padding: 1rem 4rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+        }
+
+        .elegant-ribbon::before,
+        .elegant-ribbon::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            width: 0;
+            height: 0;
+            border-style: solid;
+        }
+
+        .elegant-ribbon::before {
+            left: -28px;
+            border-width: 23px 28px 23px 0;
+            border-color: transparent var(--secondary) transparent transparent;
+        }
+
+        .elegant-ribbon::after {
+            right: -28px;
+            border-width: 23px 0 23px 28px;
+            border-color: transparent transparent transparent var(--secondary-light);
+        }
+
+        .ribbon-text {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--white);
+            letter-spacing: 0.2em;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        /* Celebration Number */
+        .celebration-number {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 8rem;
+            font-weight: 700;
+            line-height: 1;
+            background: linear-gradient(180deg, var(--secondary-light) 0%, var(--secondary) 40%, #8B6914 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(0 10px 30px rgba(212, 165, 116, 0.4));
+            margin-bottom: 0.25rem;
+        }
+
+        .celebration-th {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 2rem;
+            color: var(--secondary-light);
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.1em;
+        }
+
+        .celebration-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+
+        .celebration-year {
+            font-size: 1rem;
+            color: var(--secondary-light);
+            letter-spacing: 0.5em;
+            margin-bottom: 1.5rem;
+        }
+
+        .celebration-message {
+            font-size: 0.95rem;
+            opacity: 0.9;
+            max-width: 550px;
+            line-height: 1.9;
+        }
+
+        .celebration-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 2rem;
+            padding: 0.9rem 2.5rem;
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-light) 100%);
+            color: var(--text-dark);
+            border: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            text-decoration: none;
+            box-shadow: 0 10px 40px rgba(212, 165, 116, 0.4);
+            transition: all 0.3s;
+        }
+
+        .celebration-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 50px rgba(212, 165, 116, 0.5);
         }
 
         .hero-tagline {
@@ -231,9 +460,10 @@
             animation: fadeInUp 0.8s 0.7s forwards;
         }
 
+        /* Hero Features - Emphasized */
         .hero-features {
             display: flex;
-            gap: 3rem;
+            gap: 1.5rem;
             margin-bottom: 3rem;
             opacity: 0;
             animation: fadeInUp 0.8s 0.9s forwards;
@@ -243,20 +473,43 @@
             display: flex;
             align-items: center;
             gap: 0.75rem;
-            color: rgba(255, 255, 255, 0.9);
-            font-size: 0.95rem;
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-light) 100%);
+            border: 3px solid rgba(255, 255, 255, 0.4);
+            padding: 1.2rem 2rem;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            box-shadow: 0 4px 20px rgba(212, 165, 116, 0.5), 0 0 30px rgba(212, 165, 116, 0.3);
+            transition: all 0.3s;
+            animation: featureGlow 2s infinite;
+        }
+
+        @keyframes featureGlow {
+            0%, 100% {
+                box-shadow: 0 4px 20px rgba(212, 165, 116, 0.5), 0 0 30px rgba(212, 165, 116, 0.3);
+            }
+            50% {
+                box-shadow: 0 4px 30px rgba(212, 165, 116, 0.7), 0 0 50px rgba(212, 165, 116, 0.5);
+            }
+        }
+
+        .hero-feature:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 8px 40px rgba(212, 165, 116, 0.8), 0 0 60px rgba(212, 165, 116, 0.6);
         }
 
         .hero-feature-icon {
-            width: 24px;
-            height: 24px;
-            border: 1px solid var(--secondary);
+            width: 32px;
+            height: 32px;
+            background: var(--primary);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--secondary);
-            font-size: 0.7rem;
+            color: var(--white);
+            font-size: 1rem;
+            font-weight: 700;
         }
 
         .hero-cta-group {
@@ -289,7 +542,7 @@
         .btn-primary:hover {
             background: var(--secondary-light);
             transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(201, 169, 98, 0.3);
+            box-shadow: 0 10px 30px rgba(212, 165, 116, 0.3);
         }
 
         .btn-outline {
@@ -341,7 +594,7 @@
             left: 0;
             right: 0;
             height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(26, 42, 74, 0.1), transparent);
+            background: linear-gradient(90deg, transparent, rgba(44, 95, 74, 0.1), transparent);
         }
 
         .container {
@@ -508,17 +761,32 @@
                 url('https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?w=800&q=80');
         }
 
+        /* Solution Badge - Emphasized */
         .solution-badge {
             position: absolute;
             top: 1.5rem;
             left: 1.5rem;
-            background: var(--secondary);
+            background: linear-gradient(135deg, var(--secondary), var(--secondary-light));
             color: var(--text-dark);
-            padding: 0.5rem 1rem;
-            font-size: 0.75rem;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
             font-weight: 700;
-            letter-spacing: 0.1em;
-            border-radius: 4px;
+            letter-spacing: 0.05em;
+            border-radius: 8px;
+            box-shadow: 0 8px 25px rgba(212, 165, 116, 0.6);
+            border: 3px solid rgba(255, 255, 255, 0.5);
+            animation: badgePulse 1.5s infinite;
+        }
+
+        @keyframes badgePulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 8px 25px rgba(212, 165, 116, 0.6);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 12px 35px rgba(212, 165, 116, 0.8), 0 0 40px rgba(212, 165, 116, 0.4);
+            }
         }
 
         .solution-content {
@@ -572,6 +840,111 @@
             color: var(--primary-light);
         }
 
+        /* Testimonials Section */
+        .testimonials-section {
+            padding: 6rem 0;
+            background: var(--bg-warm);
+            position: relative;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .testimonial-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 2.5rem;
+            position: relative;
+            box-shadow: var(--shadow-soft);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: 1.5rem;
+            left: 2rem;
+            font-size: 4rem;
+            font-family: 'Noto Serif JP', serif;
+            color: var(--secondary);
+            opacity: 0.3;
+            line-height: 1;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .testimonial-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(44, 95, 74, 0.1);
+        }
+
+        .testimonial-avatar {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, #e8e4e0, #d4cfc9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border: 2px solid var(--white);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .testimonial-avatar svg {
+            width: 36px;
+            height: 36px;
+            fill: #8a8279;
+        }
+
+        .testimonial-info h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.25rem;
+        }
+
+        .testimonial-product {
+            display: inline-block;
+            font-size: 0.75rem;
+            color: var(--primary);
+            background: rgba(44, 95, 74, 0.1);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-weight: 500;
+        }
+
+        .testimonial-content {
+            font-size: 0.95rem;
+            color: var(--text-body);
+            line-height: 1.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .testimonial-highlight {
+            background: linear-gradient(transparent 60%, rgba(212, 165, 116, 0.3) 60%);
+            padding: 0 2px;
+        }
+
+        .testimonials-disclaimer {
+            text-align: center;
+            margin-top: 2.5rem;
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+
         /* Stats Section */
         .stats-section {
             padding: 6rem 0;
@@ -606,15 +979,13 @@
             font-weight: 700;
             line-height: 1;
             margin-bottom: 0.5rem;
-            background: linear-gradient(135deg, var(--white) 0%, var(--secondary) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: var(--secondary);
         }
 
         .stat-unit {
-            font-size: 1.5rem;
-            opacity: 0.9;
+            font-size: 1.8rem;
+            color: var(--secondary);
+            font-weight: 700;
         }
 
         .stat-label {
@@ -695,35 +1066,71 @@
         .clt-image {
             width: 100%;
             height: 500px;
-            background: linear-gradient(135deg, rgba(26, 42, 74, 0.1), rgba(201, 169, 98, 0.1)),
+            background: linear-gradient(135deg, rgba(44, 95, 74, 0.3), rgba(212, 165, 116, 0.2)),
                 url('https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=800&q=80');
             background-size: cover;
             background-position: center;
             border-radius: 16px;
+            position: relative;
         }
 
+        .clt-image::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 16px;
+        }
+
+        /* CLT Badge - Emphasized */
         .clt-badge {
             position: absolute;
-            bottom: -2rem;
-            right: 2rem;
-            background: var(--secondary);
-            color: var(--text-dark);
-            padding: 1.5rem 2rem;
-            border-radius: 12px;
+            bottom: 50%;
+            right: 50%;
+            transform: translate(50%, 50%);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: var(--white);
+            padding: 2.5rem;
+            border-radius: 50%;
+            width: 180px;
+            height: 180px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             text-align: center;
-            box-shadow: var(--shadow-strong);
+            box-shadow: 0 15px 50px rgba(44, 95, 74, 0.5), 0 0 40px rgba(44, 95, 74, 0.3);
+            border: 4px solid var(--secondary);
+            animation: cltBadgeFloat 3s ease-in-out infinite;
+            z-index: 10;
+        }
+
+        @keyframes cltBadgeFloat {
+            0%, 100% {
+                transform: translate(50%, 50%);
+                box-shadow: 0 15px 50px rgba(44, 95, 74, 0.5), 0 0 40px rgba(44, 95, 74, 0.3);
+            }
+            50% {
+                transform: translate(50%, 45%);
+                box-shadow: 0 25px 60px rgba(44, 95, 74, 0.6), 0 0 50px rgba(44, 95, 74, 0.4);
+            }
         }
 
         .clt-badge-number {
             font-family: 'Noto Serif JP', serif;
-            font-size: 2rem;
+            font-size: 3.5rem;
             font-weight: 700;
             display: block;
+            color: var(--secondary);
+            line-height: 1;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
         }
 
         .clt-badge-text {
-            font-size: 0.8rem;
-            font-weight: 500;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+            opacity: 0.95;
         }
 
         /* Area Section */
@@ -896,7 +1303,7 @@
             font-size: 1.5rem;
             margin-bottom: 2rem;
             padding-bottom: 1rem;
-            border-bottom: 1px solid rgba(26, 42, 74, 0.1);
+            border-bottom: 1px solid rgba(44, 95, 74, 0.1);
         }
 
         .company-table {
@@ -904,7 +1311,7 @@
         }
 
         .company-table tr {
-            border-bottom: 1px solid rgba(26, 42, 74, 0.05);
+            border-bottom: 1px solid rgba(44, 95, 74, 0.05);
         }
 
         .company-table tr:last-child {
@@ -956,7 +1363,7 @@
             right: -20%;
             width: 600px;
             height: 600px;
-            background: radial-gradient(circle, rgba(201, 169, 98, 0.15) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(212, 165, 116, 0.15) 0%, transparent 70%);
             border-radius: 50%;
         }
 
@@ -1015,31 +1422,6 @@
             color: rgba(255, 255, 255, 0.6);
             font-size: 0.9rem;
             line-height: 1.8;
-        }
-
-        .footer-contact-info {
-            margin-top: 1.5rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .footer-contact-item {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            margin-bottom: 0.75rem;
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 0.9rem;
-        }
-
-        .footer-contact-item a {
-            color: rgba(255, 255, 255, 0.7);
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .footer-contact-item a:hover {
-            color: var(--secondary);
         }
 
         .footer-links h4 {
@@ -1162,6 +1544,16 @@
         @media (max-width: 1024px) {
             .header-inner {
                 padding: 0 2rem;
+                height: 80px;
+            }
+
+            nav {
+                gap: 1.5rem;
+            }
+
+            .header-cta {
+                padding: 0.6rem 1.25rem;
+                font-size: 0.85rem;
             }
 
             .container {
@@ -1170,6 +1562,53 @@
 
             .hero-content {
                 padding: 0 2rem;
+            }
+
+            .hero-features {
+                flex-wrap: wrap;
+                justify-content: flex-start;
+            }
+
+            .hero-feature {
+                flex: 0 0 auto;
+            }
+
+            .anniversary-section {
+                height: 650px;
+            }
+
+            .anniversary-content {
+                padding: 2rem;
+            }
+
+            .celebration-number {
+                font-size: 6rem;
+            }
+
+            .celebration-th {
+                font-size: 1.75rem;
+            }
+
+            .celebration-title {
+                font-size: 1.3rem;
+            }
+
+            .elegant-ribbon {
+                padding: 0.85rem 2.5rem;
+            }
+
+            .elegant-ribbon::before {
+                left: -22px;
+                border-width: 21px 22px 21px 0;
+            }
+
+            .elegant-ribbon::after {
+                right: -22px;
+                border-width: 21px 0 21px 22px;
+            }
+
+            .ribbon-text {
+                font-size: 0.85rem;
             }
 
             .problem-grid {
@@ -1188,6 +1627,11 @@
                 order: -1;
             }
 
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
             .footer-content {
                 grid-template-columns: 1fr 1fr;
             }
@@ -1196,19 +1640,47 @@
         @media (max-width: 768px) {
             .header-inner {
                 padding: 0 1.5rem;
+                height: 70px;
             }
 
             nav {
                 display: none;
             }
 
+            .logo {
+                font-size: 1.5rem;
+            }
+
+            .anniversary-box {
+                padding: 0.3rem 0.6rem;
+            }
+
+            .anniversary-box .number {
+                font-size: 0.9rem;
+            }
+
+            .anniversary-box .text {
+                font-size: 0.45rem;
+            }
+
             .hero {
                 min-height: 100vh;
             }
 
+            .hero-content {
+                padding: 0 1.5rem;
+            }
+
             .hero-features {
                 flex-direction: column;
-                gap: 1rem;
+                gap: 0.75rem;
+                align-items: stretch;
+            }
+
+            .hero-feature {
+                padding: 1rem 1.5rem;
+                font-size: 0.95rem;
+                justify-content: center;
             }
 
             .hero-cta-group {
@@ -1218,6 +1690,66 @@
             .btn {
                 width: 100%;
                 justify-content: center;
+            }
+
+            .anniversary-section {
+                height: 580px;
+            }
+
+            .anniversary-content {
+                padding: 2rem 1.5rem;
+            }
+
+            .celebration-number {
+                font-size: 4.5rem;
+            }
+
+            .celebration-th {
+                font-size: 1.25rem;
+                margin-bottom: 1rem;
+            }
+
+            .celebration-title {
+                font-size: 1.1rem;
+                padding: 0 1rem;
+            }
+
+            .celebration-year {
+                font-size: 0.85rem;
+                letter-spacing: 0.3em;
+                margin-bottom: 1rem;
+            }
+
+            .celebration-message {
+                font-size: 0.85rem;
+                padding: 0 1rem;
+                line-height: 1.8;
+            }
+
+            .elegant-ribbon {
+                padding: 0.6rem 1.5rem;
+                margin-bottom: 1rem;
+            }
+
+            .elegant-ribbon::before {
+                left: -16px;
+                border-width: 17px 16px 17px 0;
+            }
+
+            .elegant-ribbon::after {
+                right: -16px;
+                border-width: 17px 0 17px 16px;
+            }
+
+            .ribbon-text {
+                font-size: 0.7rem;
+                letter-spacing: 0.15em;
+            }
+
+            .celebration-btn {
+                padding: 0.75rem 1.75rem;
+                font-size: 0.85rem;
+                margin-top: 1.5rem;
             }
 
             .problem-grid {
@@ -1231,6 +1763,20 @@
 
             .clt-features {
                 grid-template-columns: 1fr;
+            }
+
+            .clt-badge {
+                width: 140px;
+                height: 140px;
+                padding: 1.5rem;
+            }
+
+            .clt-badge-number {
+                font-size: 2.5rem;
+            }
+
+            .clt-badge-text {
+                font-size: 0.75rem;
             }
 
             .area-stats {
@@ -1294,7 +1840,13 @@
     <!-- Header -->
     <header id="header">
         <div class="header-inner">
-            <a href="#" class="logo">PLEAST</a>
+            <div class="logo-area">
+                <a href="#" class="logo">PLEAST</a>
+                <div class="anniversary-box">
+                    <span class="number">20th</span>
+                    <span class="text">ANNIVERSARY</span>
+                </div>
+            </div>
             <nav>
                 <a href="#problem">課題</a>
                 <a href="#solution">商品</a>
@@ -1317,7 +1869,7 @@
             </h1>
             <p class="hero-subtitle">
                 CLTセルユニット × 旅館運用 × 完全手離れ。<br>
-                新築戸建旅館とトランスフォーム型トレーラーハウスで、<br>
+                新築ヴィラタイプ旅館とトランスフォーム型トレーラーハウスで、<br>
                 新時代の不動産投資を実現します。
             </p>
             <div class="hero-features">
@@ -1347,6 +1899,42 @@
         <div class="hero-scroll">
             <span>Scroll</span>
             <div class="hero-scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- Anniversary Section -->
+    <section class="anniversary-section">
+        <div class="anniversary-bg"></div>
+        <div class="anniversary-overlay"></div>
+        <div class="confetti-container">
+            <div class="confetti"></div>
+            <div class="confetti"></div>
+            <div class="confetti"></div>
+            <div class="confetti"></div>
+            <div class="confetti"></div>
+            <div class="confetti"></div>
+            <div class="confetti"></div>
+            <div class="confetti"></div>
+            <div class="confetti"></div>
+            <div class="confetti"></div>
+            <div class="confetti"></div>
+            <div class="confetti"></div>
+        </div>
+        <div class="anniversary-content">
+            <div class="elegant-ribbon">
+                <span class="ribbon-text">20TH ANNIVERSARY</span>
+            </div>
+            <div class="celebration-number">20</div>
+            <div class="celebration-th">th Anniversary</div>
+            <h2 class="celebration-title">PLEAST 20周年プロジェクト</h2>
+            <p class="celebration-year">2 0 0 5 — 2 0 2 5</p>
+            <p class="celebration-message">
+                おかげさまで創業20周年。<br>
+                これからも皆様の資産形成をサポートしてまいります。
+            </p>
+            <a href="#contact" class="celebration-btn">
+                詳しく見る →
+            </a>
         </div>
     </section>
 
@@ -1408,7 +1996,7 @@
                         <span class="solution-badge">利回り10%保証</span>
                     </div>
                     <div class="solution-content">
-                        <h3 class="solution-title">新築戸建旅館運用</h3>
+                        <h3 class="solution-title">新築ヴィラタイプ旅館経営</h3>
                         <p class="solution-desc">
                             一棟マンションや区分所有ではなく、戸建を建築して旅館運用を行い収益を得る投資です。
                         </p>
@@ -1418,7 +2006,7 @@
                             <li>運用はPLEASTが旅館業として代行</li>
                             <li>実需転用可能で出口戦略も安心</li>
                         </ul>
-                        <a href="pleast-shintiku.html" class="solution-link">
+                        <a href="pleast-shintiku-v2.html" class="solution-link">
                             詳しく見る <span>→</span>
                         </a>
                     </div>
@@ -1439,7 +2027,7 @@
                             <li>移動可能で場所選定の自由度が高い</li>
                             <li>CLT構造でSDGs・地方創生にも貢献</li>
                         </ul>
-                        <a href="pleast-trailer-house.html" class="solution-link">
+                        <a href="pleast-trailer-house-v2.html" class="solution-link">
                             詳しく見る <span>→</span>
                         </a>
                     </div>
@@ -1453,21 +2041,87 @@
         <div class="container">
             <div class="stats-grid">
                 <div class="stat-item">
-                    <div class="stat-number">10<span class="stat-unit">%</span></div>
+                    <div class="stat-number">10<span class="stat-unit">％</span></div>
                     <div class="stat-label">表面利回り保証</div>
                     <div class="stat-desc">一般不動産投資の4-8%を大きく上回る</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-number">80<span class="stat-unit">%</span></div>
+                    <div class="stat-number">80<span class="stat-unit">％</span></div>
                     <div class="stat-label">相続税圧縮可能</div>
                     <div class="stat-desc">1億円 → 評価額2,000〜2,500万円に</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-number">5,000<span class="stat-unit">+</span></div>
-                    <div class="stat-label">国内取引先</div>
-                    <div class="stat-desc">20年の実績と信頼</div>
+                    <div class="stat-number">20<span class="stat-unit">年</span></div>
+                    <div class="stat-label">運営実績</div>
+                    <div class="stat-desc">創業からの信頼と経験</div>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials-section" id="testimonials">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Voice</div>
+                <h2 class="section-title">お客様の声</h2>
+                <p class="section-subtitle">実際にご購入いただいたお客様からの声をご紹介します</p>
+            </div>
+
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                            </svg>
+                        </div>
+                        <div class="testimonial-info">
+                            <h4>70代男性</h4>
+                            <span class="testimonial-product">新築ヴィラタイプ旅館</span>
+                        </div>
+                    </div>
+                    <div class="testimonial-content">
+                        <p>築年数が30年以上経った一棟アパートを所有していましたが、ここ数年大きな修繕費が年に何回も掛かり、実際の手取り収入が毎月のローン金額とほぼ一緒まで減ってしまったので、愛着はありましたが昨年売却を決意しました。そこで出来た資金で<span class="testimonial-highlight">利回りが10%近い新築ヴィラタイプ旅館</span>に興味を持ち、インバウンド需要や無人運営システム、最新の設備を導入した建物に絶対的な価値は出てくると判断し、今後の運用に期待して購入を決断しました。</p>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                            </svg>
+                        </div>
+                        <div class="testimonial-info">
+                            <h4>60代男性</h4>
+                            <span class="testimonial-product">トレーラーハウス</span>
+                        </div>
+                    </div>
+                    <div class="testimonial-content">
+                        <p>区分所有を金融機関の融資で多数所有しておりましたが、管理費や修繕積立金が購入時より全体的に高くなり、毎月の収支が赤字になったので昨年全て売却を決めました。売却も良いタイミングで出来たのもあり、ある程度の現金を残せました。その資金での運用を考えていた為、今回は不動産ではなく、<span class="testimonial-highlight">可動産であるトレーラーハウス</span>の購入を決めました。いざとなった時に宿泊の需要がある所に短期間で移動する事が出来る所に最大のメリットを感じました。</p>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                            </svg>
+                        </div>
+                        <div class="testimonial-info">
+                            <h4>50代男性</h4>
+                            <span class="testimonial-product">トレーラーハウス</span>
+                        </div>
+                    </div>
+                    <div class="testimonial-content">
+                        <p>トランスフォーム型トレーラーハウスとの事でしたので、初めは何だろうと思ったのですが床面積が通常の倍近くもあり、とても魅力的な商品に思いました。さらに<span class="testimonial-highlight">購入から設置運営まで全て丸投げでお任せ</span>出来る為、初めてでも非常に安心感を覚えました。比較的高利回りで安全で早い投資回収が可能な点と<span class="testimonial-highlight">短期で償却ができるスキーム</span>は税制優遇とキャッシュフロー改善の両方を求めている私にとってはとても魅力的に感じました。</p>
+                    </div>
+                </div>
+            </div>
+
+            <p class="testimonials-disclaimer">※あくまで個人の感想であり、将来の運用成果を保証するものではありません。</p>
         </div>
     </section>
 
@@ -1597,7 +2251,7 @@
             <div class="section-header">
                 <div class="section-label">Company</div>
                 <h2 class="section-title">運営会社</h2>
-                <p class="section-subtitle">20年の実績と5,000社以上の取引先を持つ総合不動産会社</p>
+                <p class="section-subtitle">創業20年の実績を持つ総合不動産会社</p>
             </div>
 
             <div class="company-content">
@@ -1626,16 +2280,8 @@
                             <td>総合不動産事業</td>
                         </tr>
                         <tr>
-                            <th>取引先</th>
-                            <td>5,000社以上</td>
-                        </tr>
-                        <tr>
                             <th>代表電話</th>
                             <td><a href="tel:092-283-7555">092-283-7555</a></td>
-                        </tr>
-                        <tr>
-                            <th>フリーダイヤル</th>
-                            <td><a href="tel:0120-929-727">0120-929-727</a></td>
                         </tr>
                         <tr>
                             <th>URL</th>
@@ -1653,7 +2299,7 @@
             <div class="cta-content">
                 <h2 class="cta-title">あなたに最適な<br>シミュレーションをご案内します</h2>
                 <p class="cta-subtitle">
-                    新築戸建旅館運用 ／ トランスフォーム型トレーラーハウス運用に関するお問い合わせはこちら
+                    新築ヴィラタイプ旅館経営 ／ トランスフォーム型トレーラーハウス運用に関するお問い合わせはこちら
                 </p>
                 <div class="cta-buttons">
                     <a href="#" class="btn btn-primary" style="background: #06c755;">
@@ -1662,9 +2308,9 @@
                         </svg>
                         LINE公式アカウント
                     </a>
-                    <a href="tel:0120-929-727" class="btn btn-primary">
+                    <a href="tel:0120-727-875" class="btn btn-outline" style="border-color: var(--secondary); color: var(--secondary);">
                         <span>📞</span>
-                        0120-929-727
+                        0120-727-875
                     </a>
                 </div>
                 <p class="cta-note">※ 相談は無料です。お気軽にお問い合わせください。</p>
@@ -1682,27 +2328,13 @@
                         株式会社PLEAST（プレスト）<br>
                         〒812-0038 福岡県博多区祇園町2-35
                     </p>
-                    <div class="footer-contact-info">
-                        <div class="footer-contact-item">
-                            <span>📞</span>
-                            <a href="tel:092-283-7555">092-283-7555</a>
-                        </div>
-                        <div class="footer-contact-item">
-                            <span>🆓</span>
-                            <a href="tel:0120-929-727">0120-929-727</a>（フリーダイヤル）
-                        </div>
-                        <div class="footer-contact-item">
-                            <span>🌐</span>
-                            <a href="https://www.pleast.co.jp" target="_blank">https://www.pleast.co.jp</a>
-                        </div>
-                    </div>
                 </div>
                 <div class="footer-links">
                     <h4>商品</h4>
                     <ul>
-                        <li><a href="pleast-shintiku.html">新築戸建旅館運用</a></li>
-                        <li><a href="pleast-trailer-house.html">トレーラーハウス運用</a></li>
-                        <li><a href="pleast-operation.html">運用説明・Q&A</a></li>
+                        <li><a href="pleast-shintiku-v2.html">新築ヴィラタイプ旅館経営</a></li>
+                        <li><a href="pleast-trailer-house-v2.html">トレーラーハウス運用</a></li>
+                        <li><a href="pleast-operation-v2.html">運用説明・Q&A</a></li>
                     </ul>
                 </div>
                 <div class="footer-links">
@@ -1732,8 +2364,8 @@
             </svg>
             LINE
         </a>
-        <a href="tel:0120-929-727" class="fixed-cta-btn contact">
-            📞 電話相談
+        <a href="tel:0120-727-875" class="fixed-cta-btn contact">
+            📞 0120-727-875
         </a>
     </div>
 

@@ -1,0 +1,64 @@
+.fixed-cta {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.4s;
+}
+
+.fixed-cta.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.fixed-cta-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.5rem;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  box-shadow: var(--shadow-strong);
+  transition: all 0.3s;
+}
+
+.fixed-cta-btn.line {
+  background: #06c755;
+  color: var(--white);
+}
+
+.fixed-cta-btn.contact {
+  background: var(--secondary);
+  color: var(--text-dark);
+}
+
+.fixed-cta-btn:hover {
+  transform: translateY(-3px);
+}
+
+@media (max-width: 768px) {
+  .fixed-cta {
+    bottom: 0;
+    right: 0;
+    left: 0;
+    flex-direction: row;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 0;
+  }
+
+  .fixed-cta-btn {
+    flex: 1;
+    justify-content: center;
+    border-radius: 8px;
+  }
+}

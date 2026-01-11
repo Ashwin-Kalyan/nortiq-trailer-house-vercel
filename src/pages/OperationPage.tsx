@@ -1,1164 +1,744 @@
-import { useState, useEffect } from 'react'
-import ScrollReveal from '../components/ScrollReveal'
+import React, { useEffect, useState, useRef } from 'react'
+import Header from '../components/Header'
+import Footer from '../components/Footer'
+import FixedCTA from '../components/FixedCTA'
+import './OperationPage.css'
 
 const OperationPage = () => {
   const [activeFaq, setActiveFaq] = useState<number | null>(null)
+  const observerRef = useRef<IntersectionObserver | null>(null)
+  
+  // Form state
   const [formData, setFormData] = useState({
-    consultation_method: [] as string[],
-    consultation_type: [] as string[],
     name: '',
     furigana: '',
     email: '',
     phone: '',
+    consultationMethod: [] as string[],
+    consultationType: [] as string[],
     content: ''
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
-  const [errorMessage, setErrorMessage] = useState('')
-
-  const API_URL = 'https://nortiq-trailer-house-backend.onrender.com'
+  const [submitMessage, setSubmitMessage] = useState('')
 
   useEffect(() => {
-    const hash = window.location.hash
-    if (hash === '#contact' || hash === '#contact-form') {
-      setTimeout(() => {
-        const element = document.querySelector(hash)
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    const handleAnchorClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement
+      const anchor = target.closest('a')
+      if (anchor && anchor.getAttribute('href')?.startsWith('#')) {
+        e.preventDefault()
+        const href = anchor.getAttribute('href')
+        if (href) {
+          const element = document.querySelector(href)
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+          }
         }
-      }, 100)
+      }
+    }
+    document.addEventListener('click', handleAnchorClick)
+
+    // Intersection Observer for animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
     }
 
-    // Intersection Observer for animations - run after DOM updates
-    const timer = setTimeout(() => {
-      const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
+    observerRef.current = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const element = entry.target as HTMLElement
+          element.style.opacity = '1'
+          element.style.transform = 'translateY(0)'
+        }
+      })
+    }, observerOptions)
+
+    // Observe elements for animation
+    const animateElements = document.querySelectorAll('.flow-step, .operation-card, .merit-box, .risk-card, .faq-item, .contact-method')
+    animateElements.forEach(el => {
+      const htmlEl = el as HTMLElement
+      htmlEl.style.opacity = '0'
+      htmlEl.style.transform = 'translateY(30px)'
+      htmlEl.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)'
+      observerRef.current?.observe(el)
+    })
+
+    // Staggered animation for grid items
+    const flowSteps = document.querySelectorAll('.flow-step')
+    flowSteps.forEach((el, i) => {
+      const htmlEl = el as HTMLElement
+      htmlEl.style.transitionDelay = `${i * 0.15}s`
+    })
+
+    const operationCards = document.querySelectorAll('.operation-card')
+    operationCards.forEach((el, i) => {
+      const htmlEl = el as HTMLElement
+      htmlEl.style.transitionDelay = `${i * 0.1}s`
+    })
+
+    const riskCards = document.querySelectorAll('.risk-card')
+    riskCards.forEach((el, i) => {
+      const htmlEl = el as HTMLElement
+      htmlEl.style.transitionDelay = `${i * 0.1}s`
+    })
+
+    const contactMethods = document.querySelectorAll('.contact-method')
+    contactMethods.forEach((el, i) => {
+      const htmlEl = el as HTMLElement
+      htmlEl.style.transitionDelay = `${i * 0.15}s`
+    })
+
+    // Form validation visual feedback
+    const formInputs = document.querySelectorAll('.form-input, .form-textarea')
+    const formHandlers: Array<{ input: HTMLInputElement | HTMLTextAreaElement; blurHandler: () => void; focusHandler: () => void }> = []
+    
+    formInputs.forEach(input => {
+      const htmlInput = input as HTMLInputElement | HTMLTextAreaElement
+      const blurHandler = function(this: HTMLInputElement | HTMLTextAreaElement) {
+        if (this.value.trim() !== '') {
+          this.style.borderColor = 'var(--success)'
+        }
       }
-
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.setAttribute('data-visible', 'true')
-            // Set inline styles for animation
-            ;(entry.target as HTMLElement).style.opacity = '1'
-            ;(entry.target as HTMLElement).style.transform = 'translateY(0)'
-          }
-        })
-      }, observerOptions)
-
-      // Observe elements for animation
-      const elements = document.querySelectorAll('.flow-step, .operation-card, .merit-box, .risk-card, .contact-method')
-      elements.forEach((el) => {
-        el.setAttribute('data-animate', 'true')
-        ;(el as HTMLElement).style.opacity = '0'
-        ;(el as HTMLElement).style.transform = 'translateY(30px)'
-        ;(el as HTMLElement).style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)'
-        observer.observe(el)
-      })
-
-      // Staggered animation delays
-      document.querySelectorAll('.flow-step').forEach((el, i) => {
-        ;(el as HTMLElement).style.transitionDelay = `${i * 0.15}s`
-      })
-      document.querySelectorAll('.operation-card').forEach((el, i) => {
-        ;(el as HTMLElement).style.transitionDelay = `${i * 0.1}s`
-      })
-      document.querySelectorAll('.risk-card').forEach((el, i) => {
-        ;(el as HTMLElement).style.transitionDelay = `${i * 0.1}s`
-      })
-      document.querySelectorAll('.contact-method').forEach((el, i) => {
-        ;(el as HTMLElement).style.transitionDelay = `${i * 0.15}s`
-      })
-
-      return () => {
-        elements.forEach(el => observer.unobserve(el))
+      const focusHandler = function(this: HTMLInputElement | HTMLTextAreaElement) {
+        this.style.borderColor = 'var(--primary)'
       }
-    }, 100)
+      
+      htmlInput.addEventListener('blur', blurHandler)
+      htmlInput.addEventListener('focus', focusHandler)
+      formHandlers.push({ input: htmlInput, blurHandler, focusHandler })
+    })
 
     return () => {
-      clearTimeout(timer)
+      document.removeEventListener('click', handleAnchorClick)
+      if (observerRef.current) {
+        animateElements.forEach(el => observerRef.current?.unobserve(el))
+      }
+      formHandlers.forEach(({ input, blurHandler, focusHandler }) => {
+        input.removeEventListener('blur', blurHandler)
+        input.removeEventListener('focus', focusHandler)
+      })
     }
-  }, [activeFaq])
+  }, [])
 
-  const handleCheckboxChange = (name: 'consultation_method' | 'consultation_type', value: string, checked: boolean) => {
-    setFormData(prev => {
-      const currentValues = prev[name]
+  // Handle form input changes
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target
+    setFormData((prev: typeof formData) => ({ ...prev, [name]: value }))
+  }
+
+  // Handle checkbox changes
+  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>, field: 'consultationMethod' | 'consultationType') => {
+    const { value, checked } = e.target
+    setFormData((prev: typeof formData) => {
+      const currentArray = prev[field]
       if (checked) {
-        return { ...prev, [name]: [...currentValues, value] }
+        return { ...prev, [field]: [...currentArray, value] }
       } else {
-        return { ...prev, [name]: currentValues.filter(v => v !== value) }
+        return { ...prev, [field]: currentArray.filter((item: string) => item !== value) }
       }
     })
   }
 
-  const handleInputChange = (name: string, value: string) => {
-    setFormData(prev => ({ ...prev, [name]: value }))
+  // Map form values to backend expected format
+  const mapConsultationMethod = (values: string[]): string => {
+    const mapping: Record<string, string> = {
+      'online': 'オンライン（Team / Zoom）',
+      'phone': '電話'
+    }
+    return values.map(v => mapping[v] || v).join(', ')
   }
 
+  const mapConsultationType = (values: string[]): string => {
+    const mapping: Record<string, string> = {
+      'trailer': 'トレーラーハウスについて聞きたい',
+      'inn': '新築戸建設施について聞きたい',
+      'estimate': 'お見積りについて聞きたい',
+      'other': 'その他'
+    }
+    return values.map(v => mapping[v] || v).join(', ')
+  }
+
+  // Handle form submission
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    
+    // Validate required fields
+    if (!formData.name || !formData.furigana || !formData.email || !formData.phone) {
+      setSubmitStatus('error')
+      setSubmitMessage('必須項目を入力してください。')
+      return
+    }
+
+    if (formData.consultationMethod.length === 0) {
+      setSubmitStatus('error')
+      setSubmitMessage('ご相談方法を選択してください。')
+      return
+    }
+
+    if (formData.consultationType.length === 0) {
+      setSubmitStatus('error')
+      setSubmitMessage('ご相談の種類を選択してください。')
+      return
+    }
+
     setIsSubmitting(true)
     setSubmitStatus('idle')
-    setErrorMessage('')
-
-    // Validate required fields
-    if (formData.consultation_method.length === 0) {
-      setErrorMessage('ご相談方法を選択してください')
-      setIsSubmitting(false)
-      return
-    }
-    if (formData.consultation_type.length === 0) {
-      setErrorMessage('ご相談の種類を選択してください')
-      setIsSubmitting(false)
-      return
-    }
-    if (!formData.name || !formData.furigana || !formData.email || !formData.phone) {
-      setErrorMessage('必須項目を入力してください')
-      setIsSubmitting(false)
-      return
-    }
-
-    // Format data for backend
-    const submitData = {
-      consultation_method: formData.consultation_method.join(', '),
-      consultation_type: formData.consultation_type.join(', '),
-      name: formData.name,
-      furigana: formData.furigana,
-      email: formData.email,
-      phone: formData.phone,
-      content: formData.content || ''
-    }
+    setSubmitMessage('')
 
     try {
-      const response = await fetch(`${API_URL}/submit`, {
+      const payload = {
+        name: formData.name,
+        furigana: formData.furigana,
+        email: formData.email,
+        phone: formData.phone,
+        consultation_method: mapConsultationMethod(formData.consultationMethod),
+        consultation_type: mapConsultationType(formData.consultationType),
+        content: formData.content || ''
+      }
+
+      const response = await fetch('https://nortiq-trailer-house-backend.onrender.com/submit', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(submitData)
+        body: JSON.stringify(payload)
       })
 
       if (!response.ok) {
-        throw new Error('送信に失敗しました。しばらくしてから再度お試しください。')
+        throw new Error(`HTTP error! status: ${response.status}`)
       }
 
       await response.json()
+      
       setSubmitStatus('success')
+      setSubmitMessage('お問い合わせありがとうございます。担当者より折り返しご連絡いたします。')
       
       // Reset form
       setFormData({
-        consultation_method: [],
-        consultation_type: [],
         name: '',
         furigana: '',
         email: '',
         phone: '',
+        consultationMethod: [],
+        consultationType: [],
         content: ''
       })
-
-      // Scroll to top of form to show success message
-      const formElement = document.getElementById('contact-form')
-      if (formElement) {
-        formElement.scrollIntoView({ behavior: 'smooth', block: 'start' })
-      }
-
-      // Clear success message after 5 seconds
-      setTimeout(() => {
-        setSubmitStatus('idle')
-      }, 5000)
+      
+      // Reset checkboxes
+      const checkboxes = document.querySelectorAll('input[type="checkbox"]') as NodeListOf<HTMLInputElement>
+      checkboxes.forEach(checkbox => {
+        if (checkbox.id !== 'privacy') {
+          checkbox.checked = false
+        }
+      })
+      
     } catch (error) {
       console.error('Form submission error:', error)
       setSubmitStatus('error')
-      setErrorMessage(error instanceof Error ? error.message : '送信に失敗しました。しばらくしてから再度お試しください。')
+      setSubmitMessage('送信に失敗しました。しばらく時間をおいて再度お試しください。')
     } finally {
       setIsSubmitting(false)
     }
   }
 
-  const flowSteps = [
-    { num: 1, title: '📞 無料相談・シミュレーション', desc: 'お客様のご状況やご希望をヒアリングし、最適な投資プランと収益シミュレーションをご提案します。' },
-    { num: 2, title: '📋 物件選定・ご契約', desc: 'エリアや物件タイプを選定し、契約内容を確認。ご納得いただいた上でご契約となります。' },
-    { num: 3, title: '🏗️ 物件建築・設置', desc: 'CLTセルユニットにより、従来の約1/3の工期で完成。早期に収益化が可能です。' },
-    { num: 4, title: '📝 旅館業申請・運営開始', desc: 'PLEASTが旅館業の申請から運営まで全て代行。オーナー様の手続きは不要です。' },
-    { num: 5, title: '💰 毎月リース収益をお受け取り', desc: '運営が始まれば、毎月安定したリース収益をお受け取りいただけます。' },
-  ]
-
-  const operationCards = [
-    { icon: '📋', title: '旅館業の申請・取得', desc: '複雑な許認可手続きを全て代行' },
-    { icon: '🌐', title: '予約サイト掲載・集客', desc: '主要OTAへの掲載とマーケティング' },
-    { icon: '📊', title: 'ダイナミックプライシング', desc: 'AIによる最適価格設定で収益最大化' },
-    { icon: '🛎️', title: 'ゲスト対応・清掃', desc: 'チェックイン対応から清掃まで' },
-    { icon: '💹', title: '売上管理・収益分配', desc: '透明性の高い収益レポート' },
-  ]
-
-  const merits = [
-    '利回り10%保証で安定した収益',
-    '完全手離れ運用で手間がかからない',
-    '相続税・節税効果が大きい',
-    '新築で修繕不安が少ない',
-    '実需転用・売却の選択肢がある',
-    '社会貢献・SDGsにも貢献',
-  ]
-
-  const demerits = [
-    '市場変動リスク（観光需要の変化）',
-    '火災リスク（保険でカバー可能）',
-    'ランニングコスト（修繕積立等）',
-  ]
-
-  const risks = [
-    {
-      icon: '📉',
-      title: '稼働率リスク',
-      desc: '観光需要の変動により、宿泊稼働率が低下する可能性があります。',
-      solution: 'ダイナミックプライシング（AI価格最適化）、観光課・地元との連携、需要の高いエリアを厳選して設置。トレーラーハウスは移動可能でエリア変更も可能。',
-    },
-    {
-      icon: '✈️',
-      title: 'インバウンド依存リスク',
-      desc: '外国人観光客への依存度が高いと、国際情勢の影響を受けやすくなります。',
-      solution: '中国渡航者は日本全体の外国人渡航者の約2割。福岡・佐賀県はさらに割合が低く、国内旅行者も十分にターゲットにしています。',
-    },
-    {
-      icon: '🔥',
-      title: '火災リスク',
-      desc: '建物である以上、火災のリスクは常に存在します。',
-      solution: 'CLT構造は表面が炭化層を形成し燃え広がりを防止。さらに火災保険・地震保険で万全にカバーします。',
-    },
-    {
-      icon: '⚠️',
-      title: '事故リスク',
-      desc: '宿泊施設では、ゲストの事故が発生する可能性があります。',
-      solution: '旅館賠償責任保険に加入し、宿泊中の事故もカバー。安心してオーナーシップを持っていただけます。',
-    },
-  ]
-
   const faqs = [
     {
-      q: 'ホテルの運用は自分でできますか？',
-      a: 'いいえ、年180日を超える宿泊事業は旅館業の取得が必要です。PLEASTが旅館運用を代行し、オーナー様はリース収益を受け取るのみです。面倒な手続きや運営業務は一切不要です。',
+      question: 'ホテルの運用は自分でできますか？',
+      answer: 'いいえ、年180日を超える宿泊事業は旅館業の取得が必要です。PLEASTが旅館運用を代行し、オーナー様はリース収益を受け取るのみです。面倒な手続きや運営業務は一切不要です。'
     },
     {
-      q: '初期費用はトレーラーハウス代金以外にかかりますか？',
-      a: 'いいえ、代金に含まれているため別途の初期費用はかかりません。設置費用、各種申請費用なども全て含まれています。',
+      question: '初期費用はトレーラーハウス代金以外にかかりますか？',
+      answer: 'いいえ、代金に含まれているため別途の初期費用はかかりません。設置費用、各種申請費用なども全て含まれています。'
     },
     {
-      q: '売却時に買い手がつかないのでは？',
-      a: '10年後に最低500万円での買い取りを保証しています。また修繕積立金で新車同然にして再販も可能です。戸建旅館は実需物件としても転用できるため、出口戦略の選択肢は豊富です。',
+      question: '売却時に買い手がつかないのでは？',
+      answer: '10年後に最低500万円での買い取りを保証しています。また修繕積立金で新車同然にして再販も可能です。戸建旅館は実需物件としても転用できるため、出口戦略の選択肢は豊富です。'
     },
     {
-      q: '相続税対策の仕組みを教えてください。',
-      a: 'トレーラーハウスは4年で簿価ゼロになり、相続評価は1台500万円です。1億円分（4台）持っても評価額は2,000万円に圧縮でき、基礎控除内に収まれば相続税0円も可能です。毎年の収益を得ながら、相続対策もできる一石二鳥の投資です。',
+      question: '相続税対策の仕組みを教えてください。',
+      answer: 'トレーラーハウスは4年で簿価ゼロになり、相続評価は1台500万円です。1億円分（4台）持っても評価額は2,000万円に圧縮でき、基礎控除内に収まれば相続税0円も可能です。毎年の収益を得ながら、相続対策もできる一石二鳥の投資です。'
     },
     {
-      q: 'インフレが続いたらどうなりますか？',
-      a: 'インフレは追い風になります。物価上昇に合わせて再販価格やリース料が上がる可能性があり、実物資産は有利です。現金で持っているよりも、インフレヘッジとして優れた選択肢です。',
+      question: 'インフレが続いたらどうなりますか？',
+      answer: 'インフレは追い風になります。物価上昇に合わせて再販価格やリース料が上がる可能性があり、実物資産は有利です。現金で持っているよりも、インフレヘッジとして優れた選択肢です。'
     },
     {
-      q: '今すぐ相談するメリットはありますか？',
-      a: '相続税対策は事前準備がすべてです。また、トレーラーハウスの台数には限りがあります。好条件のエリアは早い者勝ちとなりますので、早めの準備が有利な条件につながります。',
+      question: '今すぐ相談するメリットはありますか？',
+      answer: '相続税対策は事前準備がすべてです。また、トレーラーハウスの台数には限りがあります。好条件のエリアは早い者勝ちとなりますので、早めの準備が有利な条件につながります。'
     },
   ]
 
   return (
     <>
-      {/* Page Hero */}
-      <section className="section-padding position-relative overflow-hidden pt-5 pt-md-6 pb-4 pb-md-5" style={{ background: 'linear-gradient(135deg, #1a2a4a 0%, #2d4a7c 100%)' }}>
-        <div className="position-absolute top-0 start-0 d-none d-md-block" style={{ width: '800px', height: '800px', background: 'radial-gradient(circle, rgba(201,169,98,0.1) 0%, transparent 70%)', borderRadius: '50%', transform: 'translate(-20%, -50%)' }}></div>
-        <div className="container-fluid px-3 px-md-4 px-lg-5 position-relative z-1 text-center" style={{ maxWidth: '1200px' }}>
-          <h1 className="text-white responsive-title mb-3 mb-md-4" style={{ lineHeight: '1.3' }}>
-            運用説明・Q&A・お問い合わせ
-          </h1>
-          <p className="text-white mx-auto" style={{ fontSize: 'clamp(0.95rem, 2vw, 1.1rem)', opacity: 0.8, maxWidth: '600px', lineHeight: '1.8' }}>
-            ご購入から運用まで、PLEASTが全てサポートいたします。<br className="d-none d-md-block" />
-            よくあるご質問とお問い合わせ方法をご案内します。
-          </p>
-        </div>
-      </section>
-
-      {/* Flow Section */}
-      <section className="section-padding bg-white">
-        <div className="container-fluid px-3 px-md-4 px-lg-5" style={{ maxWidth: '1200px' }}>
-          <ScrollReveal>
-            <div className="text-center mb-5 mb-md-6">
-              <div className="d-inline-flex align-items-center gap-3 gap-md-4 mb-3 mb-md-4 small text-uppercase fw-semibold" style={{ color: '#2d4a7c', fontSize: '0.8rem', letterSpacing: '0.2em' }}>
-                <div className="bg-primary-light" style={{ width: '30px', height: '1px' }}></div>
-                Flow
-                <div className="bg-primary-light" style={{ width: '30px', height: '1px' }}></div>
-            </div>
-              <h2 className="responsive-heading lh-sm mb-3 mb-md-4">
-              ご購入から運用までの流れ
-            </h2>
-              <p className="mx-auto" style={{ fontSize: '1.05rem', color: '#6b6b6b', maxWidth: '600px' }}>
-              シンプルな5ステップで、すぐに収益を得られます
+      <Header />
+      <main>
+        {/* Page Hero */}
+        <section className="page-hero">
+          <div className="container">
+            <h1 className="page-hero-title">運用説明・Q&A・お問い合わせ</h1>
+            <p className="page-hero-subtitle">
+              ご購入から運用まで、PLEASTが全てサポートいたします。<br />
+              よくあるご質問とお問い合わせ方法をご案内します。
             </p>
           </div>
-          </ScrollReveal>
+        </section>
 
-          <div className="position-relative" style={{ maxWidth: '900px', margin: '0 auto' }}>
-            <div className="position-absolute start-50 top-0 bottom-0 translate-middle-x d-none d-md-block" style={{ width: '2px', background: 'linear-gradient(to bottom, #c9a962, #1a2a4a)' }}></div>
-            
-            {flowSteps.map((step, i) => (
-              <ScrollReveal key={i} delay={i + 1}>
-                <div className={`d-flex flex-column flex-md-row align-items-md-center mb-4 mb-md-5 position-relative flow-step ${i % 2 === 0 ? '' : 'flex-md-row-reverse'}`}>
-                  <div 
-                    className={`bg-cream p-4 p-md-5 rounded shadow-soft transition-all h-100 flow-step-content`}
-                    style={{ 
-                      width: 'calc(50% - 40px)',
-                      transition: 'all 0.4s ease',
-                      textAlign: i % 2 === 0 ? 'right' : 'left'
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.transform = 'translateY(-5px)'
-                      e.currentTarget.style.boxShadow = '0 8px 40px rgba(26, 42, 74, 0.12)'
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.transform = 'translateY(0)'
-                      e.currentTarget.style.boxShadow = '0 4px 30px rgba(26, 42, 74, 0.08)'
-                    }}
-                  >
-                    <h3 className="h5 mb-2 mb-md-3 d-flex align-items-center gap-2 flow-step-title" style={{ fontSize: 'clamp(1rem, 2.5vw, 1.2rem)', justifyContent: i % 2 === 0 ? 'flex-end' : 'flex-start' }}>
-                      {step.title}
-                    </h3>
-                    <p className="mb-0 flow-step-desc" style={{ fontSize: 'clamp(0.875rem, 2vw, 0.95rem)', color: '#6b6b6b', lineHeight: '1.7' }}>
-                      {step.desc}
-                    </p>
-                </div>
-                  <div 
-                    className="position-absolute start-50 start-md-50 translate-middle-x translate-md-middle-x bg-primary rounded-circle d-flex align-items-center justify-content-center text-white fw-bold shadow-medium flow-step-number"
-                    style={{
-                      width: 'clamp(50px, 8vw, 60px)',
-                      height: 'clamp(50px, 8vw, 60px)',
-                      background: 'linear-gradient(135deg, #1a2a4a, #2d4a7c)',
-                      fontFamily: "'Noto Serif JP', serif",
-                      fontSize: 'clamp(1rem, 2.5vw, 1.2rem)',
-                      zIndex: 1
-                    }}
-                  >
-                  {step.num}
-                </div>
-              </div>
-              </ScrollReveal>
-            ))}
-          </div>
-
-          <ScrollReveal>
-            <div className="text-center mt-5 mt-md-6 p-4 p-md-5 bg-primary rounded shadow-soft mx-auto" style={{ maxWidth: '700px', background: 'linear-gradient(135deg, #1a2a4a, #2d4a7c)' }}>
-              <h3 className="text-white mb-3 mb-md-4" style={{ fontSize: 'clamp(1.25rem, 3vw, 1.5rem)' }}>オーナー様は収益を受け取るだけ</h3>
-              <p className="text-white mb-0" style={{ fontSize: 'clamp(0.95rem, 2vw, 1.05rem)', opacity: 0.9, lineHeight: '1.8' }}>
-                運営の手間は一切かかりません。<br className="d-none d-md-block" />
-              PLEASTが責任を持って旅館運営を行います。
-            </p>
-          </div>
-          </ScrollReveal>
-        </div>
-      </section>
-
-      {/* Operation Section */}
-      <section className="section-padding bg-warm">
-        <div className="container-fluid px-3 px-md-4 px-lg-5" style={{ maxWidth: '1200px' }}>
-          <ScrollReveal>
-            <div className="text-center mb-5 mb-md-6">
-              <div className="d-inline-flex align-items-center gap-3 gap-md-4 mb-3 mb-md-4 small text-uppercase fw-semibold" style={{ color: '#2d4a7c', fontSize: '0.8rem', letterSpacing: '0.2em' }}>
-                <div className="bg-primary-light" style={{ width: '30px', height: '1px' }}></div>
-              Support
-                <div className="bg-primary-light" style={{ width: '30px', height: '1px' }}></div>
-            </div>
-              <h2 className="responsive-heading lh-sm mb-3 mb-md-4">
-              PLEASTが全て代行します
-            </h2>
-              <p className="mx-auto" style={{ fontSize: '1.05rem', color: '#6b6b6b', maxWidth: '600px' }}>
-              運営に関するあらゆる業務をワンストップでサポート
-            </p>
-          </div>
-          </ScrollReveal>
-
-          <div className="row g-3 g-md-4">
-            {operationCards.map((card, i) => (
-              <div key={i} className="col-12 col-sm-6 col-md-4 col-lg operation-card">
-                <ScrollReveal delay={i + 1}>
-                  <div 
-                    className="bg-white p-4 p-md-5 rounded text-center position-relative h-100 transition-all"
-                    style={{ transition: 'all 0.4s ease' }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.transform = 'translateY(-8px)'
-                      e.currentTarget.style.boxShadow = '0 8px 40px rgba(26, 42, 74, 0.12)'
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.transform = 'translateY(0)'
-                      e.currentTarget.style.boxShadow = 'none'
-                    }}
-                  >
-                    <div className="position-absolute top-0 start-50 translate-middle-x" style={{ width: '50px', height: '3px', background: 'linear-gradient(90deg, #1a2a4a, #c9a962)', borderRadius: '0 0 3px 3px' }}></div>
-                    <div className="mx-auto mb-3 mb-md-4 bg-cream rounded-circle d-flex align-items-center justify-content-center operation-icon" style={{ width: '60px', height: '60px', fontSize: '1.5rem' }}>
-                      {card.icon}
-                    </div>
-                    <h3 className="h6 fw-semibold mb-2 operation-title" style={{ fontSize: '0.95rem', color: '#1a1a1a' }}>
-                      {card.title}
-                    </h3>
-                    <p className="small mb-0 operation-desc" style={{ fontSize: '0.8rem', color: '#6b6b6b', lineHeight: '1.6' }}>
-                      {card.desc}
-                    </p>
-                </div>
-                </ScrollReveal>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Merit/Demerit Section */}
-      <section className="section-padding bg-white">
-        <div className="container-fluid px-3 px-md-4 px-lg-5" style={{ maxWidth: '1200px' }}>
-          <ScrollReveal>
-            <div className="text-center mb-5 mb-md-6">
-              <div className="d-inline-flex align-items-center gap-3 gap-md-4 mb-3 mb-md-4 small text-uppercase fw-semibold" style={{ color: '#2d4a7c', fontSize: '0.8rem', letterSpacing: '0.2em' }}>
-                <div className="bg-primary-light" style={{ width: '30px', height: '1px' }}></div>
-              Analysis
-                <div className="bg-primary-light" style={{ width: '30px', height: '1px' }}></div>
-            </div>
-              <h2 className="responsive-heading lh-sm mb-3 mb-md-4">
-              メリット・デメリット
-            </h2>
-              <p className="mx-auto" style={{ fontSize: '1.05rem', color: '#6b6b6b', maxWidth: '600px' }}>
-              投資判断のために、両面を正直にお伝えします
-            </p>
-          </div>
-          </ScrollReveal>
-
-          <div className="row g-4 g-md-5">
-            <div className="col-12 col-lg-6 merit-box merit">
-              <ScrollReveal delay={1}>
-                <div 
-                  className="p-4 p-md-5 rounded"
-                  style={{ 
-                    background: '#ffffff',
-                    border: '2px solid #a8c4e8'
-                  }}
-                >
-                  <div className="d-flex align-items-center gap-3 gap-md-4 mb-4 mb-md-5 pb-3 pb-md-4 border-bottom" style={{ borderColor: 'rgba(0,0,0,0.1)' }}>
-                    <div className="rounded-circle d-flex align-items-center justify-content-center text-white" style={{ width: '50px', height: '50px', fontSize: '1.5rem', backgroundColor: '#2d4a7c' }}>
-                      ✓
-                    </div>
-                    <h3 className="h4 mb-0 merit-box-title" style={{ fontSize: 'clamp(1.1rem, 3vw, 1.3rem)', color: '#3d3d3d' }}>メリット</h3>
-              </div>
-                  <ul className="list-unstyled mb-0 merit-list">
-                    {merits.map((item, i) => (
-                      <li key={i} className="d-flex align-items-start gap-2 gap-md-3 py-2 py-md-3 border-bottom" style={{ borderColor: 'rgba(0,0,0,0.05)' }}>
-                        <span className="rounded-circle d-flex align-items-center justify-content-center flex-shrink-0 fw-bold small" style={{ width: '24px', height: '24px', fontSize: '0.75rem', backgroundColor: 'rgba(45, 74, 124, 0.1)', color: '#2d4a7c' }}>
-                          ✓
-                        </span>
-                        <span style={{ fontSize: 'clamp(0.875rem, 2vw, 0.95rem)', color: '#3d3d3d' }}>{item}</span>
-                  </li>
-                ))}
-              </ul>
-                </div>
-              </ScrollReveal>
+        {/* Flow Section */}
+        <section className="section flow-section">
+          <div className="container">
+            <div className="section-header">
+              <div className="section-label">Flow</div>
+              <h2 className="section-title">ご購入から運用までの流れ</h2>
+              <p className="section-subtitle">シンプルな5ステップで、すぐに収益を得られます</p>
             </div>
 
-            <div className="col-12 col-lg-6 merit-box demerit">
-              <ScrollReveal delay={2}>
-                <div 
-                  className="p-4 p-md-5 rounded"
-                  style={{ 
-                    background: '#ffffff',
-                    border: '2px solid #f5a898'
-                  }}
-                >
-                  <div className="d-flex align-items-center gap-3 gap-md-4 mb-4 mb-md-5 pb-3 pb-md-4 border-bottom" style={{ borderColor: 'rgba(0,0,0,0.1)' }}>
-                    <div className="rounded-circle d-flex align-items-center justify-content-center text-white" style={{ width: '50px', height: '50px', fontSize: '1.5rem', backgroundColor: '#c8432f' }}>
-                      !
-                    </div>
-                    <h3 className="h4 mb-0 merit-box-title" style={{ fontSize: 'clamp(1.1rem, 3vw, 1.3rem)', color: '#3d3d3d' }}>デメリット・リスク</h3>
-              </div>
-                  <ul className="list-unstyled mb-0 merit-list">
-                    {demerits.map((item, i) => (
-                      <li key={i} className="d-flex align-items-start gap-2 gap-md-3 py-2 py-md-3 border-bottom" style={{ borderColor: 'rgba(0,0,0,0.05)' }}>
-                        <span className="rounded-circle d-flex align-items-center justify-content-center flex-shrink-0 fw-bold small" style={{ width: '24px', height: '24px', fontSize: '0.75rem', backgroundColor: 'rgba(200, 67, 47, 0.1)', color: '#c8432f' }}>
-                          △
-                        </span>
-                        <span style={{ fontSize: 'clamp(0.875rem, 2vw, 0.95rem)', color: '#3d3d3d' }}>{item}</span>
-                  </li>
-                ))}
-              </ul>
-                </div>
-              </ScrollReveal>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Risk Section */}
-      <section className="section-padding bg-warm">
-        <div className="container-fluid px-3 px-md-4 px-lg-5" style={{ maxWidth: '1200px' }}>
-          <ScrollReveal>
-            <div className="text-center mb-5 mb-md-6">
-              <div className="d-inline-flex align-items-center gap-3 gap-md-4 mb-3 mb-md-4 small text-uppercase fw-semibold" style={{ color: '#2d4a7c', fontSize: '0.8rem', letterSpacing: '0.2em' }}>
-                <div className="bg-primary-light" style={{ width: '30px', height: '1px' }}></div>
-              Risk Management
-                <div className="bg-primary-light" style={{ width: '30px', height: '1px' }}></div>
-            </div>
-              <h2 className="responsive-heading lh-sm mb-3 mb-md-4">
-              リスクへの対策
-            </h2>
-              <p className="mx-auto" style={{ fontSize: '1.05rem', color: '#6b6b6b', maxWidth: '600px' }}>
-              想定されるリスクに対し、万全の対策を講じています
-            </p>
-          </div>
-          </ScrollReveal>
-
-          <div className="row g-3 g-md-4">
-            {risks.map((risk, i) => (
-              <div key={i} className="col-12 col-md-6 risk-card">
-                <ScrollReveal delay={i + 1}>
-                  <div 
-                    className="bg-white rounded overflow-hidden shadow-soft transition-all h-100"
-                    style={{ transition: 'all 0.4s ease' }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.transform = 'translateY(-5px)'
-                      e.currentTarget.style.boxShadow = '0 8px 40px rgba(26, 42, 74, 0.12)'
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.transform = 'translateY(0)'
-                      e.currentTarget.style.boxShadow = '0 4px 30px rgba(26, 42, 74, 0.08)'
-                    }}
-                  >
-                    <div className="p-4 p-md-5 text-white d-flex align-items-center gap-3 gap-md-4 risk-card-header" style={{ background: 'linear-gradient(135deg, #1a2a4a, #2d4a7c)' }}>
-                      <div className="bg-white bg-opacity-15 rounded d-flex align-items-center justify-content-center risk-card-icon" style={{ width: '45px', height: '45px', fontSize: '1.25rem', borderRadius: '10px' }}>
-                    {risk.icon}
+            <div className="flow-timeline">
+              {[
+                { number: '1', title: '📞 無料相談・シミュレーション', desc: 'お客様のご状況やご希望をヒアリングし、最適な投資プランと収益シミュレーションをご提案します。' },
+                { number: '2', title: '📋 物件選定・ご契約', desc: 'エリアや物件タイプを選定し、契約内容を確認。ご納得いただいた上でご契約となります。' },
+                { number: '3', title: '🏗️ 物件建築・設置', desc: 'CLTセルユニットにより、従来の約1/3の工期で完成。早期に収益化が可能です。' },
+                { number: '4', title: '📝 旅館業申請・運営開始', desc: 'PLEASTが旅館業の申請から運営まで全て代行。オーナー様の手続きは不要です。' },
+                { number: '5', title: '💰 毎月リース収益をお受け取り', desc: '運営が始まれば、毎月安定したリース収益をお受け取りいただけます。' },
+              ].map((step, i) => (
+                <div key={i} className="flow-step">
+                  <div className="flow-step-content">
+                    <h3 className="flow-step-title">{step.title}</h3>
+                    <p className="flow-step-desc">{step.desc}</p>
                   </div>
-                      <h3 className="h5 mb-0 text-white risk-card-title" style={{ fontSize: 'clamp(1rem, 2.5vw, 1.1rem)' }}>{risk.title}</h3>
+                  <div className="flow-step-number">{step.number}</div>
+                </div>
+              ))}
+            </div>
+
+            <div className="flow-result">
+              <h3>オーナー様は収益を受け取るだけ</h3>
+              <p>運営の手間は一切かかりません。<br />PLEASTが責任を持って旅館運営を行います。</p>
+            </div>
+          </div>
+        </section>
+
+        {/* Operation Section */}
+        <section className="section operation-section">
+          <div className="container">
+            <div className="section-header">
+              <div className="section-label">Support</div>
+              <h2 className="section-title">PLEASTが全て代行します</h2>
+              <p className="section-subtitle">運営に関するあらゆる業務をワンストップでサポート</p>
+            </div>
+
+            <div className="operation-grid">
+              {[
+                { icon: '📋', title: '旅館業の申請・取得', desc: '複雑な許認可手続きを全て代行' },
+                { icon: '🌐', title: '予約サイト掲載・集客', desc: '主要OTAへの掲載とマーケティング' },
+                { icon: '📊', title: 'ダイナミックプライシング', desc: 'AIによる最適価格設定で収益最大化' },
+                { icon: '🛎️', title: 'ゲスト対応・清掃', desc: 'チェックイン対応から清掃まで' },
+                { icon: '💹', title: '売上管理・収益分配', desc: '透明性の高い収益レポート' },
+              ].map((op, i) => (
+                <div key={i} className="operation-card">
+                  <div className="operation-icon">{op.icon}</div>
+                  <h3 className="operation-title">{op.title}</h3>
+                  <p className="operation-desc">{op.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Merit/Demerit Section */}
+        <section className="section merit-section">
+          <div className="container">
+            <div className="section-header">
+              <div className="section-label">Analysis</div>
+              <h2 className="section-title">メリット・デメリット</h2>
+              <p className="section-subtitle">投資判断のために、両面を正直にお伝えします</p>
+            </div>
+
+            <div className="merit-grid">
+              <div className="merit-box merit">
+                <div className="merit-box-header">
+                  <div className="merit-box-icon">✓</div>
+                  <h3 className="merit-box-title">メリット</h3>
+                </div>
+                <ul className="merit-list">
+                  <li>利回り10%保証で安定した収益</li>
+                  <li>完全手離れ運用で手間がかからない</li>
+                  <li>相続税・節税効果が大きい</li>
+                  <li>新築で修繕不安が少ない</li>
+                  <li>実需転用・売却の選択肢がある</li>
+                  <li>社会貢献・SDGsにも貢献</li>
+                </ul>
+              </div>
+
+              <div className="merit-box demerit">
+                <div className="merit-box-header">
+                  <div className="merit-box-icon">!</div>
+                  <h3 className="merit-box-title">デメリット・リスク</h3>
+                </div>
+                <ul className="merit-list">
+                  <li>市場変動リスク（観光需要の変化）</li>
+                  <li>火災リスク（保険でカバー可能）</li>
+                  <li>ランニングコスト（修繕積立等）</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Risk Section */}
+        <section className="section risk-section">
+          <div className="container">
+            <div className="section-header">
+              <div className="section-label">Risk Management</div>
+              <h2 className="section-title">リスクへの対策</h2>
+              <p className="section-subtitle">想定されるリスクに対し、万全の対策を講じています</p>
+            </div>
+
+            <div className="risk-grid">
+              {[
+                {
+                  icon: '📉',
+                  title: '稼働率リスク',
+                  risk: '観光需要の変動により、宿泊稼働率が低下する可能性があります。',
+                  solution: 'ダイナミックプライシング（AI価格最適化）、観光課・地元との連携、需要の高いエリアを厳選して設置。トレーラーハウスは移動可能でエリア変更も可能。'
+                },
+                {
+                  icon: '✈️',
+                  title: 'インバウンド依存リスク',
+                  risk: '外国人観光客への依存度が高いと、国際情勢の影響を受けやすくなります。',
+                  solution: '中国渡航者は日本全体の外国人渡航者の約2割。福岡・佐賀県はさらに割合が低く、国内旅行者も十分にターゲットにしています。'
+                },
+                {
+                  icon: '🔥',
+                  title: '火災リスク',
+                  risk: '建物である以上、火災のリスクは常に存在します。',
+                  solution: 'CLT構造は表面が炭化層を形成し燃え広がりを防止。さらに火災保険・地震保険で万全にカバーします。'
+                },
+                {
+                  icon: '⚠️',
+                  title: '事故リスク',
+                  risk: '宿泊施設では、ゲストの事故が発生する可能性があります。',
+                  solution: '旅館賠償責任保険に加入し、宿泊中の事故もカバー。安心してオーナーシップを持っていただけます。'
+                },
+              ].map((risk, i) => (
+                <div key={i} className="risk-card">
+                  <div className="risk-card-header">
+                    <div className="risk-card-icon">{risk.icon}</div>
+                    <h3 className="risk-card-title">{risk.title}</h3>
+                  </div>
+                  <div className="risk-card-body">
+                    <p>{risk.risk}</p>
+                    <div className="risk-solution">
+                      <div className="risk-solution-label">対策</div>
+                      <p>{risk.solution}</p>
                     </div>
-                    <div className="p-4 p-md-5 risk-card-body">
-                      <p className="mb-0" style={{ fontSize: 'clamp(0.875rem, 2vw, 0.95rem)', color: '#3d3d3d', lineHeight: '1.8' }}>{risk.desc}</p>
-                      <div className="mt-3 mt-md-4 p-3 p-md-4 bg-cream rounded risk-solution" style={{ borderLeft: '3px solid #c9a962' }}>
-                        <div className="small fw-bold text-secondary text-uppercase mb-2 risk-solution-label" style={{ fontSize: '0.75rem', letterSpacing: '0.1em' }}>
-                          対策
-                        </div>
-                        <p className="mb-0" style={{ fontSize: 'clamp(0.85rem, 2vw, 0.9rem)', color: '#3d3d3d' }}>{risk.solution}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* FAQ Section */}
+        <section className="section faq-section">
+          <div className="container">
+            <div className="section-header">
+              <div className="section-label">FAQ</div>
+              <h2 className="section-title">よくあるご質問</h2>
+              <p className="section-subtitle">お客様からよくいただくご質問にお答えします</p>
+            </div>
+
+            <div className="faq-list">
+              {faqs.map((faq, i) => {
+                const isActive = activeFaq === i
+                return (
+                  <div key={i} className={`faq-item ${isActive ? 'active' : ''}`}>
+                    <div className="faq-question" onClick={() => setActiveFaq(isActive ? null : i)}>
+                      <span className="faq-question-icon">Q</span>
+                      <span className="faq-question-text">{faq.question}</span>
+                      <span className="faq-question-toggle"></span>
+                    </div>
+                    <div className="faq-answer">
+                      <div className="faq-answer-content">
+                        <p>{faq.answer}</p>
                       </div>
-                </div>
+                    </div>
                   </div>
-                </ScrollReveal>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ Section */}
-      <section className="section-padding bg-white">
-        <div className="container-fluid px-3 px-md-4 px-lg-5" style={{ maxWidth: '1200px' }}>
-          <ScrollReveal>
-            <div className="text-center mb-5 mb-md-6">
-              <div className="d-inline-flex align-items-center gap-3 gap-md-4 mb-3 mb-md-4 small text-uppercase fw-semibold" style={{ color: '#2d4a7c', fontSize: '0.8rem', letterSpacing: '0.2em' }}>
-                <div className="bg-primary-light" style={{ width: '30px', height: '1px' }}></div>
-                FAQ
-                <div className="bg-primary-light" style={{ width: '30px', height: '1px' }}></div>
-            </div>
-              <h2 className="responsive-heading lh-sm mb-3 mb-md-4">
-              よくあるご質問
-            </h2>
-              <p className="mx-auto" style={{ fontSize: '1.05rem', color: '#6b6b6b', maxWidth: '600px' }}>
-              お客様からよくいただくご質問にお答えします
-            </p>
-          </div>
-          </ScrollReveal>
-
-          <div className="mx-auto" style={{ maxWidth: '900px' }}>
-            {faqs.map((faq, i) => (
-              <div 
-                key={i} 
-                className={`faq-item border-bottom ${activeFaq === i ? 'active' : ''}`}
-                style={{ borderColor: '#f8f9fc' }}
-              >
-                <div
-                  className="d-flex align-items-center gap-3 gap-md-4 py-4 cursor-pointer transition-all faq-question"
-                  style={{ transition: 'all 0.3s ease', padding: '1.5rem 0' }}
-                  onClick={() => setActiveFaq(activeFaq === i ? null : i)}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.color = '#1a2a4a'
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.color = ''
-                  }}
-                >
-                  <span className="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center flex-shrink-0 faq-question-icon" style={{ width: '40px', height: '40px', fontFamily: "'Noto Serif JP', serif", fontWeight: 700, fontSize: '1rem' }}>
-                    Q
-                  </span>
-                  <span className="flex-grow-1 fw-semibold faq-question-text" style={{ fontSize: '1.05rem', color: '#1a1a1a' }}>
-                    {faq.q}
-                  </span>
-                  <span
-                    className={`rounded-circle d-flex align-items-center justify-content-center flex-shrink-0 faq-question-toggle ${activeFaq === i ? 'bg-primary' : 'bg-cream'}`}
-                    style={{ width: '30px', height: '30px', transition: 'all 0.3s ease' }}
-                  >
-                    <span style={{ fontSize: '1.25rem', fontWeight: 300, color: activeFaq === i ? '#ffffff' : '#1a2a4a' }}>
-                      {activeFaq === i ? '−' : '+'}
-                    </span>
-                  </span>
-                </div>
-                <div 
-                  className={`overflow-hidden transition-all faq-answer ${activeFaq === i ? '' : ''}`}
-                  style={{ 
-                    maxHeight: activeFaq === i ? '500px' : '0',
-                    transition: 'max-height 0.4s ease'
-                  }}
-                >
-                  <div className="faq-answer-content ps-4 ps-md-5" style={{ paddingBottom: '1.5rem', color: '#3d3d3d', lineHeight: '1.9' }}>
-                    <p className="mb-0" style={{ fontSize: 'clamp(0.875rem, 2vw, 0.95rem)' }}>{faq.a}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Company Section */}
-      <section className="section-padding bg-warm">
-        <div className="container-fluid px-3 px-md-4 px-lg-5" style={{ maxWidth: '1200px' }}>
-          <ScrollReveal>
-            <div className="text-center mb-5 mb-md-6">
-              <div className="d-inline-flex align-items-center gap-3 gap-md-4 mb-3 mb-md-4 small text-uppercase fw-semibold" style={{ color: '#2d4a7c', fontSize: '0.8rem', letterSpacing: '0.2em' }}>
-                <div className="bg-primary-light" style={{ width: '30px', height: '1px' }}></div>
-                Company
-                <div className="bg-primary-light" style={{ width: '30px', height: '1px' }}></div>
-              </div>
-              <h2 className="responsive-heading lh-sm mb-3 mb-md-4">
-                運営会社
-              </h2>
-            </div>
-          </ScrollReveal>
-
-          <div className="row g-4 g-md-5 align-items-center">
-            <div className="col-12 col-lg-4 text-center">
-              <div className="company-logo-text mb-3" style={{ fontFamily: "'Noto Serif JP', serif", fontSize: 'clamp(3rem, 6vw, 4rem)', fontWeight: 700, color: '#1a2a4a', letterSpacing: '0.15em' }}>
-                PLEAST
-              </div>
-              <p className="small mb-0 company-logo-tagline" style={{ fontSize: '0.9rem', color: '#6b6b6b', letterSpacing: '0.1em' }}>
-                株式会社PLEAST（プレスト）
-              </p>
-            </div>
-            <div className="col-12 col-lg-8">
-              <ScrollReveal delay={1}>
-                <div className="bg-white rounded p-4 p-md-5 shadow-soft position-relative overflow-hidden company-info" style={{ borderRadius: '16px' }}>
-                  <div className="position-absolute top-0 start-0 w-100" style={{ height: '4px', background: 'linear-gradient(90deg, #1a2a4a, #c9a962)' }}></div>
-                  <h3 className="h4 mb-4 mb-md-5 pb-3 pb-md-4 border-bottom" style={{ fontSize: '1.5rem', borderColor: '#f8f9fc' }}>会社概要</h3>
-                  <table className="w-100 company-table">
-                    <tbody>
-                      <tr className="border-bottom" style={{ borderColor: '#f8f9fc' }}>
-                        <th className="py-3 py-md-4" style={{ width: '140px', fontWeight: 600, color: '#1a2a4a', fontSize: '0.9rem', textAlign: 'left', verticalAlign: 'top' }}>会社名</th>
-                        <td className="py-3 py-md-4" style={{ color: '#3d3d3d', fontSize: '0.95rem' }}>株式会社PLEAST</td>
-                      </tr>
-                      <tr className="border-bottom" style={{ borderColor: '#f8f9fc' }}>
-                        <th className="py-3 py-md-4" style={{ width: '140px', fontWeight: 600, color: '#1a2a4a', fontSize: '0.9rem', textAlign: 'left', verticalAlign: 'top' }}>設立</th>
-                        <td className="py-3 py-md-4" style={{ color: '#3d3d3d', fontSize: '0.95rem' }}>2005年7月</td>
-                      </tr>
-                      <tr className="border-bottom" style={{ borderColor: '#f8f9fc' }}>
-                        <th className="py-3 py-md-4" style={{ width: '140px', fontWeight: 600, color: '#1a2a4a', fontSize: '0.9rem', textAlign: 'left', verticalAlign: 'top' }}>本社</th>
-                        <td className="py-3 py-md-4" style={{ color: '#3d3d3d', fontSize: '0.95rem' }}>福岡県博多区祇園町2-35</td>
-                      </tr>
-                      <tr className="border-bottom" style={{ borderColor: '#f8f9fc' }}>
-                        <th className="py-3 py-md-4" style={{ width: '140px', fontWeight: 600, color: '#1a2a4a', fontSize: '0.9rem', textAlign: 'left', verticalAlign: 'top' }}>事業内容</th>
-                        <td className="py-3 py-md-4" style={{ color: '#3d3d3d', fontSize: '0.95rem' }}>総合不動産事業</td>
-                      </tr>
-                      <tr className="border-bottom" style={{ borderColor: '#f8f9fc' }}>
-                        <th className="py-3 py-md-4" style={{ width: '140px', fontWeight: 600, color: '#1a2a4a', fontSize: '0.9rem', textAlign: 'left', verticalAlign: 'top' }}>取引先</th>
-                        <td className="py-3 py-md-4" style={{ color: '#3d3d3d', fontSize: '0.95rem' }}>5,000社以上</td>
-                      </tr>
-                      <tr className="border-bottom" style={{ borderColor: '#f8f9fc' }}>
-                        <th className="py-3 py-md-4" style={{ width: '140px', fontWeight: 600, color: '#1a2a4a', fontSize: '0.9rem', textAlign: 'left', verticalAlign: 'top' }}>代表電話</th>
-                        <td className="py-3 py-md-4" style={{ color: '#3d3d3d', fontSize: '0.95rem' }}>
-                          <a href="tel:092-283-7555" className="text-decoration-none" style={{ color: '#2d4a7c', transition: 'color 0.3s ease' }} onMouseEnter={(e) => e.currentTarget.style.color = '#c9a962'} onMouseLeave={(e) => e.currentTarget.style.color = '#2d4a7c'}>
-                            092-283-7555
-                          </a>
-                        </td>
-                      </tr>
-                      <tr className="border-bottom" style={{ borderColor: '#f8f9fc' }}>
-                        <th className="py-3 py-md-4" style={{ width: '140px', fontWeight: 600, color: '#1a2a4a', fontSize: '0.9rem', textAlign: 'left', verticalAlign: 'top' }}>フリーダイヤル</th>
-                        <td className="py-3 py-md-4" style={{ color: '#3d3d3d', fontSize: '0.95rem' }}>
-                          <a href="tel:0120-929-727" className="text-decoration-none" style={{ color: '#2d4a7c', transition: 'color 0.3s ease' }} onMouseEnter={(e) => e.currentTarget.style.color = '#c9a962'} onMouseLeave={(e) => e.currentTarget.style.color = '#2d4a7c'}>
-                            0120-929-727
-                          </a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <th className="py-3 py-md-4" style={{ width: '140px', fontWeight: 600, color: '#1a2a4a', fontSize: '0.9rem', textAlign: 'left', verticalAlign: 'top' }}>URL</th>
-                        <td className="py-3 py-md-4" style={{ color: '#3d3d3d', fontSize: '0.95rem' }}>
-                          <a href="https://www.pleast.co.jp" target="_blank" rel="noopener noreferrer" className="text-decoration-none" style={{ color: '#2d4a7c', transition: 'color 0.3s ease' }} onMouseEnter={(e) => e.currentTarget.style.color = '#c9a962'} onMouseLeave={(e) => e.currentTarget.style.color = '#2d4a7c'}>
-                            https://www.pleast.co.jp
-                          </a>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </ScrollReveal>
+                )
+              })}
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Contact Section */}
-      <section id="contact" className="section-padding bg-white">
-        <div className="container-fluid px-3 px-md-4 px-lg-5" style={{ maxWidth: '1200px' }}>
-          <ScrollReveal>
-            <div className="text-center mb-5 mb-md-6 contact-intro">
-              <h2 className="h3 mb-3 mb-md-4" style={{ fontSize: '2rem' }}>お問い合わせ</h2>
-              <p className="mx-auto" style={{ fontSize: '1.05rem', color: '#6b6b6b', maxWidth: '600px' }}>
-              新築戸建旅館運用／トランスフォーム型トレーラーハウス運用に関するお問い合わせはこちら
-            </p>
+        {/* Company Section */}
+        <section className="section company-section">
+          <div className="container">
+            <div className="section-header">
+              <div className="section-label">Company</div>
+              <h2 className="section-title">運営会社</h2>
+            </div>
+
+            <div className="company-content">
+              <div className="company-logo">
+                <div className="company-logo-text">PLEAST</div>
+                <p className="company-logo-tagline">株式会社PLEAST（プレスト）</p>
+              </div>
+
+              <div className="company-info">
+                <h3>会社概要</h3>
+                <table className="company-table">
+                  <tbody>
+                    <tr>
+                      <th>会社名</th>
+                      <td>株式会社PLEAST</td>
+                    </tr>
+                    <tr>
+                      <th>設立</th>
+                      <td>2005年7月</td>
+                    </tr>
+                    <tr>
+                      <th>本社</th>
+                      <td>福岡県博多区祇園町2-35</td>
+                    </tr>
+                    <tr>
+                      <th>事業内容</th>
+                      <td>総合不動産事業</td>
+                    </tr>
+                    <tr>
+                      <th>代表電話</th>
+                      <td><a href="tel:092-283-7555">092-283-7555</a></td>
+                    </tr>
+                    <tr>
+                      <th>URL</th>
+                      <td><a href="https://www.pleast.co.jp" target="_blank" rel="noopener noreferrer">https://www.pleast.co.jp</a></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
-          </ScrollReveal>
+        </section>
 
-          <div className="row g-3 g-md-4 mb-5 mb-md-6 contact-methods">
-            <div className="col-12 col-md-6 col-lg-4 contact-method line">
-              <ScrollReveal delay={1}>
-                <div 
-                  className="bg-cream rounded p-4 p-md-5 text-center transition-all h-100"
-                  style={{ borderRadius: '16px', transition: 'all 0.4s ease' }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = 'translateY(-5px)'
-                    e.currentTarget.style.boxShadow = '0 8px 40px rgba(26, 42, 74, 0.12)'
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = 'translateY(0)'
-                    e.currentTarget.style.boxShadow = 'none'
-                  }}
-                >
-                  <div className="mx-auto mb-3 mb-md-4 bg-success rounded-circle d-flex align-items-center justify-content-center contact-method-icon" style={{ width: '70px', height: '70px', backgroundColor: '#06c755', fontSize: '1.75rem' }}>
-                  <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314" />
-                  </svg>
-                  </div>
-                  <h3 className="h5 mb-2 mb-md-3 contact-method-title" style={{ fontSize: 'clamp(1rem, 2.5vw, 1.2rem)' }}>LINE公式アカウント</h3>
-                  <p className="small mb-3 mb-md-4 contact-method-desc" style={{ fontSize: '0.9rem', color: '#6b6b6b' }}>
-                    友だち追加で気軽にご相談<br />24時間受付中
-                  </p>
-                  <a 
-                    href="#" 
-                    className="d-inline-flex align-items-center justify-content-center gap-2 py-2 px-4 px-md-5 rounded-pill text-decoration-none fw-semibold small transition-all contact-method-btn"
-                    style={{ 
-                      padding: '0.9rem 2rem',
-                      borderRadius: '50px',
-                      fontSize: '0.9rem',
-                      backgroundColor: '#06c755',
-                      color: '#ffffff',
-                      transition: 'all 0.3s ease'
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.transform = 'translateY(-2px)'
-                      e.currentTarget.style.boxShadow = '0 4px 30px rgba(26, 42, 74, 0.08)'
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.transform = 'translateY(0)'
-                      e.currentTarget.style.boxShadow = 'none'
-                    }}
-                  >
-                    友だち追加はこちら
+        {/* Contact Section */}
+        <section className="section contact-section" id="contact">
+          <div className="container">
+            <div className="contact-intro">
+              <h2>お問い合わせ</h2>
+              <p>新築ヴィラタイプ旅館経営／トランスフォーム型トレーラーハウス運用に関するお問い合わせはこちら</p>
+            </div>
+
+            <div className="contact-methods">
+              {[
+                {
+                  type: 'line',
+                  icon: (
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/>
+                    </svg>
+                  ),
+                  title: 'LINE公式アカウント',
+                  desc: '友だち追加で気軽にご相談\n24時間受付中',
+                  action: '友だち追加はこちら'
+                },
+                {
+                  type: 'form',
+                  icon: '✉️',
+                  title: '無料相談フォーム',
+                  desc: '下記フォームからお問い合わせ\n担当者より折り返しご連絡',
+                  action: 'フォームへ進む'
+                },
+                {
+                  type: 'tel',
+                  icon: '📞',
+                  title: 'お電話',
+                  desc: '受付時間 10:00〜18:00\n（土日祝除く）',
+                  action: '0120-727-875'
+                },
+              ].map((method, i) => (
+                <div key={i} className={`contact-method ${method.type}`}>
+                  <div className="contact-method-icon">{method.icon}</div>
+                  <h3 className="contact-method-title">{method.title}</h3>
+                  <p className="contact-method-desc">{method.desc}</p>
+                  <a href={method.type === 'tel' ? 'tel:0120-727-875' : '#contact-form'} className="contact-method-btn">
+                    {method.action}
                   </a>
                 </div>
-              </ScrollReveal>
+              ))}
             </div>
 
-            <div className="col-12 col-md-6 col-lg-4 contact-method form">
-              <ScrollReveal delay={2}>
-                <div 
-                  className="bg-cream rounded p-4 p-md-5 text-center transition-all h-100"
-                  style={{ borderRadius: '16px', transition: 'all 0.4s ease' }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = 'translateY(-5px)'
-                    e.currentTarget.style.boxShadow = '0 8px 40px rgba(26, 42, 74, 0.12)'
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = 'translateY(0)'
-                    e.currentTarget.style.boxShadow = 'none'
-                  }}
-                >
-                  <div className="mx-auto mb-3 mb-md-4 bg-secondary rounded-circle d-flex align-items-center justify-content-center contact-method-icon" style={{ width: '70px', height: '70px', fontSize: '1.75rem' }}>
-                    ✉️
-                  </div>
-                  <h3 className="h5 mb-2 mb-md-3 contact-method-title" style={{ fontSize: '1.2rem' }}>無料相談フォーム</h3>
-                  <p className="small mb-3 mb-md-4 contact-method-desc" style={{ fontSize: 'clamp(0.85rem, 2vw, 0.9rem)', color: '#6b6b6b' }}>
-                    下記フォームからお問い合わせ<br />担当者より折り返しご連絡
-                  </p>
-                  <a 
-                    href="#contact-form" 
-                    className="d-inline-flex align-items-center justify-content-center gap-2 py-2 px-4 px-md-5 rounded-pill text-decoration-none fw-semibold small transition-all contact-method-btn"
-                    onClick={(e) => {
-                      e.preventDefault()
-                      const form = document.getElementById('contact-form')
-                      if (form) {
-                        form.scrollIntoView({ behavior: 'smooth', block: 'start' })
-                      }
-                    }}
-                    style={{ 
-                      padding: '0.9rem 2rem',
-                      borderRadius: '50px',
-                      fontSize: '0.9rem',
-                      backgroundColor: '#c9a962',
-                      color: '#1a1a1a',
-                      transition: 'all 0.3s ease'
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.transform = 'translateY(-2px)'
-                      e.currentTarget.style.boxShadow = '0 4px 30px rgba(26, 42, 74, 0.08)'
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.transform = 'translateY(0)'
-                      e.currentTarget.style.boxShadow = 'none'
-                    }}
-                  >
-                    フォームへ進む
-                  </a>
-                </div>
-              </ScrollReveal>
-            </div>
-
-            <div className="col-12 col-md-6 col-lg-4 contact-method tel">
-              <ScrollReveal delay={3}>
-                <div 
-                  className="bg-cream rounded p-4 p-md-5 text-center transition-all h-100"
-                  style={{ borderRadius: '16px', transition: 'all 0.4s ease' }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = 'translateY(-5px)'
-                    e.currentTarget.style.boxShadow = '0 8px 40px rgba(26, 42, 74, 0.12)'
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = 'translateY(0)'
-                    e.currentTarget.style.boxShadow = 'none'
-                  }}
-                >
-                  <div className="mx-auto mb-3 mb-md-4 bg-primary rounded-circle d-flex align-items-center justify-content-center contact-method-icon" style={{ width: '70px', height: '70px', fontSize: '1.75rem' }}>
-                    📞
-                  </div>
-                  <h3 className="h5 mb-2 mb-md-3 contact-method-title" style={{ fontSize: 'clamp(1rem, 2.5vw, 1.2rem)' }}>お電話</h3>
-                  <p className="small mb-3 mb-md-4 contact-method-desc" style={{ fontSize: 'clamp(0.85rem, 2vw, 0.9rem)', color: '#6b6b6b' }}>
-                    受付時間 10:00〜18:00<br />（土日祝除く）
-                  </p>
-                  <a 
-                    href="tel:0120-929-727" 
-                    className="d-inline-flex align-items-center justify-content-center gap-2 py-2 px-4 px-md-5 rounded-pill text-decoration-none fw-semibold small transition-all contact-method-btn"
-                    style={{ 
-                      padding: '0.9rem 2rem',
-                      borderRadius: '50px',
-                      fontSize: '0.9rem',
-                      backgroundColor: '#1a2a4a',
-                      color: '#ffffff',
-                      transition: 'all 0.3s ease'
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.transform = 'translateY(-2px)'
-                      e.currentTarget.style.boxShadow = '0 4px 30px rgba(26, 42, 74, 0.08)'
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.transform = 'translateY(0)'
-                      e.currentTarget.style.boxShadow = 'none'
-                    }}
-                  >
-                    0120-929-727
-                </a>
-              </div>
-              </ScrollReveal>
-            </div>
-          </div>
-
-          {/* Contact Form */}
-          <ScrollReveal>
-            <div id="contact-form" className="mx-auto bg-cream rounded p-4 p-md-5 contact-form-wrapper" style={{ maxWidth: '800px', borderRadius: '20px' }}>
-              <h3 className="text-center h4 mb-4 mb-md-5 contact-form-title" style={{ fontSize: '1.5rem' }}>お問い合わせフォーム</h3>
+            <div className="contact-form-wrapper" id="contact-form">
+              <h3 className="contact-form-title">お問い合わせフォーム</h3>
               
-              {/* Success Message */}
               {submitStatus === 'success' && (
-                <div className="alert alert-success mb-4" style={{
-                  backgroundColor: '#d4edda',
-                  color: '#155724',
-                  padding: '1rem 1.5rem',
-                  borderRadius: '8px',
-                  border: '1px solid #c3e6cb'
-                }}>
-                  <strong>送信完了</strong><br />
-                  お問い合わせありがとうございます。担当者より折り返しご連絡いたします。
+                <div className="form-message form-message-success">
+                  {submitMessage}
                 </div>
               )}
-
-              {/* Error Message */}
+              
               {submitStatus === 'error' && (
-                <div className="alert alert-danger mb-4" style={{
-                  backgroundColor: '#f8d7da',
-                  color: '#721c24',
-                  padding: '1rem 1.5rem',
-                  borderRadius: '8px',
-                  border: '1px solid #f5c6cb'
-                }}>
-                  <strong>エラー</strong><br />
-                  {errorMessage}
+                <div className="form-message form-message-error">
+                  {submitMessage}
                 </div>
               )}
-
-            <form onSubmit={handleSubmit}>
-                <div className="mb-4 mb-md-5 form-group">
-                  <label className="d-block fw-semibold small mb-2 mb-md-3 form-label" style={{ fontSize: '0.9rem', color: '#1a1a1a' }}>
-                    ご相談方法<span className="text-accent ms-1" style={{ color: '#b8432f', fontSize: '0.75rem' }}>*</span>
-                  </label>
-                  <div className="d-flex flex-wrap gap-3 gap-md-4 form-checkbox-group">
-                    <label className="d-flex align-items-center gap-2 cursor-pointer form-checkbox">
+              
+              <form onSubmit={handleSubmit}>
+                <div className="form-group">
+                  <label className="form-label">ご相談方法<span className="required">*</span></label>
+                  <div className="form-checkbox-group">
+                    <label className="form-checkbox">
                       <input 
                         type="checkbox" 
-                        name="method" 
-                        value="オンライン（Team / Zoom）" 
-                        className="form-check-input" 
-                        style={{ width: '20px', height: '20px', accentColor: '#1a2a4a' }}
-                        checked={formData.consultation_method.includes('オンライン（Team / Zoom）')}
-                        onChange={(e) => handleCheckboxChange('consultation_method', e.target.value, e.target.checked)}
+                        name="consultationMethod" 
+                        value="online"
+                        checked={formData.consultationMethod.includes('online')}
+                        onChange={(e) => handleCheckboxChange(e, 'consultationMethod')}
                       />
-                      <span className="small" style={{ fontSize: '0.95rem' }}>オンライン（Teams / Zoom）</span>
+                      <span>オンライン（Teams / Zoom）</span>
                     </label>
-                    <label className="d-flex align-items-center gap-2 cursor-pointer form-checkbox">
+                    <label className="form-checkbox">
                       <input 
                         type="checkbox" 
-                        name="method" 
-                        value="電話" 
-                        className="form-check-input" 
-                        style={{ width: '20px', height: '20px', accentColor: '#1a2a4a' }}
-                        checked={formData.consultation_method.includes('電話')}
-                        onChange={(e) => handleCheckboxChange('consultation_method', e.target.value, e.target.checked)}
+                        name="consultationMethod" 
+                        value="phone"
+                        checked={formData.consultationMethod.includes('phone')}
+                        onChange={(e) => handleCheckboxChange(e, 'consultationMethod')}
                       />
-                      <span className="small" style={{ fontSize: '0.95rem' }}>電話</span>
-                  </label>
-                </div>
-              </div>
-
-                <div className="mb-4 mb-md-5 form-group">
-                  <label className="d-block fw-semibold small mb-2 mb-md-3 form-label" style={{ fontSize: '0.9rem', color: '#1a1a1a' }}>
-                    ご相談の種類<span className="text-accent ms-1" style={{ color: '#b8432f', fontSize: '0.75rem' }}>*</span>
-                </label>
-                  <div className="d-flex flex-wrap gap-3 gap-md-4 form-checkbox-group">
-                    {[
-                      { value: 'トレーラーハウスについて聞きたい', label: 'トレーラーハウスについて聞きたい' },
-                      { value: '新築戸建施設について聞きたい', label: '新築戸建旅館について聞きたい' },
-                      { value: 'お見積りについて聞きたい', label: 'お見積りについて聞きたい' },
-                      { value: 'その他', label: 'その他' },
-                    ].map((option, i) => (
-                      <label key={i} className="d-flex align-items-center gap-2 cursor-pointer form-checkbox">
-                        <input 
-                          type="checkbox" 
-                          name="type" 
-                          value={option.value} 
-                          className="form-check-input" 
-                          style={{ width: '20px', height: '20px', accentColor: '#1a2a4a' }}
-                          checked={formData.consultation_type.includes(option.value)}
-                          onChange={(e) => handleCheckboxChange('consultation_type', e.target.value, e.target.checked)}
-                        />
-                        <span className="small" style={{ fontSize: '0.95rem' }}>{option.label}</span>
-                      </label>
-                    ))}
+                      <span>電話</span>
+                    </label>
                   </div>
-              </div>
+                </div>
 
-                <div className="row g-3 g-md-4 mb-4 mb-md-5 form-row">
-                  <div className="col-12 col-md-6 form-group">
-                    <label className="d-block fw-semibold small mb-2 mb-md-3 form-label" style={{ fontSize: '0.9rem', color: '#1a1a1a' }}>
-                      お名前<span className="text-accent ms-1" style={{ color: '#b8432f', fontSize: '0.75rem' }}>*</span>
-                  </label>
-                  <input
-                    type="text"
-                    name="name"
-                    className="form-control form-input w-100" 
-                    placeholder="山田 太郎"
-                    required
-                    value={formData.name}
-                    onChange={(e) => handleInputChange('name', e.target.value)}
-                    style={{ 
-                      padding: '1rem 1.25rem',
-                      border: '2px solid #f0f2f7',
-                      borderRadius: '8px',
-                      fontSize: '1rem',
-                      transition: 'all 0.3s ease',
-                      backgroundColor: '#ffffff'
-                    }}
-                    onFocus={(e) => {
-                      e.currentTarget.style.borderColor = '#1a2a4a'
-                      e.currentTarget.style.boxShadow = '0 0 0 3px rgba(26, 42, 74, 0.1)'
-                    }}
-                    onBlur={(e) => {
-                      e.currentTarget.style.borderColor = '#f0f2f7'
-                      e.currentTarget.style.boxShadow = 'none'
-                    }}
-                  />
+                <div className="form-group">
+                  <label className="form-label">ご相談の種類<span className="required">*</span></label>
+                  <div className="form-checkbox-group">
+                    <label className="form-checkbox">
+                      <input 
+                        type="checkbox" 
+                        name="consultationType" 
+                        value="trailer"
+                        checked={formData.consultationType.includes('trailer')}
+                        onChange={(e) => handleCheckboxChange(e, 'consultationType')}
+                      />
+                      <span>トレーラーハウスについて聞きたい</span>
+                    </label>
+                    <label className="form-checkbox">
+                      <input 
+                        type="checkbox" 
+                        name="consultationType" 
+                        value="inn"
+                        checked={formData.consultationType.includes('inn')}
+                        onChange={(e) => handleCheckboxChange(e, 'consultationType')}
+                      />
+                      <span>新築ヴィラタイプ旅館について聞きたい</span>
+                    </label>
+                    <label className="form-checkbox">
+                      <input 
+                        type="checkbox" 
+                        name="consultationType" 
+                        value="estimate"
+                        checked={formData.consultationType.includes('estimate')}
+                        onChange={(e) => handleCheckboxChange(e, 'consultationType')}
+                      />
+                      <span>お見積りについて聞きたい</span>
+                    </label>
+                    <label className="form-checkbox">
+                      <input 
+                        type="checkbox" 
+                        name="consultationType" 
+                        value="other"
+                        checked={formData.consultationType.includes('other')}
+                        onChange={(e) => handleCheckboxChange(e, 'consultationType')}
+                      />
+                      <span>その他</span>
+                    </label>
+                  </div>
                 </div>
-                  <div className="col-12 col-md-6 form-group">
-                    <label className="d-block fw-semibold small mb-2 mb-md-3 form-label" style={{ fontSize: '0.9rem', color: '#1a1a1a' }}>
-                      ふりがな<span className="text-accent ms-1" style={{ color: '#b8432f', fontSize: '0.75rem' }}>*</span>
-                  </label>
-                  <input
-                    type="text"
-                    name="furigana"
-                    className="form-control form-input w-100" 
-                    placeholder="やまだ たろう"
-                    required
-                    value={formData.furigana}
-                    onChange={(e) => handleInputChange('furigana', e.target.value)}
-                    style={{ 
-                      padding: '1rem 1.25rem',
-                      border: '2px solid #f0f2f7',
-                      borderRadius: '8px',
-                      fontSize: '1rem',
-                      transition: 'all 0.3s ease',
-                      backgroundColor: '#ffffff'
-                    }}
-                    onFocus={(e) => {
-                      e.currentTarget.style.borderColor = '#1a2a4a'
-                      e.currentTarget.style.boxShadow = '0 0 0 3px rgba(26, 42, 74, 0.1)'
-                    }}
-                    onBlur={(e) => {
-                      e.currentTarget.style.borderColor = '#f0f2f7'
-                      e.currentTarget.style.boxShadow = 'none'
-                    }}
-                  />
-                </div>
-              </div>
 
-                <div className="row g-3 g-md-4 mb-4 mb-md-5 form-row">
-                  <div className="col-12 col-md-6 form-group">
-                    <label className="d-block fw-semibold small mb-2 mb-md-3 form-label" style={{ fontSize: '0.9rem', color: '#1a1a1a' }}>
-                      メールアドレス<span className="text-accent ms-1" style={{ color: '#b8432f', fontSize: '0.75rem' }}>*</span>
-                  </label>
-                  <input
-                    type="email"
-                    name="email"
-                    className="form-control form-input w-100" 
-                    placeholder="example@email.com"
-                    required
-                    value={formData.email}
-                    onChange={(e) => handleInputChange('email', e.target.value)}
-                    style={{ 
-                      padding: '1rem 1.25rem',
-                      border: '2px solid #f0f2f7',
-                      borderRadius: '8px',
-                      fontSize: '1rem',
-                      transition: 'all 0.3s ease',
-                      backgroundColor: '#ffffff'
-                    }}
-                    onFocus={(e) => {
-                      e.currentTarget.style.borderColor = '#1a2a4a'
-                      e.currentTarget.style.boxShadow = '0 0 0 3px rgba(26, 42, 74, 0.1)'
-                    }}
-                    onBlur={(e) => {
-                      e.currentTarget.style.borderColor = '#f0f2f7'
-                      e.currentTarget.style.boxShadow = 'none'
-                    }}
-                  />
+                <div className="form-row">
+                  <div className="form-group">
+                    <label className="form-label">お名前<span className="required">*</span></label>
+                    <input 
+                      type="text" 
+                      name="name"
+                      className="form-input" 
+                      placeholder="山田 太郎" 
+                      value={formData.name}
+                      onChange={handleInputChange}
+                      required 
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label className="form-label">ふりがな<span className="required">*</span></label>
+                    <input 
+                      type="text" 
+                      name="furigana"
+                      className="form-input" 
+                      placeholder="やまだ たろう" 
+                      value={formData.furigana}
+                      onChange={handleInputChange}
+                      required 
+                    />
+                  </div>
                 </div>
-                  <div className="col-12 col-md-6 form-group">
-                    <label className="d-block fw-semibold small mb-2 mb-md-3 form-label" style={{ fontSize: '0.9rem', color: '#1a1a1a' }}>
-                      電話番号<span className="text-accent ms-1" style={{ color: '#b8432f', fontSize: '0.75rem' }}>*</span>
-                  </label>
-                  <input
-                    type="tel"
-                    name="phone"
-                    className="form-control form-input w-100" 
-                    placeholder="090-1234-5678"
-                    required
-                    value={formData.phone}
-                    onChange={(e) => handleInputChange('phone', e.target.value)}
-                    style={{ 
-                      padding: '1rem 1.25rem',
-                      border: '2px solid #f0f2f7',
-                      borderRadius: '8px',
-                      fontSize: '1rem',
-                      transition: 'all 0.3s ease',
-                      backgroundColor: '#ffffff'
-                    }}
-                    onFocus={(e) => {
-                      e.currentTarget.style.borderColor = '#1a2a4a'
-                      e.currentTarget.style.boxShadow = '0 0 0 3px rgba(26, 42, 74, 0.1)'
-                    }}
-                    onBlur={(e) => {
-                      e.currentTarget.style.borderColor = '#f0f2f7'
-                      e.currentTarget.style.boxShadow = 'none'
-                    }}
-                  />
-                </div>
-              </div>
 
-                <div className="mb-4 mb-md-5 form-group">
-                  <label className="d-block fw-semibold small mb-2 mb-md-3 form-label" style={{ fontSize: '0.9rem', color: '#1a1a1a' }}>
-                    ご相談内容
-                  </label>
-                <textarea
+                <div className="form-row">
+                  <div className="form-group">
+                    <label className="form-label">メールアドレス<span className="required">*</span></label>
+                    <input 
+                      type="email" 
+                      name="email"
+                      className="form-input" 
+                      placeholder="example@email.com" 
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      required 
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label className="form-label">電話番号<span className="required">*</span></label>
+                    <input 
+                      type="tel" 
+                      name="phone"
+                      className="form-input" 
+                      placeholder="090-1234-5678" 
+                      value={formData.phone}
+                      onChange={handleInputChange}
+                      required 
+                    />
+                  </div>
+                </div>
+
+                <div className="form-group">
+                  <label className="form-label">ご相談内容</label>
+                  <textarea 
                     name="content"
-                    className="form-control form-textarea w-100" 
-                  placeholder="ご質問やご要望がございましたらご記入ください"
+                    className="form-textarea" 
+                    placeholder="ご質問やご要望がございましたらご記入ください"
                     value={formData.content}
-                    onChange={(e) => handleInputChange('content', e.target.value)}
-                    style={{ 
-                      padding: '1rem 1.25rem',
-                      border: '2px solid #f0f2f7',
-                      borderRadius: '8px',
-                      fontSize: '1rem',
-                      minHeight: '150px',
-                      resize: 'vertical',
-                      transition: 'all 0.3s ease',
-                      backgroundColor: '#ffffff'
-                    }}
-                    onFocus={(e) => {
-                      e.currentTarget.style.borderColor = '#1a2a4a'
-                      e.currentTarget.style.boxShadow = '0 0 0 3px rgba(26, 42, 74, 0.1)'
-                    }}
-                    onBlur={(e) => {
-                      e.currentTarget.style.borderColor = '#f0f2f7'
-                      e.currentTarget.style.boxShadow = 'none'
-                    }}
-                ></textarea>
-              </div>
+                    onChange={handleInputChange}
+                  ></textarea>
+                </div>
 
-                <div className="d-flex align-items-start gap-2 gap-md-3 my-4 my-md-5 p-4 p-md-5 bg-white rounded form-privacy" style={{ borderRadius: '8px' }}>
-                  <input 
-                    type="checkbox" 
-                    id="privacy" 
-                    required 
-                    className="mt-1" 
-                    style={{ width: '20px', height: '20px', accentColor: '#1a2a4a', marginTop: '2px' }}
-                  />
-                  <label htmlFor="privacy" className="small" style={{ fontSize: '0.9rem', color: '#3d3d3d' }}>
-                    <a href="#" target="_blank" className="text-decoration-none" style={{ color: '#1a2a4a' }}>プライバシーポリシー</a>
-                  に同意する
-                </label>
-              </div>
+                <div className="form-privacy">
+                  <input type="checkbox" id="privacy" required />
+                  <label htmlFor="privacy"><a href="#" target="_blank" rel="noopener noreferrer">プライバシーポリシー</a>に同意する</label>
+                </div>
 
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="w-100 py-3 py-md-4 text-white rounded fw-semibold border-0 form-submit"
-                style={{ 
-                  background: isSubmitting ? '#6b6b6b' : 'linear-gradient(135deg, #1a2a4a, #2d4a7c)',
-                  borderRadius: '8px',
-                  fontSize: '1.1rem',
-                  transition: 'all 0.3s ease',
-                  cursor: isSubmitting ? 'not-allowed' : 'pointer',
-                  opacity: isSubmitting ? 0.7 : 1
-                }}
-                onMouseEnter={(e) => {
-                  if (!isSubmitting) {
-                    e.currentTarget.style.transform = 'translateY(-2px)'
-                    e.currentTarget.style.boxShadow = '0 8px 40px rgba(26, 42, 74, 0.12)'
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = 'translateY(0)'
-                  e.currentTarget.style.boxShadow = 'none'
-                }}
-              >
-                {isSubmitting ? '送信中...' : '入力内容を送信'}
-              </button>
-            </form>
+                <button 
+                  type="submit" 
+                  className="form-submit"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? '送信中...' : '入力内容を送信'}
+                </button>
+              </form>
+            </div>
           </div>
-          </ScrollReveal>
-        </div>
-      </section>
+        </section>
+      </main>
+      <Footer />
+      <FixedCTA />
     </>
   )
 }

@@ -1,38 +1,32 @@
-# PLEAST Website
+# PLEAST React Application
 
-A modern, responsive website for PLEAST real estate investment services, built with React, TypeScript, Tailwind CSS, and Bootstrap.
+A React + TypeScript application that replicates the 4 HTML pages for PLEAST real estate investment company.
 
-## Features
+## Tech Stack
 
-- **React 18** with TypeScript for type safety
-- **Tailwind CSS** for utility-first styling
-- **Bootstrap 5** for additional components
-- **React Router** for client-side routing
-- **Responsive Design** - Mobile-first approach
-- **Modern UI/UX** - Smooth animations and transitions
+- **React 18** with TypeScript
+- **Vite** as build tool
+- **React Router** for navigation
+- **Bootstrap 5** for mobile optimization
+- **Tailwind CSS** for utility styling
+- Custom CSS for component-specific styles
 
 ## Project Structure
 
 ```
 src/
-├── components/       # Shared components (Header, Footer, FixedCTA)
-├── pages/           # Page components
-│   ├── HomePage.tsx
-│   ├── OperationPage.tsx
-│   ├── ShintikuPage.tsx
-│   └── TrailerHousePage.tsx
-├── App.tsx          # Main app component with routing
-├── main.tsx         # Entry point
-└── index.css        # Global styles
+├── components/        # Shared components (Header, Footer, FixedCTA)
+├── pages/            # Page components
+│   ├── TopPage.tsx   # Homepage
+│   ├── OperationPage.tsx  # Q&A/Operation page
+│   ├── ShintikuPage.tsx   # New construction villa page
+│   └── TrailerPage.tsx    # Trailer house page
+├── App.tsx           # Main app with routing
+├── main.tsx          # Entry point
+└── index.css         # Global styles
 ```
 
 ## Getting Started
-
-### Prerequisites
-
-- Node.js 18+ and npm/yarn
-
-### Installation
 
 1. Install dependencies:
 ```bash
@@ -49,35 +43,17 @@ npm run dev
 npm run build
 ```
 
-4. Preview production build:
-```bash
-npm run preview
-```
-
 ## Pages
 
-- **Home** (`/`) - Main landing page with hero, problem/solution sections, CLT info, and company overview
-- **Operation** (`/operation`) - Operation flow, FAQ, and contact form
-- **Shintiku** (`/shintiku`) - New built inn investment page
-- **Trailer House** (`/trailer-house`) - Trailer house investment page
+- `/` - TopPage (Homepage)
+- `/operation` - Operation/Q&A Page
+- `/shintiku` - New Construction Villa Type Inn Page
+- `/trailer` - Trailer House Page
 
-## Technologies
+## Features
 
-- **React 18.2.0** - UI library
-- **TypeScript 5.2.2** - Type safety
-- **Vite 5.0.0** - Build tool
-- **React Router 6.20.0** - Routing
-- **Tailwind CSS 3.3.5** - Styling
-- **Bootstrap 5.3.2** - Additional components
-
-## Customization
-
-The design uses a custom color palette defined in `tailwind.config.js`:
-- Primary: `#1a2a4a` (dark blue)
-- Secondary: `#c9a962` (gold)
-- Accent: `#b8432f` (red)
-
-## License
-
-© 2025 PLEAST Inc. All Rights Reserved.
-
+- Responsive design with Bootstrap and Tailwind CSS
+- Smooth scrolling navigation
+- Animated sections with Intersection Observer
+- Mobile-optimized layouts
+- All original styling preserved

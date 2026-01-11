@@ -9,22 +9,22 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #1a2a4a;
-            --primary-light: #2d4a7c;
-            --primary-dark: #0f1a2e;
-            --secondary: #c9a962;
-            --secondary-light: #d4b87a;
-            --accent: #b8432f;
-            --bg-cream: #f8f9fc;
-            --bg-warm: #f0f2f7;
+            --primary: #2C5F4A;
+            --primary-light: #3d7a5f;
+            --primary-dark: #1e4435;
+            --secondary: #D4A574;
+            --secondary-light: #e0b88a;
+            --accent: #C9302C;
+            --bg-cream: #f9f7f4;
+            --bg-warm: #f3f0eb;
             --text-dark: #1a1a1a;
             --text-body: #3d3d3d;
             --text-light: #6b6b6b;
             --white: #ffffff;
-            --success: #2d4a7c;
-            --shadow-soft: 0 4px 30px rgba(26, 42, 74, 0.08);
-            --shadow-medium: 0 8px 40px rgba(26, 42, 74, 0.12);
-            --shadow-strong: 0 20px 60px rgba(26, 42, 74, 0.15);
+            --success: #3d7a5f;
+            --shadow-soft: 0 4px 30px rgba(44, 95, 74, 0.08);
+            --shadow-medium: 0 8px 40px rgba(44, 95, 74, 0.12);
+            --shadow-strong: 0 20px 60px rgba(44, 95, 74, 0.15);
         }
 
         * {
@@ -51,17 +51,32 @@
             font-weight: 600;
         }
 
-        /* Header */
+        /* Header - Mega Premium */
         header {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             z-index: 1000;
-            padding: 1rem 0;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            box-shadow: var(--shadow-soft);
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            padding: 0;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--secondary), var(--secondary-light), var(--secondary));
+        }
+
+        header.scrolled {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            box-shadow: 0 4px 30px rgba(44, 95, 74, 0.3);
         }
 
         .header-inner {
@@ -71,42 +86,80 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            height: 90px;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
         }
 
         .logo {
             font-family: 'Noto Serif JP', serif;
-            font-size: 1.8rem;
+            font-size: 2rem;
             font-weight: 700;
-            color: var(--primary);
+            color: var(--white);
             letter-spacing: 0.15em;
             text-decoration: none;
+            transition: color 0.4s;
+        }
+
+        .anniversary-box {
+            background: rgba(212, 165, 116, 0.2);
+            border: 1px solid var(--secondary);
+            border-radius: 8px;
+            padding: 0.4rem 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            line-height: 1.2;
+        }
+
+        .anniversary-box .number {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--secondary);
+        }
+
+        .anniversary-box .text {
+            font-size: 0.55rem;
+            color: var(--secondary-light);
+            letter-spacing: 0.1em;
         }
 
         nav {
             display: flex;
-            gap: 2.5rem;
+            gap: 2rem;
             align-items: center;
         }
 
         nav a {
-            color: var(--text-body);
+            color: var(--white);
             text-decoration: none;
             font-size: 0.9rem;
             font-weight: 500;
             letter-spacing: 0.05em;
             transition: all 0.3s;
             position: relative;
+            opacity: 0.9;
+            padding-bottom: 5px;
         }
 
         nav a::after {
             content: '';
             position: absolute;
-            bottom: -4px;
+            bottom: 0;
             left: 0;
             width: 0;
-            height: 1px;
+            height: 2px;
             background: var(--secondary);
             transition: width 0.3s;
+        }
+
+        nav a:hover {
+            opacity: 1;
         }
 
         nav a:hover::after {
@@ -114,18 +167,19 @@
         }
 
         .header-cta {
-            background: var(--secondary);
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-light) 100%);
             color: var(--text-dark);
-            padding: 0.7rem 1.5rem;
-            border-radius: 4px;
-            font-weight: 600;
-            font-size: 0.85rem;
+            padding: 0.8rem 2rem;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.9rem;
             transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(212, 165, 116, 0.3);
         }
 
         .header-cta:hover {
-            background: var(--secondary-light);
             transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212, 165, 116, 0.4);
         }
 
         .header-cta::after {
@@ -421,7 +475,7 @@
         }
 
         .merit-box.merit {
-            background: linear-gradient(135deg, rgba(45, 74, 124, 0.05), rgba(45, 74, 124, 0.02));
+            background: linear-gradient(135deg, rgba(61, 122, 95, 0.05), rgba(61, 122, 95, 0.02));
             border: 2px solid var(--primary-light);
         }
 
@@ -492,7 +546,7 @@
         }
 
         .merit-box.merit .merit-list li::before {
-            background: rgba(45, 74, 124, 0.1);
+            background: rgba(61, 122, 95, 0.1);
             color: var(--primary);
         }
 
@@ -940,7 +994,7 @@
         .form-select:focus {
             outline: none;
             border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(26, 42, 74, 0.1);
+            box-shadow: 0 0 0 3px rgba(44, 95, 74, 0.1);
         }
 
         .form-textarea {
@@ -1028,103 +1082,6 @@
         }
 
         /* Footer */
-        footer {
-            background: var(--primary-dark);
-            color: var(--white);
-            padding: 4rem 0 2rem;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr;
-            gap: 4rem;
-            margin-bottom: 3rem;
-        }
-
-        .footer-brand .logo {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            display: inline-block;
-        }
-
-        .footer-brand p {
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 0.9rem;
-            line-height: 1.8;
-        }
-
-        .footer-contact-info {
-            margin-top: 1.5rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .footer-contact-item {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            margin-bottom: 0.75rem;
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 0.9rem;
-        }
-
-        .footer-contact-item a {
-            color: rgba(255, 255, 255, 0.7);
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .footer-contact-item a:hover {
-            color: var(--secondary);
-        }
-
-        .footer-links h4 {
-            color: var(--secondary);
-            font-size: 0.85rem;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            margin-bottom: 1.5rem;
-        }
-
-        .footer-links ul {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 0.75rem;
-        }
-
-        .footer-links a {
-            color: rgba(255, 255, 255, 0.7);
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: color 0.3s;
-        }
-
-        .footer-links a:hover {
-            color: var(--secondary);
-        }
-
-        .footer-bottom {
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.8rem;
-            color: rgba(255, 255, 255, 0.5);
-        }
-
-        .footer-legal a {
-            color: rgba(255, 255, 255, 0.5);
-            text-decoration: none;
-            margin-left: 2rem;
-        }
-
-        .footer-legal a:hover {
-            color: var(--secondary);
-        }
-
         /* Fixed CTA */
         .fixed-cta {
             position: fixed;
@@ -1167,6 +1124,16 @@
         @media (max-width: 1024px) {
             .header-inner {
                 padding: 0 2rem;
+                height: 80px;
+            }
+
+            nav {
+                gap: 1.5rem;
+            }
+
+            .header-cta {
+                padding: 0.6rem 1.25rem;
+                font-size: 0.85rem;
             }
 
             .container {
@@ -1193,15 +1160,32 @@
             .contact-methods {
                 grid-template-columns: 1fr;
             }
-
-            .footer-content {
-                grid-template-columns: 1fr 1fr;
-            }
         }
 
         @media (max-width: 768px) {
+            .header-inner {
+                padding: 0 1.5rem;
+                height: 70px;
+            }
+
             nav {
                 display: none;
+            }
+
+            .logo {
+                font-size: 1.5rem;
+            }
+
+            .anniversary-box {
+                padding: 0.3rem 0.6rem;
+            }
+
+            .anniversary-box .number {
+                font-size: 0.9rem;
+            }
+
+            .anniversary-box .text {
+                font-size: 0.45rem;
             }
 
             .page-hero {
@@ -1237,21 +1221,6 @@
 
             .form-row {
                 grid-template-columns: 1fr;
-            }
-
-            .footer-content {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-
-            .footer-bottom {
-                flex-direction: column;
-                gap: 1rem;
-                text-align: center;
-            }
-
-            .footer-legal a {
-                margin: 0 1rem;
             }
 
             .fixed-cta {
@@ -1290,13 +1259,19 @@
 </head>
 <body>
     <!-- Header -->
-    <header>
+    <header id="header">
         <div class="header-inner">
-            <a href="pleast-lp-top-v2.html" class="logo">PLEAST</a>
+            <div class="logo-area">
+                <a href="pleast-lp-top-v3.html" class="logo">PLEAST</a>
+                <div class="anniversary-box">
+                    <span class="number">20th</span>
+                    <span class="text">ANNIVERSARY</span>
+                </div>
+            </div>
             <nav>
-                <a href="pleast-lp-top-v2.html">TOP</a>
+                <a href="pleast-lp-top-v3.html">TOP</a>
                 <a href="pleast-trailer-house-v2.html">トレーラーハウス</a>
-                <a href="pleast-shintiku-v2.html">新築戸建旅館</a>
+                <a href="pleast-shintiku-v2.html">新築ヴィラタイプ旅館</a>
                 <a href="#">運用説明・Q&A</a>
                 <a href="#contact" class="header-cta">お問い合わせ</a>
             </nav>
@@ -1642,16 +1617,8 @@
                             <td>総合不動産事業</td>
                         </tr>
                         <tr>
-                            <th>取引先</th>
-                            <td>5,000社以上</td>
-                        </tr>
-                        <tr>
                             <th>代表電話</th>
                             <td><a href="tel:092-283-7555">092-283-7555</a></td>
-                        </tr>
-                        <tr>
-                            <th>フリーダイヤル</th>
-                            <td><a href="tel:0120-929-727">0120-929-727</a></td>
                         </tr>
                         <tr>
                             <th>URL</th>
@@ -1668,7 +1635,7 @@
         <div class="container">
             <div class="contact-intro">
                 <h2>お問い合わせ</h2>
-                <p>新築戸建旅館運用／トランスフォーム型トレーラーハウス運用に関するお問い合わせはこちら</p>
+                <p>新築ヴィラタイプ旅館経営／トランスフォーム型トレーラーハウス運用に関するお問い合わせはこちら</p>
             </div>
 
             <div class="contact-methods">
@@ -1694,7 +1661,7 @@
                     <div class="contact-method-icon">📞</div>
                     <h3 class="contact-method-title">お電話</h3>
                     <p class="contact-method-desc">受付時間 10:00〜18:00<br>（土日祝除く）</p>
-                    <a href="tel:0120-929-727" class="contact-method-btn">0120-929-727</a>
+                    <a href="tel:0120-727-875" class="contact-method-btn">0120-727-875</a>
                 </div>
             </div>
 
@@ -1725,7 +1692,7 @@
                             </label>
                             <label class="form-checkbox">
                                 <input type="checkbox" name="type" value="inn">
-                                <span>新築戸建旅館について聞きたい</span>
+                                <span>新築ヴィラタイプ旅館について聞きたい</span>
                             </label>
                             <label class="form-checkbox">
                                 <input type="checkbox" name="type" value="estimate">
@@ -1776,58 +1743,6 @@
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <a href="pleast-lp-top-v2.html" class="logo">PLEAST</a>
-                    <p>
-                        株式会社PLEAST（プレスト）<br>
-                        〒812-0038 福岡県博多区祇園町2-35
-                    </p>
-                    <div class="footer-contact-info">
-                        <div class="footer-contact-item">
-                            <span>📞</span>
-                            <a href="tel:092-283-7555">092-283-7555</a>
-                        </div>
-                        <div class="footer-contact-item">
-                            <span>🆓</span>
-                            <a href="tel:0120-929-727">0120-929-727</a>（フリーダイヤル）
-                        </div>
-                        <div class="footer-contact-item">
-                            <span>🌐</span>
-                            <a href="https://www.pleast.co.jp" target="_blank">https://www.pleast.co.jp</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="footer-links">
-                    <h4>商品</h4>
-                    <ul>
-                        <li><a href="pleast-shintiku-v2.html">新築戸建旅館運用</a></li>
-                        <li><a href="pleast-trailer-house-v2.html">トレーラーハウス運用</a></li>
-                        <li><a href="#">運用説明・Q&A</a></li>
-                    </ul>
-                </div>
-                <div class="footer-links">
-                    <h4>会社情報</h4>
-                    <ul>
-                        <li><a href="#company">会社概要</a></li>
-                        <li><a href="#contact">お問い合わせ</a></li>
-                        <li><a href="#">プライバシーポリシー</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <span>© 2025 PLEAST Inc. All Rights Reserved.</span>
-                <div class="footer-legal">
-                    <a href="#">プライバシーポリシー</a>
-                    <a href="#">特定商取引法に基づく表記</a>
-                </div>
-            </div>
-        </div>
-    </footer>
-
     <!-- Fixed CTA -->
     <div class="fixed-cta">
         <a href="#" class="fixed-cta-btn line">
@@ -1836,8 +1751,8 @@
             </svg>
             LINE
         </a>
-        <a href="tel:0120-929-727" class="fixed-cta-btn contact">
-            📞 電話相談
+        <a href="tel:0120-727-875" class="fixed-cta-btn contact">
+            📞 0120-727-875
         </a>
     </div>
 
