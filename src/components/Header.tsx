@@ -25,24 +25,11 @@ const Header = () => {
           </div>
         </div>
         <nav className="d-none d-lg-flex">
-          {location.pathname === '/' ? (
-            <>
-              <a href="#problem">課題</a>
-              <a href="#solution">商品</a>
-              <a href="#clt">CLT構造</a>
-              <a href="#company">会社概要</a>
-              <Link to="/operation">Q&A</Link>
-              <a href="#contact" className="header-cta">お問い合わせ</a>
-            </>
-          ) : (
-            <>
-              <Link to="/">TOP</Link>
-              <Link to="/trailer">トレーラーハウス</Link>
-              <Link to="/shintiku">新築ヴィラタイプ旅館</Link>
-              <Link to="/operation">Q&A</Link>
-              <Link to="/#contact" className="header-cta">お問い合わせ</Link>
-            </>
-          )}
+          <Link to="/">TOP</Link>
+          <Link to="/trailer">トレーラーハウス</Link>
+          <Link to="/shintiku">新築ヴィラタイプ旅館</Link>
+          <Link to="/operation">Q&A</Link>
+          <Link to="/#contact" className="header-cta">お問い合わせ</Link>
         </nav>
       </div>
     </header>
